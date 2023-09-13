@@ -21,7 +21,15 @@ const nextConfig = {
     reactRoot: 'concurrent',
     appDir: true,
   },
-  images: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dummyimage.com',
+        port: '',
+      },
+    ],
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module

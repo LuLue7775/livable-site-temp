@@ -4,8 +4,10 @@ import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
 const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+const TileA = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.TileA), { ssr: false })
+const Box = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Box), { ssr: false })
+const Tiles = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Tiles), { ssr: false })
+
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -26,57 +28,30 @@ const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mo
 export default function Page() {
   return (
     <>
-      <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
-        {/* jumbo */}
-        <div className='flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left'>
-          <p className='w-full uppercase'>Next + React Three Fiber</p>
-          <h1 className='my-4 text-5xl font-bold leading-tight'>Next 3D Starter</h1>
-          <p className='mb-8 text-2xl leading-normal'>A minimalist starter for React, React-three-fiber and Threejs.</p>
+      <div className='relative z-[-1] h-full w-full -translate-y-[64px]'>
+        <div className='pointer-events-none absolute flex h-full w-full select-none items-center justify-start text-green-900 md:items-end '>
+          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-center p-6 text-2xl font-light leading-tight md:justify-end md:text-4xl '>
+            <div className='homepage-long-dash relative inline-flex gap-32 '>
+              <p className='w-14'> 14 OCT</p>
+
+              <p className='w-14'> 22 OCT</p>
+            </div>
+            <h1 className='my-4 flex items-center text-4xl font-bold leading-tight md:text-6xl '>SOFT RE-OPENING</h1>
+          </div>
         </div>
 
-        <div className='w-full text-center md:w-3/5'>
-          <View className='flex h-96 w-full flex-col items-center justify-center'>
+        <div className='absolute h-full w-full text-center'>
+          <View className='flex h-full w-full items-center justify-center'>
             <Suspense fallback={null}>
-              <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />
+              <Tiles />
               <Common />
             </Suspense>
           </View>
         </div>
       </div>
-
-      <div className='mx-auto flex w-full flex-col flex-wrap items-center p-12 md:flex-row  lg:w-4/5'>
-        {/* first row */}
-        <div className='relative h-48 w-full py-6 sm:w-1/2 md:my-12 md:mb-40'>
-          <h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Events are propagated</h2>
-          <p className='mb-8 text-gray-600'>Drag, scroll, pinch, and rotate the canvas to explore the 3D scene.</p>
-        </div>
-        <div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
-          <View orbit className='relative h-full  sm:h-48 sm:w-full'>
-            <Suspense fallback={null}>
-              <Dog scale={2} position={[0, -1.6, 0]} rotation={[0.0, -0.3, 0]} />
-              <Common color={'lightpink'} />
-            </Suspense>
-          </View>
-        </div>
-        {/* second row */}
-        <div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
-          <View orbit className='relative h-full animate-bounce sm:h-48 sm:w-full'>
-            <Suspense fallback={null}>
-              <Duck route='/blob' scale={2} position={[0, -1.6, 0]} />
-              <Common color={'lightblue'} />
-            </Suspense>
-          </View>
-        </div>
-        <div className='w-full p-6 sm:w-1/2'>
-          <h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Dom and 3D are synchronized</h2>
-          <p className='mb-8 text-gray-600'>
-            3D Divs are renderer through the View component. It uses gl.scissor to cut the viewport into segments. You
-            tie a view to a tracking div which then controls the position and bounds of the viewport. This allows you to
-            have multiple views with a single, performant canvas. These views will follow their tracking elements,
-            scroll along, resize, etc.
-          </p>
-        </div>
-      </div>
+      <a href={'/events/first-opening'} className='absolute bottom-12 left-1/2 -translate-x-1/2 '>
+        [view event]
+      </a>
     </>
   )
 }
