@@ -49,7 +49,7 @@ const EventDetail = ({ event }) => {
                 {event?.images?.image.map((image, i) => (
                   <div key={i}>
                     <Image
-                      alt=''
+                      alt={`event-image${i}`}
                       sizes='100vw'
                       src={image}
                       width={1200}

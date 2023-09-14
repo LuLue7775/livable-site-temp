@@ -29,8 +29,8 @@ export default function Page() {
   return (
     <>
       <div className='relative z-[-1] h-full w-full -translate-y-[64px]'>
-        <div className='pointer-events-none absolute flex h-full w-full select-none items-center justify-start text-green-900 md:items-end '>
-          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-center p-6 text-2xl font-light leading-tight md:justify-end md:text-4xl '>
+        <div className='pointer-events-none absolute flex h-full w-full select-none items-center justify-start text-green-900 lg:items-end '>
+          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-center p-6 text-2xl font-light leading-tight lg:justify-end md:text-4xl '>
             <div className='homepage-long-dash relative inline-flex gap-32 '>
               <p className='w-14'> 14 OCT</p>
 

@@ -15,14 +15,16 @@ const Cart = ({ isCartOpened, setCartOpened }) => {
       ${isCartOpened ? 'right-0' : 'right-[-450px]'}
              absolute  top-[-3rem] z-10 flex h-[500px] 
             w-[390px] flex-col justify-between rounded-sm bg-green-900/10 p-4	text-lg backdrop-blur-md
-          backdrop-sepia-0 duration-300
+          backdrop-sepia-0 duration-300 font-mono
     `}
       >
         <div className='h-full overflow-auto'>
-          <button onClick={() => setCartOpened(false)}>
-            <p className='cursor-pointer text-right hover:text-red-400'>[ x close ]</p>
-          </button>
-          <h3>CART</h3>
+          <div className='flex justify-between'>
+            <h3 className='font-semibold'>CART</h3>
+            <button onClick={() => setCartOpened(false)}>
+              <p className='cursor-pointer text-right hover:text-red-400'>[ x close ]</p>
+            </button>
+          </div>
           <CheckoutEvents />
 
           <Button onClick={() => router.push('/checkout')}> CHECKOUT -&gt;</Button>

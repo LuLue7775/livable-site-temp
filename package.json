@@ -48,7 +48,6 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.29.5-appdir.0",
     "@next/bundle-analyzer": "^13.4.13",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.47.0",

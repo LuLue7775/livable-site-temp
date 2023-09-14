@@ -31,7 +31,7 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
                 `}
           >
             <Image
-              alt='image'
+              alt={`event-image${i}`}
               draggable='false'
               src={image}
               sizes='100vw'

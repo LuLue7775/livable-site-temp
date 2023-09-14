@@ -5,8 +5,14 @@ import Link from 'next/link'
 const Menu = ({ isMenuOpened, setMenuOpened }) => {
   const { calculateTotalQuantity, setCartOpened } = useCart()
 
-  return isMenuOpened ? (
-    <div className='absolute left-[1rem] top-[-3rem] z-10 flex h-[400px] w-[350px] flex-col justify-between rounded-sm bg-green-900/10 p-4 text-lg	backdrop-blur-md backdrop-sepia-0 '>
+  return (
+    <div
+      className={`
+          ${isMenuOpened ? 'left-[1rem]' : 'left-[-350px]'} duration-300 
+        absolute  top-[-3rem] z-10 flex h-[400px] w-[350px] 
+        flex-col justify-between rounded-sm bg-green-900/10 p-4 font-mono text-lg	backdrop-blur-md backdrop-sepia-0
+    `}
+    >
       <ul className=' h-full '>
         <a className='block w-full cursor-pointer text-right hover:text-red-400' onClick={() => setMenuOpened(false)}>
           {' '}
@@ -38,8 +44,6 @@ const Menu = ({ isMenuOpened, setMenuOpened }) => {
         </li>
       </a>
     </div>
-  ) : (
-    ''
   )
 }
 
