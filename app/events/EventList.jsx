@@ -2,7 +2,7 @@
 import { convertSpaceToDashLowerCase } from '@/utils/functions'
 import Link from 'next/link'
 import gsap from 'gsap'
-import { useLayoutEffect, useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
 import CSSPlugin from 'gsap/CSSPlugin'
 gsap.registerPlugin(CSSPlugin, CSSRulePlugin)
@@ -18,7 +18,7 @@ const revealXAnimation = ({ element }) => {
     {
       width: '1',
       minWidth: '0',
-      color: 'transparent',
+      opacity: 0,
     },
     {
       ease: 'power2.inOut',
@@ -26,7 +26,7 @@ const revealXAnimation = ({ element }) => {
       delay: 0.8,
       width: '75%',
       minWidth: '350px',
-      color: '#000',
+      opacity: 1,
     },
   )
 }
@@ -59,10 +59,10 @@ const revealYAnimation = ({ diagonal, dash, vertical }) => {
   gsap.fromTo(
     vertical,
     {
-      color: 'transparent',
+      opacity: 0,
     },
     {
-      color: '#000',
+      opacity: 1,
       duration: 1.2,
       delay: 1.4,
     },
@@ -271,7 +271,7 @@ export default function EventList({ displayFilteredData }) {
                 <div ref={(element) => setRefs(element, item?.id, eventHeadRefs)} className='flex w-3/4 justify-end'>
                   <a
                     id={`${item?.id}`}
-                    className='cursor-pointer text-green-900 hover:text-red-400 font-mono'
+                    className='cursor-pointer font-mono text-green-900 hover:text-red-400'
                     onClick={(e) => toggleEvent(e)}
                   >
                     {openedId !== item?.id.replace(' ', '') ? '[more]' : '[x]'}
@@ -314,7 +314,10 @@ export default function EventList({ displayFilteredData }) {
                       {item?.host?.zh ? <p>藝術家: {item?.host?.zh}</p> : ''}
                       <p> {item?.host_bio?.en} </p>
                       <p> {item?.host_bio?.zh} </p>
-                      <Link className='flex justify-end hover:text-red-400' href={`/events/${convertSpaceToDashLowerCase(item?.id)}`}>
+                      <Link
+                        className='flex justify-end hover:text-red-400'
+                        href={`/events/${convertSpaceToDashLowerCase(item?.id)}`}
+                      >
                         [SIGN UP -&gt;]{' '}
                       </Link>
                     </div>

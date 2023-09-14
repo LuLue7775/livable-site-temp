@@ -39,7 +39,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
       <h2>FILTER</h2>
       <div className='flex flex-wrap items-center'>
         <label> MATERIALS | </label>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -50,7 +50,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
             <span className='block px-2 text-center '> metal </span>
           </label>
         </div>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -61,7 +61,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
             <span className='block px-2 text-center '> ceramic </span>
           </label>
         </div>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -72,7 +72,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
             <span className='block px-2 text-center '> wood </span>
           </label>
         </div>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded  text-center'>
             <input
               className='text-white absolute hidden'
@@ -87,7 +87,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
 
       <div className='flex flex-wrap items-center'>
         <label> FORMATS | </label>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -98,7 +98,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
             <span className='block px-2 text-center '> workshop </span>
           </label>
         </div>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -112,7 +112,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
       </div>
       <div className='flex flex-wrap items-center'>
         <label> DATE | </label>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -123,7 +123,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
             <span className='block px-2 text-center '> OCT_2023 </span>
           </label>
         </div>
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
@@ -135,7 +135,7 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
           </label>
         </div>
 
-        <div className='[&:hover]:bg-red-400 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
+        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-livable'>
           <label className=' filter-label float-left h-6 w-auto rounded text-center'>
             <input
               className='text-white absolute hidden'
