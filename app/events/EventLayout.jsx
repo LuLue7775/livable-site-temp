@@ -34,7 +34,7 @@ const EventLayout = () => {
   } = useInfiniteQuery({
     queryKey: ['events'],
     queryFn: ({ pageParam = 1, signal }) => getNextPageDocsFromFirestore('events', pageParam, signal),
-    getNextPageParam: (lastPage, allPages) => lastPage.nextPageParam,
+    getNextPageParam: (lastPage, allPages) => (lastPage ? lastPage.nextPageParam : null),
     refetchOnWindowFocus: false,
   })
 
