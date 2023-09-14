@@ -31,17 +31,18 @@ export default function Page() {
     <>
       <div className='relative  h-full w-full'>
         <section className='pointer-events-none absolute bottom-8 z-10 flex h-full w-full select-none items-end justify-start text-green-900'>
-          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-end p-6 text-2xl font-light leading-tight md:text-4xl '>
-            <div className='homepage-long-dash relative inline-flex gap-32 '>
-              <p className='w-14'> 14 OCT</p>
-
-              <p className='w-14'> 22 OCT</p>
+          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-end p-6  font-light leading-tight '>
+            <div className='homepage-long-dash relative inline-flex gap-32  '>
+              <p className=' w-8 text-lg  lg:w-14 lg:text-4xl'> 14 OCT</p>
+              <p className=' w-8 text-lg  lg:w-14 lg:text-4xl'> 22 OCT</p>
             </div>
-            <h1 className='my-4 flex items-center text-4xl font-bold leading-tight md:text-6xl '>SOFT RE-OPENING</h1>
+            <h1 className='m-0 my-4 flex items-center text-4xl font-bold leading-tight lg:text-6xl '>
+              SOFT RE-OPENING
+            </h1>
           </div>
         </section>
 
-        <section className='detail-wrapper absolute mt-16 flex h-full w-full items-start justify-center text-right text-green-900'>
+        <section className='detail-wrapper absolute mt-24 flex h-full w-full items-start justify-end pr-6 text-right text-green-900 opacity-40 lg:opacity-100'>
           <div className='max-h-[120px] w-auto max-w-[300px] text-xl'>
             <p>
               “Inframince”, a term coined by Marcel Duchamp, refers to ephemeral, ultra-thin, and undecidable phenomena

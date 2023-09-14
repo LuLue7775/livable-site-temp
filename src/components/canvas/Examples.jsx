@@ -126,11 +126,14 @@ export function Tiles({ isReveal }) {
         //   opacity: hidden ? 0 : 1,
         //   transform: `scale(${hidden ? 0.5 : 1})`,
         // }}
-        className='text-md max-w-[200px] text-green-900'
+        className='flex justify-center text-sm text-green-900 md:text-xl'
       >
-        <p>
-          SOME DETAIL CONCEPT RIGHT HERE. NEED TO BE SOMETHING
-          <a href={'/events/first-opening'} className='cursor-pointer bg-green-900 text-lg text-white'>
+        <p className='max-w-[calc(100%-200px)] '>
+          SOME KEY CONCEPT RIGHT HERE. BETTER BE SOMETHING
+          <a
+            href={'/events/first-opening'}
+            className=' cursor-pointer bg-green-900 text-lg text-white hover:bg-red-400'
+          >
             {' '}
             CATCHY{' '}
           </a>
