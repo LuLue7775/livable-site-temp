@@ -106,9 +106,9 @@ export default Calendar
 function MonthsNavigation() {
   const monthNavigationButtonClasses = `
      aspect-square w-10 max-w-full place-items-center rounded-full 
-    border border-green-900 text-green-900 hover:text-primary-600 
+    border border-green-900 text-green-900 hover:text-primary-600 hover:bg-red-400/50
     focus:outline-none focus:ring focus:ring-green-900 focus:ring-offset-1 
-    disabled:border-green-900 disabled:text-green-900 disabled:hover:text-gray-300
+    disabled:border-green-900 disabled:text-slate-300 disabled:hover:text-white disabled:hover:bg-gray-400/50
   `
   return (
     <div className='flex w-full items-center justify-around gap-2'>
@@ -146,9 +146,9 @@ function getCalendarCellClasses({ date, isSelected, isDisabled, availabilities, 
   /**@TODO select animation bg-stripes */
   const statusClasses = {
     SELECTED: 'bg-primary-600 font-bold',
-    DISABLED: 'pointer-events-none text-slate-300',
-    VACANCY: 'bg-primary-100 font-bold text-primary-700 hover:bg-primary-200',
-    NO_VACANCY: 'text-slate-800 hover:bg-slate-100',
+    DISABLED: 'pointer-events-none text-slate-300 bg-slate-100',
+    VACANCY: 'bg-primary-100 font-bold text-primary-700 hover:bg-red-400/50',
+    NO_VACANCY: 'text-slate-800/80 hover:bg-slate-100',
     TODAY_NO_VACANCY: 'font-bold text-primary-700 hover:bg-slate-100 hover:text-slate-800',
   }
 
