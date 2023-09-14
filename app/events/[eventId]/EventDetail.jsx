@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Suspense, useRef, useState } from 'react'
 import Link from 'next/link'
 
-const EventDetail = ({ event, setLightboxIndex, setLightboxOpened  }) => {
+const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
   const horizontalRef = useRef()
   const eventHeadRef = useRef()
   const eventBodyRef = useRef()
@@ -11,18 +11,22 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened  }) => {
   return (
     <>
       <div className='relative mt-4 flex h-full w-full flex-col items-end '>
-        <div className={'event-item-head relative w-[calc(100%-200px)] min-w-[350px] translate-x-12 justify-end '}>
+        <div
+          className={
+            'event-item-head md:translate-x-18 relative w-[calc(100%-200px)] min-w-[350px] translate-x-4 justify-end '
+          }
+        >
           <p ref={horizontalRef} className='relative flex w-full border-t border-green-900/60' />
           <div
             ref={eventHeadRef}
-            className='inline-flex h-[51px] w-full -translate-x-12 justify-end gap-4 px-4 font-mono'
+            className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono'
           >
             <Link href='/'> [ view relavent shop ] </Link>
             <Link href='/'> [ view relavent archive ] </Link>
           </div>
         </div>
 
-        <div className='flex w-[calc(100%-200px)] min-w-[350px] translate-x-12 items-end'>
+        <div className='md:translate-x-18 flex w-[calc(100%-200px)] min-w-[350px] translate-x-4 translate-y-[51px] items-end'>
           <div
             ref={eventBodyRef}
             className='relative mb-4 inline-flex h-auto w-full translate-x-[-53px] 
