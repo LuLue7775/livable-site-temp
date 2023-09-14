@@ -16,12 +16,12 @@ const Layout = ({ children }) => {
   const pathname = usePathname()
   const reg = new RegExp(`\/events/([\\w-]+)`, 'g') // only scroll y on /events/[id] page
   const yScroll = reg.test(pathname)
-
+  const isEvents = pathname === '/events'
   return (
     <div
       ref={ref}
       style={{
-        overflowY: yScroll ? 'auto' : 'hidden',
+        overflowY: yScroll || isEvents ? 'auto' : 'hidden',
         overflowX: 'hidden',
         position: 'relative',
         width: ' 100%',

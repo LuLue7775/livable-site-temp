@@ -94,6 +94,16 @@
       height: 200%;
     }
   }
+/** mobile hidden all left elements */
+  @media not all and (min-width: 400px) {
+    .event-item-body::after {
+      opacity: 0;
+    }
+    .event-item-body-1st-elem::before {
+      opacity: 0;
+    }
+  }
+  
   .event-item-head::before {
     content: '';
     display: block;

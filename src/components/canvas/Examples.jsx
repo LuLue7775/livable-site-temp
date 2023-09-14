@@ -7,8 +7,6 @@ import { useMemo, useRef, useState } from 'react'
 import { Line, useCursor, MeshDistortMaterial } from '@react-three/drei'
 import { useRouter } from 'next/navigation'
 
-
-
 export function Tile({ modelPath, tileRef, relativePos }) {
   const { scene } = useGLTF(modelPath)
 
@@ -41,10 +39,6 @@ export function Tiles() {
   const tileCRef = useRef()
   return (
     <>
-      {/* <mesh ref={tileARef} position={[100, 200, 1]}>
-        <boxGeometry args={[boxWidth, boxHeight, boxDepth]} />
-        <meshBasicMaterial color={0x00ff00} />
-      </mesh> */}
       <Tile tileRef={tileARef} modelPath={'/tileA.glb'} relativePos={{ x: 0, y: 0 }} />
       <Tile tileRef={tileBRef} modelPath={'/tileB.glb'} relativePos={{ x: 2, y: -550 }} />
       <Tile tileRef={tileCRef} modelPath={'/tileC.glb'} relativePos={{ x: -550, y: 5 }} />

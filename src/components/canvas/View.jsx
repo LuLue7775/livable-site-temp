@@ -22,9 +22,10 @@ export const Common = ({ color }) => {
   return (
     <Suspense fallback={null}>
       {color && <color attach='background' args={[color]} />}
-      <ambientLight intensity={0.5} />
-      <pointLight position={[-1000, 0, 5000]} color='#ffc4a8' intensity={.8}  />
-      <pointLight position={[500, 0, 100]} color='#ffe6de' intensity={.8}/>
+      <ambientLight intensity={0.8} />
+      <pointLight position={[-1000, 0, 200]} color='#ffc4a8' intensity={0.3} />
+      <pointLight position={[500, 0, 200]} color='#ffe6de' intensity={0.8} />
+      <directionalLight position={[500, 0, 200]} color='#ffe6de' intensity={1} />
       {/* <PerspectiveCamera makeDefault fov={6} position={[0, 0, 20]} /> */}
       {/* <PerspectiveCamera makeDefault position={[0, 0, 15]} /> */}
       <OrthographicCamera

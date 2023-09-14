@@ -49,7 +49,7 @@ export default function Page() {
           </View>
         </div>
       </div>
-      <a href={'/events/first-opening'} className='absolute bottom-12 left-1/2 -translate-x-1/2 '>
+      <a href={'/events/first-opening'} className='absolute bottom-12 left-1/2 -translate-x-1/2 hover:text-red-400 '>
         [view event]
       </a>
     </>

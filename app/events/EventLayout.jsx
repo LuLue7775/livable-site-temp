@@ -62,12 +62,12 @@ const EventLayout = () => {
         <div className='flex h-full w-full basis-1/2 items-end'>
           <EventsFilterButtons moredata={moredata} setFilteredData={setFilteredData} />
         </div>
-        <div className='order-first flex h-full max-h-[250px] w-2/3 shrink basis-1/2 justify-self-end pb-8 text-lg md:order-last md:w-full md:justify-self-start md:text-3xl'>
+        <div className='order-first flex h-full max-h-[250px] w-2/3 shrink basis-1/2 justify-self-end pb-8 text-lg md:order-last md:w-full md:justify-self-start md:text-2xl'>
           <EventDescription />
         </div>
       </div>
 
-      <div className='relative h-auto w-full pb-8 md:h-3/5 md:max-h-[calc(100vh-300px)] md:overflow-y-scroll md:pb-20'>
+      <div className='relative ml-16 h-auto w-full pb-8 md:ml-0 md:h-3/5 md:max-h-[calc(100vh-300px)] md:overflow-y-scroll md:pb-20'>
         {isFetching ? 'Loading...' : <EventList displayFilteredData={displayFilteredData} />}
         <div ref={ref} className='h-12 ' />
       </div>

@@ -251,7 +251,7 @@ export default function EventList({ displayFilteredData }) {
       {displayFilteredData
         ? displayFilteredData?.map((item, i) => (
             <div key={item?.id} className='flex w-full flex-col items-end '>
-              <div className={'event-item-head relative h-[52px] w-3/5 min-w-[350px] max-w-[1000px]'}>
+              <div className={'event-item-head relative h-[52px] w-3/5 min-w-[330px] max-w-[1000px]'}>
                 <p
                   ref={(element) => setRefs(element, item?.id, horizontalRefs)}
                   className='relative w-3/4  max-w-[1000px] border-t border-black/50'
@@ -264,7 +264,7 @@ export default function EventList({ displayFilteredData }) {
                   <a className=''> [ view relavent archive ] </a> */}
                 </div>
               </div>
-              <div className='flex w-3/5 min-w-[350px] max-w-[1000px] items-end'>
+              <div className='flex w-3/5 min-w-[330px] max-w-[1000px] items-end'>
                 <div
                   ref={(element) => setRefs(element, item?.id, eventBodyRefs)}
                   className={`${
