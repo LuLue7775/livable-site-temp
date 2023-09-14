@@ -9,7 +9,7 @@ const Menu = ({ isMenuOpened, setMenuOpened }) => {
     <div
       className={`
           ${isMenuOpened ? 'left-[1rem]' : 'left-[-350px]'} duration-300 
-        absolute  top-[-3rem] z-10 flex h-[400px] w-[350px] 
+        absolute  top-[1rem] z-20 flex h-[400px] w-[350px] 
         flex-col justify-between rounded-sm bg-green-900/10 p-4 font-mono text-lg	backdrop-blur-md backdrop-sepia-0
     `}
     >

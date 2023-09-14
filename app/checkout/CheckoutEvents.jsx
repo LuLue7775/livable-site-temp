@@ -16,7 +16,7 @@ const CheckoutEvents = () => {
             Object.values(bookTime).flat().length ? (
               <div key={eventId}>
                 <Link href={`/events/${eventId}`}>
-                  <h5>{convertIdToTitle(eventId)}</h5>
+                  <h5 className='max-w-[300px] hover:text-red-400'>{convertIdToTitle(eventId)}</h5>
                 </Link>
                 {Object.entries(bookTime).map(([time, attendants]) => (
                   <div key={time} className='flex w-[300px] flex-wrap p-2'>

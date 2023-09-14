@@ -194,7 +194,7 @@ export function CartProvider({ children }) {
       if (!Object.keys(timeBucket).length) return totalAcc
       else {
         const eventAcc = Object.entries(timeBucket).reduce((eventAcc, [timeSlot, attendant]) => {
-          const thisEventPrice = bookingAvailabilities?.[eventid]?.[timeSlot]?.price * attendant.length
+          const thisEventPrice = bookingAvailabilities?.[eventid]?.[timeSlot]?.price * attendant.length || 0
           eventAcc += thisEventPrice
           return eventAcc
         }, 0)

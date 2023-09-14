@@ -10,7 +10,7 @@ import { getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import { useQuery } from '@tanstack/react-query'
 import { getLocalTimeZone, isSameDay, parseDateTime } from '@internationalized/date'
 
-const TimePicker = ({eventTitleZh, eventTitleEn}) => {
+const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
   const { selectedDate } = useSelectedDate()
   const formatter = useDateFormatter({ dataStyle: 'full' })
 
@@ -49,7 +49,13 @@ const TimePicker = ({eventTitleZh, eventTitleEn}) => {
         {hasAvailability ? (
           <ul className='space-y-2 pt-2 sm:pb-8 md:pb-40'>
             {availabilities.map((availability) => (
-              <TimeSlot key={availability.startTime} availability={availability} eventId={eventId}  eventTitleZh={eventTitleZh} eventTitleEn={eventTitleEn}/>
+              <TimeSlot
+                key={availability.startTime}
+                availability={availability}
+                eventId={eventId}
+                eventTitleZh={eventTitleZh}
+                eventTitleEn={eventTitleEn}
+              />
             ))}
           </ul>
         ) : (
@@ -81,6 +87,11 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
   const [selectedTime, setSelectedTime] = useState(null)
 
   const isSelected = selectedTime === availability.startTime
+
+  {
+    /** @TODO 之後 eventId 改為 eventTitleEn 後台若改了TITLE要自動刪除原ID、用舊資料成立新ID加回。 因為TILE應該要跟著ID*/
+  }
+
   return (
     <li
       className={cx(
@@ -108,7 +119,9 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
           impact='light'
           tabIndex={isSelected ? 0 : -1}
           className='w-full focus-visible:ring-inset focus-visible:ring-offset-0'
-          onClick={() => router.push(`/booking-form?time=${availability.startTime}&eventEn=${eventTitleEn}&eventZh=${eventTitleZh}`)}
+          onClick={() =>
+            router.push(`/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`)
+          }
         >
           Confirm
         </button>

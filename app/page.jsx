@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 
 const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const TileA = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.TileA), { ssr: false })
@@ -26,11 +26,12 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
 export default function Page() {
+  const [isReveal, setRevealDetail] = useState(false)
   return (
     <>
-      <div className='relative z-[-1] h-full w-full -translate-y-[64px]'>
-        <div className='pointer-events-none absolute flex h-full w-full select-none items-center justify-start text-green-900 lg:items-end '>
-          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-center p-6 text-2xl font-light leading-tight lg:justify-end md:text-4xl '>
+      <div className='relative  h-full w-full'>
+        <section className='pointer-events-none absolute bottom-8 z-10 flex h-full w-full select-none items-end justify-start text-green-900'>
+          <div className='title-wrapper my-4 flex h-1/2 flex-col items-start justify-end p-6 text-2xl font-light leading-tight md:text-4xl '>
             <div className='homepage-long-dash relative inline-flex gap-32 '>
               <p className='w-14'> 14 OCT</p>
 
@@ -38,20 +39,33 @@ export default function Page() {
             </div>
             <h1 className='my-4 flex items-center text-4xl font-bold leading-tight md:text-6xl '>SOFT RE-OPENING</h1>
           </div>
-        </div>
+        </section>
 
-        <div className='absolute h-full w-full text-center'>
-          <View className='flex h-full w-full items-center justify-center'>
+        <section className='detail-wrapper absolute mt-16 flex h-full w-full items-start justify-center text-right text-green-900'>
+          <div className='max-h-[120px] w-auto max-w-[300px] text-xl'>
+            <p>
+              “Inframince”, a term coined by Marcel Duchamp, refers to ephemeral, ultra-thin, and undecidable phenomena
+              – such as the warmth that remains on a chair after a person gets up.
+            </p>
+          </div>
+        </section>
+
+        <section className='pointer-events-none absolute z-0 h-full w-full text-center'>
+          <View orbit className='flex h-full w-full items-center justify-center'>
             <Suspense fallback={null}>
-              <Tiles />
+              <Tiles isReveal={isReveal} />
               <Common />
             </Suspense>
           </View>
-        </div>
+        </section>
       </div>
-      <a href={'/events/first-opening'} className='absolute bottom-12 left-1/2 -translate-x-1/2 hover:text-red-400 '>
-        [view event]
-      </a>
+
+      <button
+        onClick={() => setRevealDetail(!isReveal)}
+        className='absolute bottom-12 left-1/2 z-20 -translate-x-1/2 text-green-900 hover:text-red-400'
+      >
+        [detail]
+      </button>
     </>
   )
 }

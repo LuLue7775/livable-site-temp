@@ -1,13 +1,42 @@
 'use client'
 
-import { RoundedBox, SpriteAnimator, useGLTF } from '@react-three/drei'
+import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useMemo, useRef, useState } from 'react'
 import { Line, useCursor, MeshDistortMaterial } from '@react-three/drei'
 import { useRouter } from 'next/navigation'
 
-export function Tile({ modelPath, tileRef, relativePos }) {
+export function TileB({ modelPath, tileRef, relativePos, isReveal }) {
+  const { scene } = useGLTF(modelPath)
+
+  const boxWidth = 500 // Define the box dimensions
+  const boxHeight = 500
+
+  const getDistanceFromCamera = (fitment = 'contain') => {
+    const aspect = window.innerWidth / window.innerHeight
+    return fitment === 'contain'
+      ? Math.max(boxHeight / 2, boxWidth / 2 / aspect)
+      : Math.max(boxWidth / 2, (boxHeight / 2) * aspect)
+  }
+
+  useFrame(() => {
+    const aspect = window.innerWidth / window.innerHeight
+
+    const distanceFromCam = getDistanceFromCamera('contain')
+    tileRef.current.position.z = -distanceFromCam
+    tileRef.current.position.y = distanceFromCam * (boxHeight / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
+    const baseX = distanceFromCam * (boxWidth / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
+    if (isReveal) {
+      tileRef.current.position.x = THREE.MathUtils.lerp(tileRef.current.position.x, baseX - 550, 0.025)
+    } else {
+      tileRef.current.position.x = THREE.MathUtils.lerp(tileRef.current.position.x, baseX, 0.025)
+    }
+  })
+
+  return <primitive ref={tileRef} object={scene} scale={20} />
+}
+export function TileA({ modelPath, tileRef, relativePos, isReveal }) {
   const { scene } = useGLTF(modelPath)
 
   const boxWidth = 500 // Define the box dimensions
@@ -26,22 +55,88 @@ export function Tile({ modelPath, tileRef, relativePos }) {
     const distanceFromCam = getDistanceFromCamera('contain')
     tileRef.current.position.z = -distanceFromCam
     tileRef.current.position.x = distanceFromCam * (boxWidth / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
-    tileRef.current.position.y = distanceFromCam * (boxHeight / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
+
+    const baseY = distanceFromCam * (boxHeight / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
+
+    if (isReveal) {
+      tileRef.current.position.y = THREE.MathUtils.lerp(tileRef.current.position.y, baseY - 550, 0.025)
+    } else {
+      tileRef.current.position.y = THREE.MathUtils.lerp(tileRef.current.position.y, baseY, 0.025)
+    }
   })
 
-  // useFrame((state, delta) => (scene.rotation.y += delta))
   return <primitive ref={tileRef} object={scene} scale={20} />
 }
 
-export function Tiles() {
+export function TileC({ modelPath, tileRef, relativePos, isReveal }) {
+  const { scene } = useGLTF(modelPath)
+
+  const boxWidth = 500 // Define the box dimensions
+  const boxHeight = 500
+
+  const getDistanceFromCamera = (fitment = 'contain') => {
+    const aspect = window.innerWidth / window.innerHeight
+    return fitment === 'contain'
+      ? Math.max(boxHeight / 2, boxWidth / 2 / aspect)
+      : Math.max(boxWidth / 2, (boxHeight / 2) * aspect)
+  }
+
+  useFrame(() => {
+    const aspect = window.innerWidth / window.innerHeight
+
+    const distanceFromCam = getDistanceFromCamera('contain')
+    tileRef.current.position.z = -distanceFromCam
+    tileRef.current.position.y = distanceFromCam * (boxHeight / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
+    const baseX = distanceFromCam * (boxWidth / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
+    if (isReveal) {
+      tileRef.current.position.x = THREE.MathUtils.lerp(tileRef.current.position.x, baseX + -800, 0.025)
+    } else {
+      tileRef.current.position.x = THREE.MathUtils.lerp(tileRef.current.position.x, baseX, 0.025)
+    }
+  })
+
+  return <primitive ref={tileRef} object={scene} scale={20} />
+}
+
+export function Tiles({ isReveal }) {
   const tileARef = useRef()
   const tileBRef = useRef()
   const tileCRef = useRef()
+  const textRef = useRef()
+  const [hidden, set] = useState()
+  const revealSpace = isReveal ? -100 : 0
+
   return (
     <>
-      <Tile tileRef={tileARef} modelPath={'/tileA.glb'} relativePos={{ x: 0, y: 0 }} />
-      <Tile tileRef={tileBRef} modelPath={'/tileB.glb'} relativePos={{ x: 2, y: -550 }} />
-      <Tile tileRef={tileCRef} modelPath={'/tileC.glb'} relativePos={{ x: -550, y: 5 }} />
+      <TileA tileRef={tileARef} modelPath={'/tileA.glb'} relativePos={{ x: 0, y: 0 }} isReveal={isReveal} />
+      <TileB tileRef={tileBRef} modelPath={'/tileB.glb'} relativePos={{ x: 2, y: -550 }} isReveal={isReveal} />
+      <TileC tileRef={tileCRef} modelPath={'/tileC.glb'} relativePos={{ x: -550, y: 5 }} isReveal={isReveal} />
+      <Html
+        position={[0, 0, 200]}
+        as='div' // Wrapping element (default: 'div')
+        center // Adds a -50%/-50% css transform (default: false) [ignored in transform mode]
+        distanceFactor={800} // If set (default: undefined), children will be scaled by this factor, and also by distance to a PerspectiveCamera / zoom by a OrthographicCamera.
+        zIndexRange={[0, -10]} // Z-order range (default=[16777271, 0])
+        portal={textRef} // Reference to target container (default=undefined)
+        transform // If true, applies matrix3d transformations (default=false)
+        // occlude={[tileCRef]}
+        // onOcclude={set}
+        // style={{
+        //   transition: 'all 0.5s',
+        //   opacity: hidden ? 0 : 1,
+        //   transform: `scale(${hidden ? 0.5 : 1})`,
+        // }}
+        className='text-md max-w-[200px] text-green-900'
+      >
+        <p>
+          SOME DETAIL CONCEPT RIGHT HERE. NEED TO BE SOMETHING
+          <a href={'/events/first-opening'} className='cursor-pointer bg-green-900 text-lg text-white'>
+            {' '}
+            CATCHY{' '}
+          </a>
+          .
+        </p>
+      </Html>
     </>
   )
 }

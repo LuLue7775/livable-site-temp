@@ -15,13 +15,12 @@ const Layout = ({ children }) => {
 
   const pathname = usePathname()
   const reg = new RegExp(`\/events/([\\w-]+)`, 'g') // only scroll y on /events/[id] page
-  const yScroll = reg.test(pathname)
-  const isEvents = pathname === '/events'
+  const yScroll = reg.test(pathname) || pathname === '/events' || pathname === '/checkout'
   return (
     <div
       ref={ref}
       style={{
-        overflowY: yScroll || isEvents ? 'auto' : 'hidden',
+        overflowY: yScroll ? 'auto' : 'hidden',
         overflowX: 'hidden',
         position: 'relative',
         width: ' 100%',
@@ -29,13 +28,14 @@ const Layout = ({ children }) => {
         touchAction: 'auto',
       }}
     >
-      <Nav setMenuOpened={setMenuOpened} />
+      <Nav isMenuOpened={isMenuOpened} setMenuOpened={setMenuOpened} />
       <div className='relative'>
         <Menu isMenuOpened={isMenuOpened} setMenuOpened={setMenuOpened} setCartOpened={setCartOpened} />
         <Cart isCartOpened={isCartOpened} setCartOpened={setCartOpened} />
       </div>
 
       {children}
+      {/** z index cant be negative in canvas */}
       <Scene
         style={{
           position: 'fixed',
@@ -44,7 +44,6 @@ const Layout = ({ children }) => {
           width: '100vw',
           height: '100vh',
           pointerEvents: 'none',
-          zIndex: '-2',
         }}
         eventSource={ref}
         eventPrefix='client'

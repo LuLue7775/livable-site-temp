@@ -5,13 +5,13 @@ import CheckoutContent from './CheckoutContent'
 export default function page() {
   return (
     <CheckoutFormProvider>
-      <div className='relative h-[calc(100vh-64px)] text-green-900'>
-        <main className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-          <div className='flex justify-start md:justify-end col-span-1 md:col-span-1'>
+      <div className='relative h-full w-full translate-y-16 text-green-900'>
+        <main className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+          <div className='col-span-1 flex justify-start md:col-span-1 md:justify-end'>
             <CheckoutForm />
             {/** @TODO POLICIES */}
           </div>
-          <div className='w-full md:col-span-2 col-span-1 '>
+          <div className='col-span-1 w-full md:col-span-2 '>
             <CheckoutContent/>
           </div>
         </main>

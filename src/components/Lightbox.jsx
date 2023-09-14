@@ -9,8 +9,8 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
       ${isLightboxOpened ? 'block' : 'hidden'}
       ${isLightboxOpened ? 'animate-fadeIn' : 'animate-fadeOut'}
         bg-green-900/20
-        fixed left-0 top-0 z-10 h-full w-full
-        backdrop-blur-md backdrop-sepia-0         
+        fixed left-0 top-0 z-30 h-screen w-full
+        backdrop-blur-md backdrop-sepia-0       
       `}
     >
       <button

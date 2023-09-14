@@ -58,7 +58,7 @@ export default function BookingForm({}) {
   const eventBodyRef = useRef()
 
   return (
-    <div className='mt-4 flex h-[calc(100%-100px)] w-full flex-col items-end overflow-x-hidden text-green-900'>
+    <div className='mt-4 flex h-full w-full translate-y-16 flex-col items-end overflow-x-hidden text-green-900'>
       <div
         className={
           'event-item-head relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-200px)]'
