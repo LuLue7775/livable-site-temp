@@ -19,10 +19,10 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
           <p ref={horizontalRef} className='relative flex w-full border-t border-green-900/60' />
           <div
             ref={eventHeadRef}
-            className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono'
+            className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono '
           >
-            <Link href='/'> [ view relavent shop ] </Link>
-            <Link href='/'> [ view relavent archive ] </Link>
+            <Link href='/' className='hover:text-red-400'> [ view relavent shop ] </Link>
+            <Link href='/' className='hover:text-red-400'> [ view relavent archive ] </Link>
           </div>
         </div>
 

@@ -30,7 +30,7 @@ const revealXAnimation = ({ element }) => {
     },
   )
 }
-const revealYAnimation = ({ diagonal, vertical }) => {
+const revealYAnimation = ({ diagonal, dash, vertical }) => {
   gsap.fromTo(
     diagonal,
     {
@@ -64,6 +64,17 @@ const revealYAnimation = ({ diagonal, vertical }) => {
     {
       color: '#000',
       duration: 1.2,
+      delay: 1.4,
+    },
+  )
+  gsap.fromTo(
+    dash,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: 2,
       delay: 1.4,
     },
   )
@@ -240,9 +251,10 @@ export default function EventList({ displayFilteredData }) {
     if (!Object.keys(eventHeadRefs.current)) return
     Object.entries(eventHeadRefs.current).map(([key, horzontal]) => {
       let diagonalPseudo = CSSRulePlugin.getRule('.event-item-head::before') //get pseudo element
+      let dashPseudo = CSSRulePlugin.getRule('.long-dash::after') //get pseudo element
       revealXAnimation({ element: horzontal, animationRef: animationRef })
       revealXAnimation({ element: horizontalRefs.current[key], animationRef: animationRef })
-      revealYAnimation({ diagonal: diagonalPseudo, vertical: eventBodyRefs.current[key] })
+      revealYAnimation({ diagonal: diagonalPseudo, dash: dashPseudo, vertical: eventBodyRefs.current[key] })
     })
   }, [])
 
@@ -250,18 +262,20 @@ export default function EventList({ displayFilteredData }) {
     <main>
       {displayFilteredData
         ? displayFilteredData?.map((item, i) => (
-            <div key={item?.id} className='flex w-full flex-col items-end '>
+            <div key={item?.id} className='flex w-full flex-col items-end'>
               <div className={'event-item-head relative h-[52px] w-3/5 min-w-[330px] max-w-[1000px]'}>
                 <p
                   ref={(element) => setRefs(element, item?.id, horizontalRefs)}
-                  className='relative w-3/4  max-w-[1000px] border-t border-black/50'
+                  className='relative w-3/4  max-w-[1000px] border-t border-green-900/60'
                 />
                 <div ref={(element) => setRefs(element, item?.id, eventHeadRefs)} className='flex w-3/4 justify-end'>
-                  <a id={`${item?.id}`} className='cursor-pointer hover:text-red-400' onClick={(e) => toggleEvent(e)}>
+                  <a
+                    id={`${item?.id}`}
+                    className='cursor-pointer text-green-900 hover:text-red-400 font-mono'
+                    onClick={(e) => toggleEvent(e)}
+                  >
                     {openedId !== item?.id.replace(' ', '') ? '[more]' : '[x]'}
                   </a>
-                  {/* <a className=''> [ view relavent shop ] </a>
-                  <a className=''> [ view relavent archive ] </a> */}
                 </div>
               </div>
               <div className='flex w-3/5 min-w-[330px] max-w-[1000px] items-end'>
@@ -269,10 +283,10 @@ export default function EventList({ displayFilteredData }) {
                   ref={(element) => setRefs(element, item?.id, eventBodyRefs)}
                   className={`${
                     i === 0 && `event-item-body-1st-elem`
-                  } event-item-body border-black/50 relative mb-4 inline-flex h-[120px] w-full 
+                  } event-item-body border-green-900/60 relative mb-4 inline-flex h-[120px] w-full 
                   translate-x-[-53px]  translate-y-[1px] gap-4 border-l`}
                 >
-                  <div className='relative grid h-[60px] w-1/3 max-w-[200px] grid-cols-3 px-2'>
+                  <div className='relative grid h-[60px] w-1/3 max-w-[200px] grid-cols-3 px-2 text-green-900'>
                     <div className=' text-center'>
                       <h2>{item?.event_date?.start?.date}</h2>
                       <h2>{item?.event_date?.start?.month}</h2>
@@ -283,7 +297,7 @@ export default function EventList({ displayFilteredData }) {
                       <h2>{item?.event_date?.end?.month}</h2>
                     </div>
                   </div>
-                  <div className='border-l border-black/20 pl-2'>
+                  <div className='border-l border-green-900/60 pl-2 text-green-900'>
                     <p className='text-[9px] leading-[0px]'> {item?.category} </p>
                     <div className='pb-2'>
                       <h3 className='font-bold'> {item?.title?.en} </h3>
@@ -300,7 +314,7 @@ export default function EventList({ displayFilteredData }) {
                       {item?.host?.zh ? <p>藝術家: {item?.host?.zh}</p> : ''}
                       <p> {item?.host_bio?.en} </p>
                       <p> {item?.host_bio?.zh} </p>
-                      <Link className='flex justify-end' href={`/events/${convertSpaceToDashLowerCase(item?.id)}`}>
+                      <Link className='flex justify-end hover:text-red-400' href={`/events/${convertSpaceToDashLowerCase(item?.id)}`}>
                         [SIGN UP -&gt;]{' '}
                       </Link>
                     </div>
