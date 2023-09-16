@@ -1,12 +1,24 @@
 'use client'
 import Image from 'next/image'
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
+
+import gsap from 'gsap'
+import CSSRulePlugin from 'gsap/CSSRulePlugin'
+gsap.registerPlugin(CSSRulePlugin)
 
 const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
   const horizontalRef = useRef()
   const eventHeadRef = useRef()
   const eventBodyRef = useRef()
+
+  useEffect(() => {
+    if (!horizontalRef.current) return
+    let diagonalPseudo = CSSRulePlugin.getRule('.event-item-head::before') //get pseudo element
+    eventpage_revealXAnimation({ horizontalLine: horizontalRef.current, headtext: eventHeadRef.current })
+    eventpage_revealYAnimation({ diagonal: diagonalPseudo, vertical: eventBodyRef.current })
+  }, [])
 
   return (
     <>
@@ -16,19 +28,25 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
             'event-item-head md:translate-x-18 relative w-[calc(100%-200px)] min-w-[350px] translate-x-4 justify-end '
           }
         >
-          <p ref={horizontalRef} className='relative flex w-full border-t border-green-900/60' />
+          <p ref={horizontalRef} style={{ opacity: 0}} className='relative flex w-full border-t border-green-900/60' />
           <div
-            ref={eventHeadRef}
+            ref={eventHeadRef} style={{ opacity: 0}}
             className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono '
           >
-            <Link href='/' className='hover:text-red-400'> [ view relavent shop ] </Link>
-            <Link href='/' className='hover:text-red-400'> [ view relavent archive ] </Link>
+            <Link href='/' className='hover:text-red-400'>
+              {' '}
+              [ view relavent shop ]{' '}
+            </Link>
+            <Link href='/' className='hover:text-red-400'>
+              {' '}
+              [ view relavent archive ]{' '}
+            </Link>
           </div>
         </div>
 
         <div className='md:translate-x-18 flex w-[calc(100%-200px)] min-w-[350px] translate-x-4 translate-y-[51px] items-end'>
           <div
-            ref={eventBodyRef}
+            ref={eventBodyRef} style={{ opacity: 0}}
             className='relative mb-4 inline-flex h-auto w-full translate-x-[-53px] 
                   translate-y-[1px] gap-4 border-l border-green-900/60'
           >

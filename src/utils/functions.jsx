@@ -1,3 +1,5 @@
+import gsap from 'gsap'
+
 export const convertSpaceToDashLowerCase = (string) => {
   return string.replace(/\s+/g, '-').toLowerCase()
 }
@@ -29,4 +31,10 @@ export const filterIncomingData = (data, filters) => {
     if (checkSatisfied) acc.push(item)
     return acc
   }, [])
+}
+
+
+export const setRefs = (element, targetId, refMap) => {
+  const cleanId = targetId.replace(' ', '') // remove space
+  refMap.current[cleanId] = element
 }

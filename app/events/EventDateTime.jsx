@@ -4,10 +4,11 @@ import Calendar from '@/components/Calendar'
 import TimePicker from '@/components/TimePicker'
 import { SelectedDateProvider } from '@/context/calendarContext'
 
-const EventDateTime = ({ eventTitleZh, eventTitleEn }) => {
+const EventDateTime = ({ formRef, eventTitleZh, eventTitleEn }) => {
   return (
     <SelectedDateProvider>
       <div
+        ref={formRef}
         className='relative grid h-auto min-h-[358px] w-full
                   place-items-center
                   md:h-[40%]

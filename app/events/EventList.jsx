@@ -1,224 +1,14 @@
 'use client'
 import { convertSpaceToDashLowerCase } from '@/utils/functions'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { setRefs } from '@/utils/functions' 
+import { revealXAnimation, revealYAnimation, revealOrCloseAnimation  } from '@/utils/animations'
+
 import gsap from 'gsap'
-import { useLayoutEffect, useRef, useState } from 'react'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
-import CSSPlugin from 'gsap/CSSPlugin'
-gsap.registerPlugin(CSSPlugin, CSSRulePlugin)
+gsap.registerPlugin(CSSRulePlugin)
 
-export const setRefs = (element, targetId, refMap) => {
-  const cleanId = targetId.replace(' ', '') // remove space
-  refMap.current[cleanId] = element
-}
-
-const revealXAnimation = ({ element }) => {
-  gsap.fromTo(
-    element,
-    {
-      width: '1',
-      minWidth: '0',
-      opacity: 0,
-    },
-    {
-      ease: 'power2.inOut',
-      duration: 1.2,
-      delay: 0.8,
-      width: '75%',
-      minWidth: '350px',
-      opacity: 1,
-    },
-  )
-}
-const revealYAnimation = ({ diagonal, dash, vertical }) => {
-  gsap.fromTo(
-    diagonal,
-    {
-      width: '0px',
-      left: '0px',
-    },
-    {
-      ease: 'power2.inOut',
-      duration: 1,
-      width: '100px',
-      left: '-100px',
-    },
-  )
-  gsap.fromTo(
-    vertical,
-    {
-      height: '0px',
-    },
-    {
-      ease: 'power2.inOut',
-      duration: 1,
-      delay: 0.8,
-      height: '120px',
-    },
-  )
-  gsap.fromTo(
-    vertical,
-    {
-      opacity: 0,
-    },
-    {
-      opacity: 1,
-      duration: 1.2,
-      delay: 1.4,
-    },
-  )
-  gsap.fromTo(
-    dash,
-    {
-      opacity: 0,
-    },
-    {
-      opacity: 1,
-      duration: 2,
-      delay: 1.4,
-    },
-  )
-}
-const revealOrCloseAnimation = ({
-  setOpenId,
-  openedId,
-  targetId,
-  eventHeadRefs,
-  horizontalRefs,
-  eventBodyRefs,
-  eventBodyMoreTextRefs,
-}) => {
-  // if some event already opened
-  if (openedId !== '') {
-    if (openedId === targetId) {
-      // close it if same one is clicked
-      gsap.to(eventHeadRefs.current[targetId], {
-        width: '75%',
-        color: '#000',
-      })
-      gsap.to(horizontalRefs.current[targetId], {
-        width: '75%',
-        color: '#000',
-      })
-      gsap.fromTo(
-        eventBodyRefs.current[openedId],
-        {
-          ease: 'power2.inOut',
-          duration: 0.6,
-          height: '100%',
-        },
-        {
-          height: '120px',
-        },
-      )
-      gsap.fromTo(
-        eventBodyMoreTextRefs.current[openedId],
-        {
-          height: '100%',
-        },
-        {
-          height: 0,
-        },
-      )
-      setOpenId('')
-    } else {
-      // otherwise close the other one
-      gsap.to(eventHeadRefs.current[openedId], {
-        width: '75%',
-        color: '#000',
-      })
-      gsap.to(horizontalRefs.current[openedId], {
-        width: '75%',
-        color: '#000',
-      })
-      gsap.to(eventHeadRefs.current[targetId], {
-        width: '100%',
-        color: '#f00',
-      })
-      gsap.to(horizontalRefs.current[targetId], {
-        width: '100%',
-      })
-
-      gsap.fromTo(
-        eventBodyRefs.current[openedId],
-        {
-          ease: 'power2.inOut',
-          duration: 0.6,
-          height: '100%',
-        },
-        {
-          height: '120px',
-        },
-      )
-      gsap.fromTo(
-        eventBodyMoreTextRefs.current[openedId],
-        {
-          height: '100%',
-        },
-        {
-          height: 0,
-        },
-      )
-      gsap.fromTo(
-        eventBodyRefs.current[targetId],
-        {
-          height: '120px',
-        },
-        {
-          ease: 'power2.inOut',
-          duration: 0.6,
-          delay: 0.2,
-          height: 'auto',
-        },
-      )
-      gsap.fromTo(
-        eventBodyMoreTextRefs.current[targetId],
-        {
-          height: 0,
-        },
-        {
-          height: 'auto',
-          delay: 0.8,
-        },
-      )
-
-      setOpenId(targetId)
-    }
-  } else {
-    gsap.to(eventHeadRefs.current[targetId], {
-      width: '100%',
-      color: '#f00',
-    })
-    gsap.to(horizontalRefs.current[targetId], {
-      width: '100%',
-    })
-
-    gsap.fromTo(
-      eventBodyRefs.current[targetId],
-      {
-        height: '120px',
-      },
-      {
-        ease: 'power2.inOut',
-        duration: 0.6,
-        delay: 0.2,
-        height: 'auto',
-      },
-    )
-    gsap.fromTo(
-      eventBodyMoreTextRefs.current[targetId],
-      {
-        height: 0,
-      },
-      {
-        height: 'auto',
-        delay: 0.8,
-      },
-    )
-
-    setOpenId(targetId)
-  }
-}
 
 /**
  * @TODO on readmore issue: 將新的filtered資料加到後方 不要打亂前方順序
@@ -246,8 +36,7 @@ export default function EventList({ displayFilteredData }) {
   }
 
   const animationRef = useRef()
-  /** @TODO Initial animation. happen after 2sec */
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!Object.keys(eventHeadRefs.current)) return
     Object.entries(eventHeadRefs.current).map(([key, horzontal]) => {
       let diagonalPseudo = CSSRulePlugin.getRule('.event-item-head::before') //get pseudo element
@@ -256,7 +45,7 @@ export default function EventList({ displayFilteredData }) {
       revealXAnimation({ element: horizontalRefs.current[key], animationRef: animationRef })
       revealYAnimation({ diagonal: diagonalPseudo, dash: dashPseudo, vertical: eventBodyRefs.current[key] })
     })
-  }, [])
+  }, [displayFilteredData])
 
   return (
     <main>
@@ -266,9 +55,14 @@ export default function EventList({ displayFilteredData }) {
               <div className={'event-item-head relative h-[52px] w-3/5 min-w-[330px] max-w-[1000px]'}>
                 <p
                   ref={(element) => setRefs(element, item?.id, horizontalRefs)}
+                  style={{ opacity: 0 }}
                   className='relative w-3/4  max-w-[1000px] border-t border-green-900/60'
                 />
-                <div ref={(element) => setRefs(element, item?.id, eventHeadRefs)} className='flex w-3/4 justify-end'>
+                <div
+                  ref={(element) => setRefs(element, item?.id, eventHeadRefs)}
+                  style={{ opacity: 0 }}
+                  className='flex w-3/4 justify-end'
+                >
                   <a
                     id={`${item?.id}`}
                     className='cursor-pointer font-mono text-green-900 hover:text-red-400'
@@ -281,6 +75,7 @@ export default function EventList({ displayFilteredData }) {
               <div className='flex w-3/5 min-w-[330px] max-w-[1000px] items-end'>
                 <div
                   ref={(element) => setRefs(element, item?.id, eventBodyRefs)}
+                  style={{ opacity: 0 }}
                   className={`${
                     i === 0 && `event-item-body-1st-elem`
                   } event-item-body border-green-900/60 relative mb-4 inline-flex h-[120px] w-full 

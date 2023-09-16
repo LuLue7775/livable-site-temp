@@ -8,13 +8,14 @@ import {
   getEventsFirestore,
   addDocuments,
 } from '@/utils/firebase/firebase.utils'
-import { filterIncomingData, convertSpaceToDashLowerCase } from '@/utils/functions'
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import { useInView } from 'react-intersection-observer'
 import { VACANCY } from '@/utils/firebase/mockData2'
 import { EVENT_DATA } from '@/utils/firebase/mockData'
+import { filterIncomingData, convertSpaceToDashLowerCase } from '@/utils/functions'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useEffect, useState, useRef } from 'react'
+import { toast } from 'react-hot-toast'
+import { useInView } from 'react-intersection-observer'
+import { introAnimation } from '@/utils/animations'
 
 const EventLayout = () => {
   // const { data: events } = useQuery({
@@ -25,6 +26,13 @@ const EventLayout = () => {
   // useEffect(() => {
   //   addDocuments('events', EVENT_DATA)
   // }, [])
+
+  const buttonsRef = useRef()
+  const descriptionRef = useRef()
+  useEffect(() => {
+    if (!buttonsRef.current) return
+    introAnimation([buttonsRef.current, descriptionRef.current])
+  }, [])
 
   const {
     data: moredata,
@@ -59,10 +67,14 @@ const EventLayout = () => {
   return (
     <div className='relative h-full w-full px-8 text-green-900'>
       <div className='relative grid h-auto w-full grid-cols-1 justify-between pb-4 md:h-2/5 md:grid-cols-2 '>
-        <div className='flex h-full w-full basis-1/2 items-end'>
+        <div ref={buttonsRef} style={{ opacity: 0 }} className='flex h-full w-full basis-1/2 items-end'>
           <EventsFilterButtons moredata={moredata} setFilteredData={setFilteredData} />
         </div>
-        <div className='order-first flex h-full max-h-[250px] w-2/3 shrink basis-1/2 justify-self-end pb-8 text-lg md:order-last md:w-full md:justify-self-start md:text-2xl'>
+        <div
+          ref={descriptionRef}
+          style={{ opacity: 0 }}
+          className='order-first flex h-full max-h-[250px] w-2/3 shrink basis-1/2 justify-self-end pb-8 text-lg md:order-last md:w-full md:justify-self-start md:text-2xl'
+        >
           <EventDescription />
         </div>
       </div>

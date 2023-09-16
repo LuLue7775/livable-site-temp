@@ -118,12 +118,12 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
           size='small'
           impact='light'
           tabIndex={isSelected ? 0 : -1}
-          className='w-full focus-visible:ring-inset focus-visible:ring-offset-0'
+          className='w-full hover:text-red-400 focus-visible:ring-inset focus-visible:ring-offset-0'
           onClick={() =>
             router.push(`/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`)
           }
         >
-          Confirm
+          [confirm]
         </button>
       </div>
     </li>

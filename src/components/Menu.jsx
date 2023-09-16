@@ -1,9 +1,12 @@
 'use client'
 import { useCart } from '@/context/cartContext'
 import Link from 'next/link'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 
 const Menu = ({ isMenuOpened, setMenuOpened }) => {
   const { calculateTotalQuantity, setCartOpened } = useCart()
+
+  const routerMiddleware = useDelayRouting({ isMenuOpened, setMenuOpened  })
 
   return (
     <div
@@ -18,18 +21,18 @@ const Menu = ({ isMenuOpened, setMenuOpened }) => {
           {' '}
           [x close ]{' '}
         </a>
-        <Link onClick={() => setMenuOpened(false)} href='/' className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/')} className='hover:text-red-400'>
           {' '}
           <li>THE LIVABLE STUDIO</li>
-        </Link>
-        <Link onClick={() => setMenuOpened(false)} href='/events' className='hover:text-red-400'>
+        </a>
+        <a onClick={() => routerMiddleware.push('/events')}className='hover:text-red-400'>
           {' '}
           <li>EVENTS</li>
-        </Link>
-        <Link onClick={() => setMenuOpened(false)} href='/checkout' className='hover:text-red-400'>
+        </a>
+        <a onClick={() => routerMiddleware.push('/checkout')}  className='hover:text-red-400'>
           {' '}
           <li>CHECKOUT</li>
-        </Link>
+        </a>
       </ul>
       <a
         onClick={() => {

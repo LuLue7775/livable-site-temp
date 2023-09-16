@@ -5,10 +5,10 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'], // remove unused styles in production
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    // colors: {
-    //   livable: '#002c24',
-    // },
     extend: {
+      colors: {
+        livable: '#002c24',
+      },
       fontFamily: {
         serif: ['var(--eb_garamond)'],
         mono: ['var(--ysabeau_office)'],

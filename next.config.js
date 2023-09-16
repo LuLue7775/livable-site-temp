@@ -16,6 +16,13 @@ const nextConfig = {
   // compiler: {
   //   styledComponents: true,
   // },
+  /** These are added bc dev mode is slow */
+  fastRefresh: true,
+  concurrentFeatures: true,
+  // productionBrowserSourceMaps: false, // Disable source maps in development
+  // optimizeFonts: false, // Disable font optimization
+  // minify: false, // Disable minification
+
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   experimental: {
     reactRoot: 'concurrent',
