@@ -3,6 +3,17 @@ import '@/global.css'
 import Providers from '@/utils/provider'
 
 import { EB_Garamond, Ysabeau_Office, Noto_Serif_HK } from '@next/font/google'
+import localFont from '@next/font/local'
+
+const sometimes = localFont({
+  src: [
+    {
+      path: '../public/SometimesTimesRegular.woff2',
+      weight: '400',
+    },
+  ],
+  variable: '--sometimes',
+})
 
 const eb_garamond = EB_Garamond({
   style: ['normal', 'italic'],
@@ -34,7 +45,7 @@ export default function RootLayout({ children }) {
       */}
       <head />
       <body
-        className={`${eb_garamond.variable} ${ysabeau_office.variable} ${noto_serif_hk.variable} relative font-serif`}
+        className={`${sometimes.variable} ${eb_garamond.variable} ${ysabeau_office.variable} ${noto_serif_hk.variable} relative font-serif`}
       >
         <Providers>
           {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}

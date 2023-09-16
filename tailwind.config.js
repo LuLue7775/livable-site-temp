@@ -10,7 +10,8 @@ module.exports = {
         livable: '#002c24',
       },
       fontFamily: {
-        serif: ['var(--eb_garamond)'],
+        // serif: ['var(--eb_garamond)'],
+        serif: ['var(--sometimes)'],
         mono: ['var(--ysabeau_office)'],
         zh: ['var(--noto_serif_hk)'],
       },
