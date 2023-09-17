@@ -9,7 +9,7 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
       ${isLightboxOpened ? 'block' : 'hidden'}
       ${isLightboxOpened ? 'animate-fadeIn' : 'animate-fadeOut'}
         bg-green-900/20
-        fixed left-0 top-0 z-30 h-screen w-full
+        fixed left-0 top-0 z-30 h-[100dvh] w-full
         backdrop-blur-md backdrop-sepia-0       
       `}
     >
@@ -38,10 +38,10 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
               width={1200}
               height={1200}
               style={{
-                maxHeight: '1200px',
-                maxWidth: '1200px',
-                minHeight: '200px',
-                minWidth: '300px',
+                maxHeight: '80%',
+                maxWidth: '100%',
+                minHeight: '400px',
+                minWidth: '500px',
                 width: 'auto',
                 height: 'auto',
                 objectfit: 'contain',

@@ -3,17 +3,9 @@ import gsap from 'gsap'
 import { useRouter } from 'next/navigation'
 import { useMenu } from '@/context/menuContext'
 
-/** 
- * @TODO MAKE A GREEN GLASS COVER. 
- * 
- * @TODO NEED A ROUTE context
- * 或是做一個timelinecontext 
- *     const [timeline, setTimeline] = useState(null)
-
- */
-const closeAnimation = (glassRef, router, route, isMenuOpened, setMenuOpened) => {
+const closeAnimation = (glassRef, router, route, setMenuOpened) => {
     
-    gsap.set( glassRef.current, { xPercent: 0 })
+    gsap.set( glassRef.current, { xPercent: -100, opacity:0 })
     gsap
     .timeline({
         onComplete: () => {
@@ -21,13 +13,10 @@ const closeAnimation = (glassRef, router, route, isMenuOpened, setMenuOpened) =>
             router.push(route);
         }
     })
-    .to( glassRef.current, { xPercent: 100, duration: .25 })
-    .to( glassRef.current, { xPercent: 100, duration: 0.5 })
-    .to( glassRef.current, { xPercent: 200, duration: .25 })
+    .to( glassRef.current, { xPercent: 200, opacity:1, duration: .5 })
+    .to( glassRef.current, { xPercent: 200, opacity:1, duration: 0.8 })
+    .to( glassRef.current, { xPercent: 300, opacity:0, duration: .8 })
     .play()
- 
-
-
 }
 
 // const startAnimation = (glassRef, isMenuOpened, setMenuOpened) => {
@@ -49,7 +38,7 @@ export default function useDelayRouting() {
 
     const routerMiddleware = {
         push: (route) => {
-            closeAnimation(glassRef, router, route, isMenuOpened, setMenuOpened)
+            closeAnimation(glassRef, router, route, setMenuOpened)
             // startAnimation(glassRef, isMenuOpened, setMenuOpened).then(() => {
             //     // router.push(route);
             // })

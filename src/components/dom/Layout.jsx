@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div ref={glassRef} className='absolute z-50 h-screen w-screen -translate-x-full bg-livable/10 backdrop-blur-md backdrop-sepia-0' />
+      <div ref={glassRef} className='absolute z-50 h-screen w-screen -translate-x-full bg-livable/10 backdrop-blur-md backdrop-sepia-0 pointer-events-none' />
       <div
         ref={ref}
         style={{

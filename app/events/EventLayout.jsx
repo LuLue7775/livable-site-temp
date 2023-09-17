@@ -46,7 +46,6 @@ const EventLayout = () => {
     getNextPageParam: (lastPage, allPages) => (lastPage ? lastPage.nextPageParam : null),
     refetchOnWindowFocus: false,
   })
-
   const [displayFilteredData, setFilteredData] = useState(moredata?.pages?.[0]?.data || [])
 
   const handleReadmore = () => {

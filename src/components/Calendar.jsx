@@ -68,7 +68,7 @@ const Calendar = () => {
             <CalendarCell
               date={date}
               className={({ isSelected, isDisabled }) => {
-                const baseClasses = `relative mx-auto grid aspect-square w-12 max-w-full place-items-center rounded-full 
+                const baseClasses = `relative mx-auto grid aspect-square h-12 w-12 max-w-full place-items-center rounded-full 
                     focus:outline-none focus:ring-1 focus:ring-green-900 focus:ring-primary-400 focus:ring-offset-1`
 
                 return availabilities
@@ -107,7 +107,7 @@ export default Calendar
 
 function MonthsNavigation() {
   const monthNavigationButtonClasses = `
-     aspect-square w-10 max-w-full place-items-center rounded-full 
+     aspect-square w-10 max-w-full place-items-center rounded-full font-bold
     border border-green-900 text-green-900 hover:text-primary-600 hover:bg-red-400/50
     focus:outline-none focus:ring focus:ring-green-900 focus:ring-offset-1 
     disabled:border-green-900 disabled:text-slate-300 disabled:hover:text-white disabled:hover:bg-gray-400/50
