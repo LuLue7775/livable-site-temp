@@ -8,7 +8,7 @@ const EventDateTime = ({ formRef, eventTitleZh, eventTitleEn }) => {
   return (
     <SelectedDateProvider>
       <div
-        ref={formRef}
+        ref={formRef} style={{ opacity: 0}}
         className='relative grid h-auto min-h-[358px] w-full
                   place-items-center
                   md:h-[40%]

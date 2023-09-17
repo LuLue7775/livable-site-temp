@@ -1,5 +1,6 @@
 'use client'
 
+import LoadingIcon from '@/components/LoadingIcon'
 import { getLocalTimeZone, parseDateTime, isSameDay, isToday, today } from '@internationalized/date'
 import {
   Calendar as AriaCalendar,
@@ -34,7 +35,8 @@ const Calendar = () => {
   // find available time THAT SELECTED DAY
   const availabilities = bookingAvailabilities?.[eventId] && Object.values(bookingAvailabilities?.[eventId])
   // console.log(bookingAvailabilities)
-  if (isFetching) return <div> isLoading..</div>
+  if (isFetching) return <LoadingIcon />
+
   return (
     <AriaCalendar
       aria-label='Booking availabilities'
@@ -47,15 +49,15 @@ const Calendar = () => {
         <MonthsNavigation />
       </header>
 
-      <CalendarGrid className='w-full table-fixed border-separate ' weekdayStyle='long'>
+      <CalendarGrid className='w-full table-fixed border-separate ' weekdayStyle='narrow'>
         <CalendarGridHeader>
           {(day) => (
-            <CalendarHeaderCell>
+            <CalendarHeaderCell locale='en-US'>
               <abbr
-                className='cursor-help text-sm font-semibold uppercase tracking-wider text-slate-700 no-underline'
+                className='cursor-help font-mono text-sm font-semibold uppercase tracking-wider text-slate-700 no-underline'
                 title={day}
               >
-                {day.slice(0, 3)}
+                {day}
               </abbr>
             </CalendarHeaderCell>
           )}

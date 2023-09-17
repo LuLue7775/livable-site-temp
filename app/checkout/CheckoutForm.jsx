@@ -45,7 +45,7 @@ const CheckoutForm = () => {
 
   return (
     <form ref={formRef} style={{ opacity: 0}} className='m-6 max-w-[370px] text-green-900'>
-      <h1> Checkout Information</h1>
+      <h1 className='font-bold'> Checkout Information</h1>
       <div className='grid gap-2 '>
         <Input
           register={register}

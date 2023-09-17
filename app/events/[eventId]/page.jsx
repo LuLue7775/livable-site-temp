@@ -1,6 +1,7 @@
 import { getDocsFromFirestore, getDocFromFirestore } from '@/utils/firebase/firebase.utils'
 import { Suspense } from 'react'
 import EventContent from './EventContent'
+import LoadingIcon from '@/components/LoadingIcon'
 
 export async function generateStaticParams() {
   const events = await getDocsFromFirestore('events')
@@ -14,7 +15,7 @@ export default async function Page({ params }) {
 
   return (
     <div className='relative h-full w-full overflow-hidden text-green-900'>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={ <LoadingIcon/> }>
         <EventContent event={event} />
       </Suspense>
     </div>

@@ -10,12 +10,14 @@ import Button from '@/components/Button'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
 gsap.registerPlugin(CSSRulePlugin)
 
 export default function BookingForm() {
-  
+  const routerMiddleware = useDelayRouting()
+
   const horizontalRef = useRef()
   const eventBodyRef = useRef()
   useEffect(() => {
@@ -24,7 +26,6 @@ export default function BookingForm() {
     eventpage_revealXAnimation({ horizontalLine: horizontalRef.current })
     eventpage_revealYAnimation({ diagonal: diagonalPseudo, vertical: eventBodyRef.current })
   }, [])
-
 
   const router = useRouter()
 
@@ -75,11 +76,16 @@ export default function BookingForm() {
           'event-item-head relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-200px)]'
         }
       >
-        <p ref={horizontalRef} style={{ opacity: 0}} className='relative flex h-[52px] w-full border-t border-green-900/60' />
+        <p
+          ref={horizontalRef}
+          style={{ opacity: 0 }}
+          className='relative flex h-[52px] w-full border-t border-green-900/60'
+        />
       </div>
 
       <div
-        ref={eventBodyRef} style={{ opacity: 0}}
+        ref={eventBodyRef}
+        style={{ opacity: 0 }}
         className='relative 
                   bottom-0 min-h-[600px] 
                   w-full min-w-[350px] translate-x-[-4px] translate-y-[1px] overflow-hidden border-l border-green-900/60 p-6 md:w-[calc(100%-200px)]'
@@ -122,7 +128,7 @@ export default function BookingForm() {
             </div>
             <div className='mt-4 inline-flex gap-4'>
               <Button type='submit' size={'medium'} impact={'bold'} shape={'rounded'} status={status}>
-                Confirm Booking
+                ADD TO CART
               </Button>
               {checkoutButton && (
                 <Button
@@ -131,9 +137,9 @@ export default function BookingForm() {
                   impact={'bold'}
                   shape={'rounded'}
                   status={'idle'}
-                  onClick={() => router.push('/checkout')}
+                  onClick={() => routerMiddleware.push('/checkout')}
                 >
-                  Checkout
+                  CHECKOUT
                 </Button>
               )}
             </div>

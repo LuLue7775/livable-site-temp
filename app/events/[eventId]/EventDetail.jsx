@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { Suspense, useRef, useEffect } from 'react'
-import Link from 'next/link'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
 
 import gsap from 'gsap'
@@ -9,6 +9,8 @@ import CSSRulePlugin from 'gsap/CSSRulePlugin'
 gsap.registerPlugin(CSSRulePlugin)
 
 const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
+    const routerMiddleware = useDelayRouting()
+
   const horizontalRef = useRef()
   const eventHeadRef = useRef()
   const eventBodyRef = useRef()
@@ -33,14 +35,14 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
             ref={eventHeadRef} style={{ opacity: 0}}
             className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono '
           >
-            <Link href='/' className='hover:text-red-400'>
+            {/* <a onClick={ () => routerMiddleware.push(`/`)}  className='hover:text-red-400'>
               {' '}
               [ view relavent shop ]{' '}
-            </Link>
-            <Link href='/' className='hover:text-red-400'>
+            </a>
+            <a onClick={ () => routerMiddleware.push(`/`)}  className='hover:text-red-400'>
               {' '}
               [ view relavent archive ]{' '}
-            </Link>
+            </a> */}
           </div>
         </div>
 
@@ -52,17 +54,17 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
           >
             <div className='relative px-4 pb-[300px]'>
               <div className='border-b border-green-900/20 py-4'>
-                <p> 開始時間 start at: {event?.event_date.start.time} </p>
-                <p> 活動時間 duration: {event?.duration} hr </p>
-                <p> 活動費用 fee: NTD $ {event?.price} </p>
+                <p className='zh'> 開始時間 <span className='font-mono'>START AT : {event?.event_date.start.time} </span> </p>
+                <p className='zh'> 活動時間 <span className='font-mono'>DURATION : {event?.duration} hr </span> </p>
+                <p className='zh'> 活動費用 <span className='font-mono'>FEE : NTD$ {event?.price}</span>  </p>
               </div>
               <div className='border-b border-green-900/20 py-4'>
                 <p className='max-w-[800px]'> {event?.description?.zh} </p>
-                <p className='max-w-[800px]'> {event?.description?.en} </p>
-                {event?.host?.zh ? <p>藝術家: {event?.host?.zh}</p> : ''}
-                {event?.host?.en ? <p className='pt-4'>Artist: {event?.host?.en}</p> : ''}
+                <p className='max-w-[800px] font-mono'> {event?.description?.en} </p>
+                {event?.host?.zh ? <p className='zh pt-4'>藝術家: {event?.host?.zh}</p> : ''}
+                {event?.host?.en ? <p className='font-mono'>Artist: {event?.host?.en}</p> : ''}
                 <p className='max-w-[1000px]'> {event?.host_bio?.zh} </p>
-                <p className='max-w-[1000px]'> {event?.host_bio?.en} </p>
+                <p className='max-w-[1000px] font-mono'> {event?.host_bio?.en} </p>
               </div>
 
               <Suspense fallback={<h2>IMAGE </h2>}>

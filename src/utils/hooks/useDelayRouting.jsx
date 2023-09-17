@@ -1,6 +1,8 @@
 import { useGlass } from '@/context/glassElementContext'
 import gsap from 'gsap'
 import { useRouter } from 'next/navigation'
+import { useMenu } from '@/context/menuContext'
+
 /** 
  * @TODO MAKE A GREEN GLASS COVER. 
  * 
@@ -15,7 +17,7 @@ const closeAnimation = (glassRef, router, route, isMenuOpened, setMenuOpened) =>
     gsap
     .timeline({
         onComplete: () => {
-            setMenuOpened(!isMenuOpened);
+            setMenuOpened(false);
             router.push(route);
         }
     })
@@ -39,9 +41,10 @@ const closeAnimation = (glassRef, router, route, isMenuOpened, setMenuOpened) =>
 // };
 
 
-export default function useDelayRouting({isMenuOpened, setMenuOpened }) {
+export default function useDelayRouting() {
     const router = useRouter()
     const { glassRef } = useGlass()
+  const { isMenuOpened, setMenuOpened } = useMenu()
 
 
     const routerMiddleware = {

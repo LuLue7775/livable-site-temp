@@ -9,7 +9,6 @@ const sometimes = localFont({
   src: [
     {
       path: '../public/SometimesTimesRegular.woff2',
-      weight: '400',
     },
   ],
   variable: '--sometimes',

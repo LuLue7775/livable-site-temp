@@ -1,19 +1,20 @@
 'use client'
 import { convertSpaceToDashLowerCase } from '@/utils/functions'
-import Link from 'next/link'
+import { revealXAnimation, revealYAnimation, revealOrCloseAnimation } from '@/utils/animations'
+import { setRefs } from '@/utils/functions'
+import Button from '@/components/Button'
 import { useEffect, useRef, useState } from 'react'
-import { setRefs } from '@/utils/functions' 
-import { revealXAnimation, revealYAnimation, revealOrCloseAnimation  } from '@/utils/animations'
-
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
 gsap.registerPlugin(CSSRulePlugin)
-
 
 /**
  * @TODO on readmore issue: 將新的filtered資料加到後方 不要打亂前方順序
  */
 export default function EventList({ displayFilteredData }) {
+    const routerMiddleware = useDelayRouting()
+
   const [openedId, setOpenId] = useState('')
   const horizontalRefs = useRef({})
   const eventHeadRefs = useRef({})
@@ -93,7 +94,7 @@ export default function EventList({ displayFilteredData }) {
                     </div>
                   </div>
                   <div className='border-l border-green-900/60 pl-2 text-green-900'>
-                    <p className='text-[9px] leading-[0px]'> {item?.category} </p>
+                    <p className='text-[10px] leading-[2px] font-mono'> {item?.category} </p>
                     <div className='pb-2'>
                       <h3 className='font-bold'> {item?.title?.en} </h3>
                       <h3 className='font-bold'> {item?.title?.zh} </h3>
@@ -101,20 +102,20 @@ export default function EventList({ displayFilteredData }) {
 
                     <div
                       ref={(element) => setRefs(element, item?.id, eventBodyMoreTextRefs)}
-                      className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden md:max-w-[1000px]'
+                      className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden md:max-w-[1000px] font-mono'
                     >
+                      <p className='zh'> {item?.description?.zh} </p>
                       <p> {item?.description?.en} </p>
-                      <p> {item?.description?.zh} </p>
-                      {item?.host?.en ? <p className='pt-4'>Artist: {item?.host?.en}</p> : ''}
-                      {item?.host?.zh ? <p>藝術家: {item?.host?.zh}</p> : ''}
+                      {item?.host?.zh ? <p className='zh pt-4'>藝術家: {item?.host?.zh}</p> : ''}
+                      {item?.host?.en ? <p >Artist: {item?.host?.en}</p> : ''}
+                      <p className='zh'> {item?.host_bio?.zh} </p>
                       <p> {item?.host_bio?.en} </p>
-                      <p> {item?.host_bio?.zh} </p>
-                      <Link
+                      <a
                         className='flex justify-end hover:text-red-400'
-                        href={`/events/${convertSpaceToDashLowerCase(item?.id)}`}
+                        onClick={() => routerMiddleware.push(`/events/${convertSpaceToDashLowerCase(item?.id)}`)}
                       >
-                        [SIGN UP -&gt;]{' '}
-                      </Link>
+                        <Button>SIGN UP -&gt;</Button>
+                      </a>
                     </div>
                   </div>
                 </div>

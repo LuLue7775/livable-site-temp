@@ -3,24 +3,25 @@
 import { useCart } from '@/context/cartContext'
 import { convertIdToTitle } from '@/utils/functions'
 import AttendantForm from './AttendantForm'
-import Link from 'next/link'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 
 const CheckoutEvents = () => {
   const { eventItems } = useCart()
+  const routerMiddleware = useDelayRouting()
 
   return (
     <>
-      <h2 className='pb-4'> Event list </h2>
+      <h2 className='py-2 font-serif font-bold '> Event list </h2>
       {eventItems
         ? Object.entries(eventItems).map(([eventId, bookTime]) =>
             Object.values(bookTime).flat().length ? (
               <div key={eventId}>
-                <Link href={`/events/${eventId}`}>
-                  <h5 className='max-w-[300px] hover:text-red-400'>{convertIdToTitle(eventId)}</h5>
-                </Link>
+                <a onClick={ () => routerMiddleware.push(`/events/${eventId}`)}>
+                  <h5 className='max-w-[250px] hover:text-red-400 cursor-pointer font-serif'>{convertIdToTitle(eventId)}</h5>
+                </a>
                 {Object.entries(bookTime).map(([time, attendants]) => (
-                  <div key={time} className='flex w-[300px] flex-wrap p-2'>
-                    <h5>{time}</h5>
+                  <div key={time} className='flex w-[300px] flex-wrap p-2 font-mono'>
+                    <h5>時間 time: {time}</h5>
                     {attendants?.map((attendant) => (
                       <AttendantForm key={attendant.uuid} attendant={attendant} timeId={time} eventId={eventId} />
                     ))}

@@ -1,6 +1,7 @@
 'use client'
-
+import Button from '@/components/Button'
 import { useSelectedDate } from '@/context/calendarContext'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { convertSpaceToDashLowerCase } from '@/utils/functions'
 import { useRouter, usePathname } from 'next/navigation'
 import cx from 'classnames'
@@ -81,7 +82,7 @@ const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
 export default TimePicker
 
 function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
-  const router = useRouter()
+    const routerMiddleware = useDelayRouting()
 
   const timeFormatter = useDateFormatter({ timeStyle: 'short' })
   const [selectedTime, setSelectedTime] = useState(null)
@@ -110,21 +111,21 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
           onClick={() => setSelectedTime(availability.startTime)}
         >
           {timeFormatter.format(new Date(availability.startTime))}
-          <p className='text-sm'> 名額seats: {availability?.stock} </p>
+          <p className='zh text-sm'> 名額 <span className='font-mono'> {' '}seats:</span> {availability?.stock} </p>
         </button>
       </div>
       <div className='m-2 basis-1/2'>
-        <button
+        <Button
           size='small'
           impact='light'
           tabIndex={isSelected ? 0 : -1}
           className='w-full hover:text-red-400 focus-visible:ring-inset focus-visible:ring-offset-0'
           onClick={() =>
-            router.push(`/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`)
+            routerMiddleware.push(`/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`)
           }
         >
-          [confirm]
-        </button>
+          CONFIRM
+        </Button>
       </div>
     </li>
   )

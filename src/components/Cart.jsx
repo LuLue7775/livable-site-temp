@@ -1,12 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import Button from './Button'
 import CheckoutEvents from '@/checkout/CheckoutEvents'
 import CheckoutFormProvider from '@/checkout/CheckoutFormProvider'
+import { useCart } from '@/context/cartContext'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 
-const Cart = ({ isCartOpened, setCartOpened }) => {
-  const router = useRouter()
+const Cart = () => {
+  const { isCartOpened, setCartOpened } = useCart()
+  const routerMiddleware = useDelayRouting()
 
   return (
     <CheckoutFormProvider>
@@ -27,7 +29,7 @@ const Cart = ({ isCartOpened, setCartOpened }) => {
           </div>
           <CheckoutEvents />
 
-          <Button onClick={() => router.push('/checkout')}> CHECKOUT -&gt;</Button>
+          <Button onClick={() => routerMiddleware.push('/checkout')}> CHECKOUT -&gt;</Button>
         </div>
       </div>
     </CheckoutFormProvider>

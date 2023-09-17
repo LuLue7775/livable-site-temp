@@ -19,6 +19,7 @@
 
   .zh {
     font-family: var(--noto_serif_hk);
+    opacity:.8;
   }
   /* width */
   ::-webkit-scrollbar {

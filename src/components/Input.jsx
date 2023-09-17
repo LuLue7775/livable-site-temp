@@ -7,7 +7,7 @@ export function Input({ name, id, label, type = 'text', required = false, regist
         htmlFor={id}
         className={cx(
           'relative text-sm ',
-          required && 'after:-right- after:absolute after:-top-1 after:h-4 after:w-2 after:content-["*"]',
+          required && 'after:-right- after:absolute after:-top-1 after:h-4 after:w-2 after:content-["*"] font-mono',
         )}
       >
         {label}
@@ -15,7 +15,7 @@ export function Input({ name, id, label, type = 'text', required = false, regist
       <input
         className={cx(
           `block w-full px-4 py-1 text-sm 
-        ring-1 ring-inset ring-green-600 focus:outline-none focus:ring-green-900`,
+        ring-1 ring-inset ring-green-600 focus:outline-none focus:ring-green-900 font-mono appearance-none`,
         )}
         type={type}
         name={name}
@@ -34,7 +34,7 @@ export function Textarea({ name, id, label, rows = 6, required = false, register
         htmlFor={id}
         className={cx(
           'relative text-sm ',
-          required && 'after:-right- after:absolute after:-top-1 after:h-2 after:w-2 after:content-["*"]',
+          required && 'after:-right- after:absolute after:-top-1 after:h-2 after:w-2 after:content-["*"] font-mono',
         )}
       >
         {label}
@@ -42,7 +42,7 @@ export function Textarea({ name, id, label, rows = 6, required = false, register
       <textarea
         className={cx(
           `block w-full px-4 py-1 text-sm 
-        ring-1 ring-inset ring-green-600 focus:outline-none focus:ring-green-900`,
+        ring-1 ring-inset ring-green-600 focus:outline-none focus:ring-green-900 font-mono appearance-none`,
         )}
         name={name}
         id={id}

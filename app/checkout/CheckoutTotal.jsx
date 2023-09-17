@@ -14,7 +14,7 @@ const CheckoutTotal = () => {
       <p>{total.productTotal ? `商品 product total: ${total.productTotal}` : ''}</p>
       <p>活動報名 event fee: {total.eventTotal}</p>
       <p>總計 Total: {total.eventTotal + total.productTotal}</p>
-      <Button> Checkout </Button>
+      <Button> CHECKOUT </Button>
     </div>
   )
 }

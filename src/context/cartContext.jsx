@@ -110,7 +110,7 @@ export function CartProvider({ children }) {
 
     setTimeout(() => {
       setCartOpened(false)
-    }, 1800)
+    }, 2500)
   }
 
   function removeEventsFromCart({ uuid, timeId, eventId }) {

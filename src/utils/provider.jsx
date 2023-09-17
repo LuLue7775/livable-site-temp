@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { CartProvider } from '@/context/cartContext'
+import { MenuProvider } from '@/context/menuContext'
 import { GlassProvider } from '@/context/glassElementContext'
 
 function Providers({ children }) {
@@ -38,7 +39,9 @@ function Providers({ children }) {
     <PersistQueryClientProvider client={client} persistOptions={{ persister }}>
       <ReactQueryStreamedHydration>
         <GlassProvider>
-          <CartProvider>{children}</CartProvider>
+          <MenuProvider>
+            <CartProvider>{children}</CartProvider>
+          </MenuProvider>
         </GlassProvider>
       </ReactQueryStreamedHydration>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}

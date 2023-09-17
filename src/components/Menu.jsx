@@ -1,12 +1,13 @@
 'use client'
+import { useMenu } from '@/context/menuContext'
 import { useCart } from '@/context/cartContext'
-import Link from 'next/link'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
 
-const Menu = ({ isMenuOpened, setMenuOpened }) => {
+const Menu = () => {
   const { calculateTotalQuantity, setCartOpened } = useCart()
+  const { isMenuOpened, setMenuOpened } = useMenu()
 
-  const routerMiddleware = useDelayRouting({ isMenuOpened, setMenuOpened  })
+  const routerMiddleware = useDelayRouting()
 
   return (
     <div

@@ -2,6 +2,7 @@
 import EventList from '@/events/EventList'
 import EventDescription from '@/events/EventDescription'
 import EventsFilterButtons from '@/events/EventsFilterButtons'
+import LoadingIcon from '@/components/LoadingIcon'
 import {
   getNextPageDocsFromFirestore,
   addCollectionAndDocuments,
@@ -80,7 +81,7 @@ const EventLayout = () => {
       </div>
 
       <div className='relative ml-16 h-auto w-full pb-8 md:ml-0 md:h-3/5 md:max-h-[calc(100vh-300px)] md:overflow-y-scroll md:pb-20'>
-        {isFetching ? 'Loading...' : <EventList displayFilteredData={displayFilteredData} />}
+        {isFetching ? <LoadingIcon/> : <EventList displayFilteredData={displayFilteredData} />}
         <div ref={ref} className='h-12 ' />
       </div>
     </div>

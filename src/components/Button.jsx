@@ -1,11 +1,12 @@
 import { twMerge } from 'tailwind-merge'
+import { LoadingIconButton } from '@/components/LoadingIcon'
 
 const baseClasses =
-  'font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-px disabled:pointer-events-none disabled:opacity-80 transition'
+  'font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-px disabled:pointer-events-none disabled:opacity-80 transition'
 
 const impactClasses = {
   default: {
-    bold: 'bg-green-900 text-white shadow-md hover:bg-green-600 focus-visible:ring-primary-500',
+    bold: 'bg-livable text-white shadow-md hover:bg-green-100 hover:text-livable focus-visible:ring-primary-500',
     light: 'bg-green-100 text-primary-700 hover:bg-green-200 focus-visible:ring-primary-500',
     none: 'bg-transparent text-primary-700 hover:bg-green-50 focus-visible:ring-primary-500',
   },
@@ -80,7 +81,7 @@ export default function Button({
 function StatusIcon({ status }) {
   switch (status) {
     case 'loading':
-      return <LoadingIcon />
+      return <LoadingIconButton />
     case 'success':
       return 'success'
     case 'error':
@@ -90,23 +91,6 @@ function StatusIcon({ status }) {
   }
 }
 
-function LoadingIcon() {
-  return (
-    <svg
-      className='h-5 w-5 animate-spin text-inherit'
-      xmlns='http://www.w3.org/2000/svg'
-      fill='none'
-      viewBox='0 0 24 24'
-    >
-      <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
-      <path
-        className='opacity-75'
-        fill='currentColor'
-        d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-      ></path>
-    </svg>
-  )
-}
 
 export function Cross() {
   return (
