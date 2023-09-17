@@ -13,7 +13,6 @@ const AttendantForm = ({ attendant, timeId, eventId }) => {
     unregister,
     trigger,
     formState: { errors },
-    getValues,
     setValue,
   } = useFormContext()
 
@@ -57,6 +56,7 @@ const AttendantForm = ({ attendant, timeId, eventId }) => {
           value={data[`attendant.${attendant.uuid}.name`]}
           label='Name'
           required
+          disabled
           onChange={handleChange}
         />
         {errors?.attendant?.[attendant.uuid]?.name?.message && (
@@ -70,6 +70,7 @@ const AttendantForm = ({ attendant, timeId, eventId }) => {
           value={data[`attendant.${attendant.uuid}.email`]}
           label='Email'
           required
+          disabled
           onChange={handleChange}
         />
         {errors?.attendant?.[attendant.uuid]?.email?.message && (
@@ -83,13 +84,14 @@ const AttendantForm = ({ attendant, timeId, eventId }) => {
           value={data[`attendant.${attendant.uuid}.phone`]}
           label='Phone'
           required
+          disabled
           onChange={handleChange}
         />
         {errors?.attendant?.[attendant.uuid]?.phone?.message && (
           <span className='text-sm text-red-500'>{errors?.attendant?.[attendant.uuid]?.phone?.message}</span>
         )}
         <button
-          className='hover:text-red-500 text-sm  '
+          className='text-sm hover:text-red-500  '
           onClick={() => {
             removeEventsFromCart({ uuid: attendant.uuid, timeId: timeId, eventId: eventId })
             unregister([

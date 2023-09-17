@@ -4,7 +4,7 @@ import CSSPlugin from 'gsap/CSSPlugin'
 gsap.registerPlugin(CSSPlugin, CSSRulePlugin)
 
 export const introAnimation = (props) => {
-    gsap.fromTo(
+  gsap.fromTo(
     [...props],
     {
       opacity: 0,
@@ -33,7 +33,7 @@ export const revealXAnimation = ({ element }) => {
       ease: 'power2.inOut',
       duration: 1.2,
       width: '75%',
-      minWidth: '350px',
+      minWidth: '300px',
       opacity: 1,
     },
   )
@@ -227,27 +227,23 @@ export const revealOrCloseAnimation = ({
   }
 }
 
-
-
-export const eventpage_introAnimation = ({titleRef, formRef}) => {
+export const eventpage_introAnimation = ({ titleRef, formRef }) => {
   gsap.fromTo(
     [titleRef.current, formRef.current],
     {
       opacity: 0,
-      x: -100
+      x: -100,
     },
     {
       opacity: 1,
       x: 0,
       duration: 2,
       delay: 2,
-      stagger: .3,
+      stagger: 0.3,
       ease: 'expo.out',
     },
   )
 }
-
-
 
 export const eventpage_revealXAnimation = ({ horizontalLine, headtext }) => {
   gsap.fromTo(
@@ -261,7 +257,7 @@ export const eventpage_revealXAnimation = ({ horizontalLine, headtext }) => {
       ease: 'power2.inOut',
       duration: 1.2,
       width: '100%',
-      minWidth: '350px',
+      minWidth: '300px',
       opacity: 1,
     },
   )

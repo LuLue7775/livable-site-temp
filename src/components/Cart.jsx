@@ -16,7 +16,7 @@ const Cart = () => {
         className={`
       ${isCartOpened ? 'right-[1rem]' : 'right-[-450px]'}
              absolute  top-[1rem] z-20 flex h-[500px] 
-            w-[390px] flex-col justify-between rounded-sm bg-green-900/10 p-4	text-lg backdrop-blur-md
+            w-[min(90%,390px)] flex-col justify-between rounded-sm bg-green-900/10 p-4	text-lg backdrop-blur-md
           backdrop-sepia-0 duration-300 font-mono
     `}
       >

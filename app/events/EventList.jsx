@@ -13,7 +13,7 @@ gsap.registerPlugin(CSSRulePlugin)
  * @TODO on readmore issue: 將新的filtered資料加到後方 不要打亂前方順序
  */
 export default function EventList({ displayFilteredData }) {
-    const routerMiddleware = useDelayRouting()
+  const routerMiddleware = useDelayRouting()
 
   const [openedId, setOpenId] = useState('')
   const horizontalRefs = useRef({})
@@ -49,11 +49,11 @@ export default function EventList({ displayFilteredData }) {
   }, [displayFilteredData])
 
   return (
-    <main>
+    <>
       {displayFilteredData
         ? displayFilteredData?.map((item, i) => (
-            <div key={item?.id} className='flex w-full flex-col items-end'>
-              <div className={'event-item-head relative h-[52px] w-3/5 min-w-[330px] max-w-[1000px]'}>
+            <div key={item?.id} className='flex flex-col items-end'>
+              <div className={'event-item-head relative h-[52px] w-[min(90%,1000px)]'}>
                 <p
                   ref={(element) => setRefs(element, item?.id, horizontalRefs)}
                   style={{ opacity: 0 }}
@@ -73,7 +73,7 @@ export default function EventList({ displayFilteredData }) {
                   </a>
                 </div>
               </div>
-              <div className='flex w-3/5 min-w-[330px] max-w-[1000px] items-end'>
+              <div className='flex w-[min(90%,1000px)] items-end'>
                 <div
                   ref={(element) => setRefs(element, item?.id, eventBodyRefs)}
                   style={{ opacity: 0 }}
@@ -82,19 +82,19 @@ export default function EventList({ displayFilteredData }) {
                   } event-item-body border-green-900/60 relative mb-4 inline-flex h-[120px] w-full 
                   translate-x-[-53px]  translate-y-[1px] gap-4 border-l`}
                 >
-                  <div className='relative grid h-[60px] w-1/3 max-w-[200px] grid-cols-3 px-2 text-green-900'>
+                  <div className='relative grid h-[60px] w-1/3 min-w-[90px] max-w-[200px] grid-cols-3 px-2 text-green-900'>
                     <div className=' text-center'>
-                      <h2>{item?.event_date?.start?.date}</h2>
-                      <h2>{item?.event_date?.start?.month}</h2>
+                      <p>{item?.event_date?.start?.date}</p>
+                      <p>{item?.event_date?.start?.month}</p>
                     </div>
                     {item?.event_date?.end && <p className='long-dash relative w-full ' />}
                     <div className=' text-center'>
-                      <h2>{item?.event_date?.end?.date}</h2>
-                      <h2>{item?.event_date?.end?.month}</h2>
+                      <p>{item?.event_date?.end?.date}</p>
+                      <p>{item?.event_date?.end?.month}</p>
                     </div>
                   </div>
                   <div className='border-l border-green-900/60 pl-2 text-green-900'>
-                    <p className='text-[10px] leading-[2px] font-mono'> {item?.category} </p>
+                    <p className='font-mono text-[10px] leading-[2px]'> {item?.category} </p>
                     <div className='pb-2'>
                       <h3 className='font-bold'> {item?.title?.en} </h3>
                       <h3 className='font-bold'> {item?.title?.zh} </h3>
@@ -102,16 +102,16 @@ export default function EventList({ displayFilteredData }) {
 
                     <div
                       ref={(element) => setRefs(element, item?.id, eventBodyMoreTextRefs)}
-                      className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden md:max-w-[1000px] font-mono'
+                      className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden font-mono md:max-w-[1000px]'
                     >
                       <p className='zh'> {item?.description?.zh} </p>
                       <p> {item?.description?.en} </p>
                       {item?.host?.zh ? <p className='zh pt-4'>藝術家: {item?.host?.zh}</p> : ''}
-                      {item?.host?.en ? <p >Artist: {item?.host?.en}</p> : ''}
+                      {item?.host?.en ? <p>Artist: {item?.host?.en}</p> : ''}
                       <p className='zh'> {item?.host_bio?.zh} </p>
                       <p> {item?.host_bio?.en} </p>
                       <a
-                        className='flex justify-end hover:text-red-400'
+                        className='mt-2 flex justify-end hover:text-red-400'
                         onClick={() => routerMiddleware.push(`/events/${convertSpaceToDashLowerCase(item?.id)}`)}
                       >
                         <Button>SIGN UP -&gt;</Button>
@@ -123,6 +123,6 @@ export default function EventList({ displayFilteredData }) {
             </div>
           ))
         : ''}
-    </main>
+    </>
   )
 }

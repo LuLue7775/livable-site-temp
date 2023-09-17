@@ -13,7 +13,7 @@ const Menu = () => {
     <div
       className={`
           ${isMenuOpened ? 'left-[1rem]' : 'left-[-350px]'} duration-300 
-        absolute  top-[1rem] z-20 flex h-[400px] w-[350px] 
+        absolute  top-[1rem] z-20 flex h-[400px] w-[min(90%,350px)]  
         flex-col justify-between rounded-sm bg-green-900/10 p-4 font-mono text-lg	backdrop-blur-md backdrop-sepia-0
     `}
     >
@@ -26,11 +26,11 @@ const Menu = () => {
           {' '}
           <li>THE LIVABLE STUDIO</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/events')}className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/events')} className='hover:text-red-400'>
           {' '}
           <li>EVENTS</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/checkout')}  className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/checkout')} className='hover:text-red-400'>
           {' '}
           <li>CHECKOUT</li>
         </a>
