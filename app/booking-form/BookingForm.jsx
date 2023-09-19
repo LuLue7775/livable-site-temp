@@ -88,7 +88,7 @@ export default function BookingForm() {
         style={{ opacity: 0 }}
         className='relative 
                   bottom-0 min-h-[600px] 
-                  w-full min-w-[350px] translate-x-[-4px] translate-y-[1px] overflow-hidden border-l border-green-900/60 p-6 md:w-[calc(100%-200px)]'
+                  w-full min-w-[350px] translate-x-[-4px] translate-y-[1px] border-l border-green-900/60 p-6 md:w-[calc(100%-200px)]'
       >
         <button className='cursor-pointer hover:text-red-400' onClick={() => router.back()}>
           {' '}
