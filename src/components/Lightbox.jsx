@@ -38,10 +38,10 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
               width={1200}
               height={1200}
               style={{
-                maxHeight: '80%',
-                maxWidth: '100%',
-                minHeight: '400px',
-                minWidth: '500px',
+                maxHeight: '1200px',
+                maxWidth: '1200px',
+                minHeight: '300px',
+                minWidth: '300px',
                 width: 'auto',
                 height: 'auto',
                 objectfit: 'contain',

@@ -103,7 +103,8 @@ export const getMapDocsFromFirestore = async (queryKey) => {
 }
 
 export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
-  const first = query(collection(db, queryKey), limit(numPerRequest))
+  // const first = query(collection(db, queryKey), limit(numPerRequest))
+  const first = query(collection(db, queryKey))
   const querySnapshot = await getDocs(first)
   const dataMap = querySnapshot.docs.map((doc) => {
     return doc.data()
@@ -144,16 +145,18 @@ export const getNextPageDocsFromFirestore = async (queryKey, pageParam) => {
   }
 }
 
-export const addDocToFirestore = async (collection, docId, objectToAdd) => {
+export const addDocToFirestore = async ({ collection, docId, objectToAdd }) => {
   const docRef = doc(db, collection, docId)
-  let result = null
+  let status = null
   let error = null
   try {
-    result = await setDoc(docRef, objectToAdd, { merge: true })
+    await setDoc(docRef, objectToAdd, { merge: true })
+    status = 'resolved'
   } catch (e) {
+    status = 'rejected'
     error = e
   }
-  return { result, error }
+  return { status, error }
 }
 
 export const getDocFromFirestore = async (collection, docId) => {

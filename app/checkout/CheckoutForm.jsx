@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { introAnimation } from '@/utils/animations'
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ onSubmit }) => {
   const formRef = useRef()
   useEffect(() => {
     if (!formRef.current) return
@@ -16,6 +16,7 @@ const CheckoutForm = () => {
     register,
     setValue,
     formState: { errors },
+    handleSubmit,
   } = useFormContext()
 
   const [data, setData] = useState({
@@ -44,7 +45,11 @@ const CheckoutForm = () => {
   }
 
   return (
-    <form ref={formRef} style={{ opacity: 0}} className='m-6 max-w-[370px] text-green-900'>
+    <form
+      ref={formRef}
+      style={{ opacity: 0 }}
+      className='m-6 max-w-[370px] text-green-900'
+    >
       <h1 className='font-bold'> Checkout Information</h1>
       <div className='grid gap-2 '>
         <Input

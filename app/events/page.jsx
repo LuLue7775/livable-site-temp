@@ -8,7 +8,7 @@ export default async function Events() {
 
   await queryClient.prefetchQuery({
     queryKey: ['events'],
-    queryFn: async () => await prefetchFromFirestore('events', 10),
+    queryFn: async () => await prefetchFromFirestore('events'),
   })
 
   const dehydratedState = dehydrate(queryClient)

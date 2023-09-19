@@ -1,6 +1,6 @@
 'use client'
 import CheckoutEvents from './CheckoutEvents'
-import CheckoutProducts from './CheckoutProducts'
+// import CheckoutProducts from './CheckoutProducts'
 import CheckoutTotal from './CheckoutTotal'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
 import { useRef, useEffect } from 'react'

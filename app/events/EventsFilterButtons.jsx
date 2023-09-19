@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { filterIncomingData } from '@/utils/functions'
+import FilterButton from '@/components/FilterButton'
 
 const EventsFilterButtons = ({ moredata, setFilteredData }) => {
   const [filters, setFilters] = useState([])
@@ -39,113 +40,22 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
       <h2 >FILTER</h2>
       <div className='flex flex-wrap items-center'>
         <label> MATERIALS | </label>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('metal')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> metal </span>
-          </label>
-        </div>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('ceramic')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> ceramic </span>
-          </label>
-        </div>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('wood')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> wood </span>
-          </label>
-        </div>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded  text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('mixed-media')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> mixed-media </span>
-          </label>
-        </div>
+        <FilterButton  moredata={moredata} tag={'metal'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'ceramic'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'wood'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'mixed-media'} handleFilterClicked={handleFilterClicked} />
       </div>
 
       <div className='flex flex-wrap items-center'>
         <label> FORMATS | </label>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('workshop')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> workshop </span>
-          </label>
-        </div>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('exhibition')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> exhibition </span>
-          </label>
-        </div>
+        <FilterButton  moredata={moredata} tag={'workshop'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'exhibition'} handleFilterClicked={handleFilterClicked} />
       </div>
       <div className='flex flex-wrap items-center'>
         <label> DATE | </label>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('OCT_2023')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> OCT_2023 </span>
-          </label>
-        </div>
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('NOV_2023')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> NOV_2023 </span>
-          </label>
-        </div>
-
-        <div className='[&:hover]:bg-red-400/50 float-left m-2 overflow-hidden rounded border-[1px] border-green-900'>
-          <label className=' filter-label float-left h-6 w-auto rounded text-center'>
-            <input
-              className='text-white absolute hidden'
-              type='checkbox'
-              onClick={() => handleFilterClicked('archive')}
-              disabled={!moredata?.pages?.length}
-            />
-            <span className='block px-2 text-center '> archive </span>
-          </label>
-        </div>
+        <FilterButton  moredata={moredata} tag={'OCT_2023'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'NOV_2023'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton  moredata={moredata} tag={'archive'} handleFilterClicked={handleFilterClicked} />
       </div>
     </div>
   )

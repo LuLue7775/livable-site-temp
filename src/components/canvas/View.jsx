@@ -1,5 +1,6 @@
 'use client'
 
+import useMediaQuery from '@/utils/hooks/useMediaQuery'
 import { forwardRef, Suspense, useImperativeHandle, useRef, useEffect, useState } from 'react'
 import { OrbitControls, OrthographicCamera, View as ViewImpl } from '@react-three/drei'
 import { Three } from '@/helpers/components/Three'
@@ -19,6 +20,20 @@ export const Common = ({ color }) => {
     }
   }, [])
 
+  const [zoom, setZoom] = useState(1)
+    const isPhone = useMediaQuery('only screen and (max-width : 390px)')
+    const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
+  useEffect(() => {
+    if (isPhone) {
+      setZoom(.5)
+    } else if(isSmallDevice){
+      setZoom(.7)
+    } else {
+      setZoom(1)
+    }
+  }, [isSmallDevice])
+
+
   return (
     <Suspense fallback={null}>
       {color && <color attach='background' args={[color]} />}
@@ -31,9 +46,9 @@ export const Common = ({ color }) => {
       <OrthographicCamera
         makeDefault
         position={[0, 0, perspective]}
-        zoom={1}
-        near={-5000}
-        far={5000}
+        zoom={zoom}
+        near={-3000}
+        far={3000}
         left={-fieldOfView / 2}
         right={fieldOfView / 2}
         top={fieldOfView / 2}

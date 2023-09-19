@@ -70,7 +70,7 @@ export default function Page() {
         </section>
 
         <section className='pointer-events-none absolute z-0 h-full w-full text-center'>
-          <View orbit className='flex h-full w-full items-center justify-center'>
+          <View className='flex h-full w-full items-center justify-center'>
             <Suspense fallback={null}>
               <Tiles isReveal={isReveal} />
               <Common />

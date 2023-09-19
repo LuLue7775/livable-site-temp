@@ -4,26 +4,21 @@ import EventDescription from '@/events/EventDescription'
 import EventsFilterButtons from '@/events/EventsFilterButtons'
 import LoadingIcon from '@/components/LoadingIcon'
 import {
-  getNextPageDocsFromFirestore,
-  addCollectionAndDocuments,
-  getEventsFirestore,
-  addDocuments,
+  getDocsFromFirestore,
+  // getNextPageDocsFromFirestore,
+  // addCollectionAndDocuments,
+  // addDocuments,
 } from '@/utils/firebase/firebase.utils'
-import { VACANCY } from '@/utils/firebase/mockData2'
-import { EVENT_DATA } from '@/utils/firebase/mockData'
-import { filterIncomingData, convertSpaceToDashLowerCase } from '@/utils/functions'
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+// import { VACANCY } from '@/utils/firebase/mockData2'
+// import { EVENT_DATA } from '@/utils/firebase/mockData'
+// import { filterIncomingData, convertSpaceToDashLowerCase } from '@/utils/functions'
+// import { useInView } from 'react-intersection-observer'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { useInView } from 'react-intersection-observer'
 import { introAnimation } from '@/utils/animations'
 
 const EventLayout = () => {
-  // const { data: events } = useQuery({
-  //   queryKey: ['eventlist'],
-  //   queryFn: getEventsFirestore,
-  // })
-
   // useEffect(() => {
   //   addDocuments('events', EVENT_DATA)
   // }, [])
@@ -39,26 +34,40 @@ const EventLayout = () => {
     data: moredata,
     error,
     isFetching,
-    fetchNextPage,
-  } = useInfiniteQuery({
+  } = useQuery({
     queryKey: ['events'],
-    queryFn: ({ pageParam = 1, signal }) => getNextPageDocsFromFirestore('events', pageParam, signal),
-    getNextPageParam: (lastPage, allPages) => (lastPage ? lastPage.nextPageParam : null),
-    refetchOnWindowFocus: false,
+    queryFn: async () => await getDocsFromFirestore('events'),
   })
-  const [displayFilteredData, setFilteredData] = useState(moredata?.pages?.[0]?.data || [])
+  const [displayFilteredData, setFilteredData] = useState(moredata)
+    useEffect(() => {
+    setFilteredData(moredata)
+  }, [moredata])
 
-  const handleReadmore = () => {
-    fetchNextPage()
-  }
+  // const {
+    //   data: moredata,
+    //   error,
+    //   isFetching,
+    //   fetchNextPage,
+    // } = useInfiniteQuery({
+  //   queryKey: ['events'],
+  //   queryFn: ({ pageParam = 1, signal }) => getNextPageDocsFromFirestore('events', pageParam, signal),
+  //   getNextPageParam: (lastPage, allPages) => lastPage.nextPageParam,
+  //   // getNextPageParam: (lastPage, allPages) => (!lastPage ? lastPage.nextPageParam : null),
+  //   refetchOnWindowFocus: false,
+  // })
+  // const [displayFilteredData, setFilteredData] = useState(moredata?.pages?.[0]?.data || [])
+      
+  // const handleReadmore = () => {
+  //   fetchNextPage()
+  // }
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  })
+  // const { ref, inView } = useInView({
+  //   threshold: 0,
+  // })
 
-  useEffect(() => {
-    if (inView) handleReadmore()
-  }, [inView])
+  // useEffect(() => {
+  //   if (inView) handleReadmore()
+  // }, [inView])
 
   // Errors in the 4xx range can be handled locally (e.g. if some backend validation failed),
   // while all 5xx server errors can be propagated to the Error Boundary
@@ -81,7 +90,7 @@ const EventLayout = () => {
 
       <div className='relative h-auto pb-8 md:ml-0 md:h-3/5 md:max-h-[calc(100vh-300px)] md:overflow-y-scroll md:pb-20'>
         {isFetching ? <LoadingIcon /> : <EventList displayFilteredData={displayFilteredData} />}
-        <div ref={ref} className='h-12 ' />
+        {/* <div ref={ref} className='h-12 ' /> */}
       </div>
     </div>
   )

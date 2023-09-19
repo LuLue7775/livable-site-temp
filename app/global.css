@@ -60,7 +60,7 @@
     position: absolute;
     top: -2rem;
     left: -11rem;
-    font-family: var(--ysabeau_office);
+    font-family: var(--ysabeau);
     font-style: italic;
     color: #14532d;
   }
@@ -70,7 +70,7 @@
       position: absolute;
       top: -2rem;
       left: -2.5rem;
-      font-family: var(--ysabeau_office);
+      font-family: var(--ysabeau);
       font-style: italic;
       color: #14532d;
     }

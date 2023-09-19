@@ -11,7 +11,7 @@ export const CartContext = createContext({
   cartItems: [],
   eventItems: {},
   calculateTotalQuantity: 0,
-  calculateCartTotal: () => {},
+  cartTotal: {},
   calculateEventTotal: () => {},
   addEventsToCart: () => {},
   removeEventsFromCart: () => {},
@@ -188,8 +188,8 @@ export function CartProvider({ children }) {
     })
   }
 
-  function calculateCartTotal() {
-    const eventTotal = Object.entries(eventItems).reduce((totalAcc, [eventid, timeBucket]) => {
+  const cartTotal = {
+    eventTotal: Object.entries(eventItems).reduce((totalAcc, [eventid, timeBucket]) => {
       // if this event is {}
       if (!Object.keys(timeBucket).length) return totalAcc
       else {
@@ -201,11 +201,8 @@ export function CartProvider({ children }) {
         totalAcc += eventAcc
         return totalAcc
       }
-    }, 0)
-
-    const productTotal = 0
-
-    return { eventTotal, productTotal }
+    }, 0),
+    productTotal: 0,
   }
 
   function clearCart() {}
@@ -229,7 +226,7 @@ export function CartProvider({ children }) {
         addEventsToCart,
         removeEventsFromCart,
         editForm,
-        calculateCartTotal,
+        cartTotal,
         clearCart,
         calculateTotalQuantity,
         // calculateEventTotal,

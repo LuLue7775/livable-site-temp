@@ -12,7 +12,7 @@ module.exports = {
       fontFamily: {
         // serif: ['var(--eb_garamond)'],
         serif: ['var(--sometimes)'],
-        mono: ['var(--ysabeau_office)'],
+        mono: ['var(--ysabeau)'],
         zh: ['var(--noto_serif_hk)'],
       },
       width: {

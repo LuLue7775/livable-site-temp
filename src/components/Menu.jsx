@@ -22,15 +22,15 @@ const Menu = () => {
           {' '}
           [x close ]{' '}
         </a>
-        <a onClick={() => routerMiddleware.push('/')} className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/')} className='hover:text-red-400 cursor-pointer'>
           {' '}
           <li>THE LIVABLE STUDIO</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/events')} className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/events')} className='hover:text-red-400 cursor-pointer'>
           {' '}
           <li>EVENTS</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/checkout')} className='hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/checkout')} className='hover:text-red-400 cursor-pointer'>
           {' '}
           <li>CHECKOUT</li>
         </a>

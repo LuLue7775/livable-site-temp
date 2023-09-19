@@ -42,7 +42,7 @@ const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
         {/* Blur mask for days without availability */}
         <div
           className={cx(
-            'absolute -inset-x-4 -inset-y-1 blur-sm backdrop-saturate-0 transition',
+            'absolute -inset-x-4 -inset-y-1 backdrop-blur-sm backdrop-saturate-0 transition',
             hasAvailability ? 'pointer-events-none z-0 opacity-0 duration-300 ease-out' : 'z-10 opacity-100 ease-in',
           )}
         ></div>
