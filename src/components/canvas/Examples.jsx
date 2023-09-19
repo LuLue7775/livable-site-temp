@@ -1,8 +1,9 @@
 'use client'
 
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { Line, useCursor, MeshDistortMaterial } from '@react-three/drei'
-import { useMemo, useRef, useState, useEffect} from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
@@ -94,14 +95,16 @@ export function TileC({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
 }
 
 export function Tiles({ isReveal }) {
+  const routerMiddleware = useDelayRouting()
+
   const tileARef = useRef()
   const tileBRef = useRef()
   const tileCRef = useRef()
-  const textRef = useRef()  
+  const textRef = useRef()
 
   const tileSize = { width: 500, height: 500 }
   const [tileYCenter, setTileYCenter] = useState(0)
-  
+
   const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
   useEffect(() => {
     if (isSmallDevice) {
@@ -122,14 +125,14 @@ export function Tiles({ isReveal }) {
       <TileB
         tileRef={tileBRef}
         modelPath={'/tileB.glb'}
-        relativePos={{ x: 2, y: tileYCenter -550 }}
+        relativePos={{ x: 2, y: tileYCenter - 550 }}
         isReveal={isReveal}
         tileSize={tileSize}
       />
       <TileC
         tileRef={tileCRef}
         modelPath={'/tileC.glb'}
-        relativePos={{ x: -550, y: tileYCenter+ 5 }}
+        relativePos={{ x: -550, y: tileYCenter + 5 }}
         isReveal={isReveal}
         tileSize={tileSize}
       />
@@ -153,7 +156,7 @@ export function Tiles({ isReveal }) {
         <p className='max-w-[calc(100%-200px)] '>
           SOME KEY CONCEPT RIGHT HERE. BETTER BE SOMETHING
           <a
-            href={'/events/first-opening'}
+            onClick={() => routerMiddleware.push('/events/first-opening')}
             className=' cursor-pointer bg-green-900 text-lg text-white hover:bg-red-400'
           >
             {' '}

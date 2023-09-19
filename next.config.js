@@ -16,6 +16,7 @@ const nextConfig = {
   // compiler: {
   //   styledComponents: true,
   // },
+
   /** These are added bc dev mode is slow */
   fastRefresh: true,
   concurrentFeatures: true,
@@ -27,6 +28,8 @@ const nextConfig = {
   experimental: {
     reactRoot: 'concurrent',
     appDir: true,
+    /** to 'use server' */
+    serverActions: true,
   },
   images: {
     remotePatterns: [

@@ -1,4 +1,6 @@
 'use client'
+
+import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { addDocToFirestore, getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import Button from '@/components/Button'
 import { useCart } from '@/context/cartContext'
@@ -7,10 +9,25 @@ import { useFormContext } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useState, useEffect } from 'react'
 import ShortUniqueId from 'short-unique-id'
-import { getCurrentTaipeiTimeString } from 'node-ecpay-aio'
+
+async function createCheckOutSessionAPI(paymentData) {
+  try {
+    await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(paymentData),
+    })
+  } catch (error) {
+    console.warn('Handle create order session error', error?.message)
+  }
+}
 
 const CheckoutTotal = () => {
-  const { cartTotal, eventItems } = useCart()
+  const routerMiddleware = useDelayRouting()
+
+  const { cartTotal, eventItems, setEvent } = useCart()
 
   const { data: bookingAvailabilities } = useQuery({
     queryKey: ['event-availabilities'],
@@ -20,15 +37,8 @@ const CheckoutTotal = () => {
 
   const { mutate, status, reset } = useMutation({
     mutationFn: addDocToFirestore,
-    // mutationFn: async() => await addDocToFirestore('order', 'order01', { event: {}, payer: {}}  ),
-    onSuccess: (data) => {
-      console.log(data)
-    },
-    onError: (error) => {
-      console.error(error)
-    },
-    onSettled: () => {
-      console.log('settled')
+    onSuccess: async (data) => {
+      // console.log(data)
     },
   })
 
@@ -46,21 +56,24 @@ const CheckoutTotal = () => {
     if (availability === false) return
 
     // create valid data for ecpay
-    console.log('formData = ', formData)
+    // console.log('formData = ', formData)
     const orderData = transformToDBOrderData({
       ...formData,
       eventItems,
       total: cartTotal,
       items: ECPAY_ALLITEMS({ eventItems }).join('#'),
     })
-    console.log(orderData)
 
-    // hit api to createFirebaseOrder and createCheckOutSession
-    // mutate({ collection: 'order', docId: 'order02', objectToAdd: data })
+    const ecpayFormData = transformDataToEcpayFormat(orderData)
 
-    // 以下這些在 mutaion onSuccess
-    // clear localstorage
+    // hit api to createFirebaseOrder
+    mutate({ collection: 'orders', docId: orderData.orderId, objectToAdd: orderData })
+    // createCheckOutSession for /payment
+    await createCheckOutSessionAPI(ecpayFormData) // this goes to cookie
     // direct to /payment to generate ecpay page
+    routerMiddleware.push('/payment')
+    // clear localstorage
+    // setEvent({})
 
     /**@TODO MAKE LOCALSTOAGE EXPIRE */
   }
@@ -109,30 +122,42 @@ function checkAvailability({ setErrorHandler, eventItems, bookingAvailabilities 
   })
 }
 
+// function cleanedEvents(events) {
+//   Object.values(events).reduce( (acc, event ) => {
+//     if (Object.keys(event).length) {
+//       acc[event]
+//     }
+//     return acc
+//   }, {})
+// }
+
 function transformToDBOrderData(data) {
-  console.log(data)
   const tradeID = new ShortUniqueId({ length: 20 })
-  const timestamp = new Date().toISOString()
-  const result = tradeID.formattedUUID(`${timestamp}-$r4`) // timestamp is optional
+  // const timestamp = new Date().toISOString() // 2023-09-19T06:40:58.227Z
+  const timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })
+  // timestamp.setUTCHours(timestamp.getUTCHours() + 8)
+  const genOrderId = tradeID.formattedUUID(`${timestamp.replace(/\D/g, '')}$r4`) // timestamp is optional
 
   const orderData = {
     currency: 'NTD',
     paymentMethod: 'ecpay',
-    orderId: result,
-    total: data.total,
-    eventTotal: data?.eventTotal ?? '0',
+    status: 'pending',
+    orderId: genOrderId,
+    total: data.total.eventTotal + data.total.productTotal,
+    eventTotal: data.total.eventTotal ?? '0',
     productTotal: data?.productTotal ?? '0',
     items: data.items,
     // products: data.products,
+    // events: cleanedEvents(data.eventItems),
     events: data.eventItems,
     payer: { name: data.payer.name, phone: data.payer.phone, email: data.payer.email },
     address: {
       address: data.payer.address || '',
       city: data.payer.city || '',
-      country: data.payer.country || '',
+      nation: data.payer.nation || '',
     },
 
-    createdAt: getCurrentTaipeiTimeString(),
+    createdAt: covertTimestamp(timestamp),
   }
 
   return orderData
@@ -159,4 +184,21 @@ function ECPAY_ALLITEMS({ eventItems }) {
     })
   })
   return [...events]
+}
+
+function covertTimestamp(timestamp) {
+  // Split the input string into date and time parts
+  const [datePart, timePart] = timestamp.split(' ')
+
+  // Split the date part into year, month, and day
+  const [year, month, day] = datePart.split('/')
+
+  // Pad the month and day with leading zeros
+  const paddedMonth = month.padStart(2, '0')
+  const paddedDay = day.padStart(2, '0')
+
+  // Create a new formatted string
+  const formattedString = `${year}/${paddedMonth}/${paddedDay} ${timePart}`
+
+  return formattedString
 }

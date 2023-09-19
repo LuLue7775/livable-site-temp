@@ -31,18 +31,20 @@ const noto_serif_hk = Noto_Serif_HK({
 })
 
 export const metadata = {
-  title: 'Next.js + Three.js',
-  description: 'A minimal starter for Nextjs + React-three-fiber and Threejs.',
+  title: 'The Livable Studio',
+  description: 'A website created by The Livable Studio.',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang='en' className='antialiased'>
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+      <head>
+        <meta charSet='UTF-8' />
+        <meta
+          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
+          name='viewport'
+        />
+      </head>
       <body
         className={`${sometimes.variable} ${eb_garamond.variable} ${ysabeau.variable} ${noto_serif_hk.variable} relative font-serif`}
       >

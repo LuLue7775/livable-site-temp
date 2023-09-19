@@ -10,6 +10,7 @@ const genUuid = new ShortUniqueId({ length: 10 })
 export const CartContext = createContext({
   cartItems: [],
   eventItems: {},
+  eventItems: () => {},
   calculateTotalQuantity: 0,
   cartTotal: {},
   calculateEventTotal: () => {},
@@ -73,7 +74,7 @@ export function CartProvider({ children }) {
 }
    */
   function addEventsToCart(formData, time, eventId) {
-    const bookId = genUuid()
+    const bookId = genUuid.rnd()
     setEvent((currItems) => {
       let returnData = {}
       // if this event hasn't exist in cart yet
@@ -223,6 +224,7 @@ export function CartProvider({ children }) {
       value={{
         cartItems,
         eventItems,
+        setEvent,
         addEventsToCart,
         removeEventsFromCart,
         editForm,
