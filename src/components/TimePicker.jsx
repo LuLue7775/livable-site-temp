@@ -32,6 +32,11 @@ const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
       return isSameDay(parseDateTime(availability.startTime), selectedDate)
     })
   const hasAvailability = availabilities?.length > 0
+  availabilities?.sort((a, b) => {
+    const startTimeA = new Date(a.startTime).getTime()
+    const startTimeB = new Date(b.startTime).getTime()
+    return startTimeA - startTimeB
+  })
 
   return (
     <div className='relative grid h-full w-full grid-rows-[auto,1fr] overflow-x-hidden px-4 sm:px-8 lg:px-6 xl:px-10'>
@@ -82,9 +87,8 @@ const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
 export default TimePicker
 
 function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
-    const routerMiddleware = useDelayRouting()
-
-  const timeFormatter = useDateFormatter({ timeStyle: 'short' })
+  const routerMiddleware = useDelayRouting()
+  const timeFormatter = useDateFormatter({ timeStyle: 'short', hour12: false })
   const [selectedTime, setSelectedTime] = useState(null)
 
   const isSelected = selectedTime === availability.startTime
@@ -111,7 +115,10 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
           onClick={() => setSelectedTime(availability.startTime)}
         >
           {timeFormatter.format(new Date(availability.startTime))}
-          <p className='zh text-sm'> 名額 <span className='font-mono'> {' '}seats:</span> {availability?.stock} </p>
+          <p className='zh text-sm'>
+            {' '}
+            名額 <span className='font-mono'> seats:</span> {availability?.stock}{' '}
+          </p>
         </button>
       </div>
       <div className='m-2 basis-1/2'>
@@ -121,7 +128,9 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
           tabIndex={isSelected ? 0 : -1}
           className='w-full hover:text-red-400 focus-visible:ring-inset focus-visible:ring-offset-0'
           onClick={() =>
-            routerMiddleware.push(`/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`)
+            routerMiddleware.push(
+              `/booking-form?time=${availability.startTime}&eventEn=${eventId}&eventZh=${eventTitleZh}`,
+            )
           }
         >
           CONFIRM

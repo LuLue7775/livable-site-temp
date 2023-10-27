@@ -13,7 +13,7 @@ export const checkoutSchema = yup.object({
     name: yup.string().required('Name is required'),
     phone: yup.string().required('Phone is required').matches(phoneRegex, 'Phone number is not valid'),
     email: yup.string().nullable().email().required('Email is required'),
-    address: yup.string().required('Address is required'),
+    street: yup.string().required('Street is required'),
     city: yup.string().required('City is required'),
     nation: yup.string().required('Nation is required'),
   }),

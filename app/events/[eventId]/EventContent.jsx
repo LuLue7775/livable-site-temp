@@ -23,11 +23,8 @@ const EventContent = ({ event }) => {
       <div className='relative mt-20 h-full w-full overflow-x-hidden overflow-y-scroll'>
         <div ref={titleRef} style={{ opacity: 0}} >
           <h1 className='mx-6 '>
-            《{event?.result?.title?.zh}》 
+            《{event?.result?.title?.zh}》{' '} {event?.result?.title?.en}
           </h1>
-          <h2 className='mx-6 '>
-            {event?.result?.title?.en}
-          </h2>
           <p className='zh relative mx-6 mb-4'>以下為此活動可選日期時間 
             <span className='font-mono'>{' '}Available date and time of this event.</span>
           </p>

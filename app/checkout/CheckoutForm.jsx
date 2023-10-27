@@ -23,7 +23,7 @@ const CheckoutForm = ({ onSubmit }) => {
     [`payer.name`]: '',
     [`payer.email`]: '',
     [`payer.phone`]: '',
-    [`payer.address`]: '',
+    [`payer.street`]: '',
     [`payer.city`]: '',
     [`payer.nation`]: '',
   })
@@ -33,7 +33,7 @@ const CheckoutForm = ({ onSubmit }) => {
       name: data[`payer.name`],
       email: data[`payer.email`],
       phone: data[`payer.phone`],
-      address: data[`payer.address`],
+      street: data[`payer.street`],
       city: data[`payer.city`],
       nation: data[`payer.nation`],
     })
@@ -45,11 +45,7 @@ const CheckoutForm = ({ onSubmit }) => {
   }
 
   return (
-    <form
-      ref={formRef}
-      style={{ opacity: 0 }}
-      className='m-6 max-w-[370px] text-green-900'
-    >
+    <form ref={formRef} style={{ opacity: 0 }} className='m-6 max-w-[370px] text-green-900'>
       <h1 className='font-bold'> Checkout Information</h1>
       <div className='grid gap-2 '>
         <Input
@@ -90,15 +86,15 @@ const CheckoutForm = ({ onSubmit }) => {
         <Input
           register={register}
           onChange={handleChange}
-          name='payer.address'
-          id='payer.address'
-          label='地址 Address'
+          name='payer.street'
+          id='payer.street'
+          label='地址 Street'
           type='stirng'
           required
           placeholder='郵遞區號 地址'
         />
-        {errors?.payer?.address?.message && (
-          <span className='text-sm text-red-500'>{errors?.payer?.address?.message}</span>
+        {errors?.payer?.street?.message && (
+          <span className='text-sm text-red-500'>{errors?.payer?.street?.message}</span>
         )}
 
         <Input

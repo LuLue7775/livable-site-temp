@@ -8,20 +8,27 @@ const EventDateTime = ({ formRef, eventTitleZh, eventTitleEn }) => {
   return (
     <SelectedDateProvider>
       <div
-        ref={formRef} style={{ opacity: 0}}
-        className='relative grid h-auto min-h-[358px] w-full
+        ref={formRef}
+        style={{ opacity: 0 }}
+        className='relative  h-auto min-h-[358px]
+                  w-full
                   place-items-center
                   md:h-[40%]
-                  md:w-3/5
-                  md:min-w-[800px] md:max-w-[1200px] md:grid-cols-[1fr,250px] md:divide-x
-                  lg:grid-cols-[1fr,30%]
-                  xl:grid-cols-[1fr,300px]      '
+                  md:min-w-[1000px] 
+                  flex
+                  flex-col
+                  md:flex-row
+                  '
       >
-        <div className='h-full w-full px-6 sm:px-8  xl:px-10'>
+        <div className='h-full w-full px-6 sm:px-8 md:basis-2/5 md:min-w-[450px] md:max-w-[600px] xl:px-10'>
           <Calendar />
         </div>
-        <div className='h-full w-full border-l md:overflow-y-scroll'>
+        <div className='h-full w-full border-l md:basis-[300px] md:overflow-y-scroll'>
           <TimePicker eventTitleZh={eventTitleZh} eventTitleEn={eventTitleEn} />
+        </div>
+        <div className='flex-grow flex justify-end h-full orientation-sideways vertical-writing-rl p-4 '>
+          <p> scroll down </p>
+          
         </div>
       </div>
     </SelectedDateProvider>

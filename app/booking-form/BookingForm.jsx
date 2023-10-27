@@ -95,21 +95,16 @@ export default function BookingForm() {
           [ &lt;- back to event ]
         </button>
 
-        <h1> Please confirm your booking </h1>
-        <div className='mt-8 space-y-2 '>
+        <h1 className='text-xl'> 即將為您預約 {eventZh} </h1>
+        <h1 className='text-xl'> You are about to book {eventEn}</h1>
+        <div className='space-y-2 '>
           <p>
-            你即將預約 <strong>{eventZh}</strong>.
-          </p>
-          <p>
-            You are about to book <strong>{eventEn}</strong>.
-          </p>
-          <p>
-            活動時間為 This event will take place on <strong>{formattedTime}</strong>{' '}
+            <strong>{formattedTime}</strong>
           </p>
           <p>請確實填寫正確資訊 Please fill in the form below to confirm.</p>
         </div>
 
-        <div className='mt-8 w-full min-w-[300px] pb-[200px] md:w-1/3'>
+        <div className='mt-8 w-full min-w-[300px] max-w-[400px] pb-[200px] md:w-1/3'>
           <form
             onSubmit={handleSubmit(processForm)}
             onKeyDown={(e) => {

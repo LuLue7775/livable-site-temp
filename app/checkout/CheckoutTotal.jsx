@@ -134,9 +134,18 @@ function checkAvailability({ setErrorHandler, eventItems, bookingAvailabilities 
 function transformToDBOrderData(data) {
   const tradeID = new ShortUniqueId({ length: 20 })
   // const timestamp = new Date().toISOString() // 2023-09-19T06:40:58.227Z
-  const timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })
-  // timestamp.setUTCHours(timestamp.getUTCHours() + 8)
-  const genOrderId = tradeID.formattedUUID(`${timestamp.replace(/\D/g, '')}$r4`) // timestamp is optional
+  const timestamp = new Date().toLocaleString('zh-TW', {
+    timeZone: 'Asia/Taipei',
+    hour12: false,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
+
+  const genOrderId = tradeID.formattedUUID(`${timestamp.replace(/\D/g, '').replace(/\d{2}:\d{2}$/, '')}HH$r2`)
 
   const orderData = {
     currency: 'NTD',
@@ -152,7 +161,7 @@ function transformToDBOrderData(data) {
     events: data.eventItems,
     payer: { name: data.payer.name, phone: data.payer.phone, email: data.payer.email },
     address: {
-      address: data.payer.address || '',
+      street: data.payer.street || '',
       city: data.payer.city || '',
       nation: data.payer.nation || '',
     },
