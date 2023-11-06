@@ -27,7 +27,7 @@ async function createCheckOutSessionAPI(paymentData) {
 const CheckoutTotal = () => {
   const routerMiddleware = useDelayRouting()
 
-  const { cartTotal, eventItems, setEvent } = useCart()
+  const { cartTotal, eventItems } = useCart()
 
   const { data: bookingAvailabilities } = useQuery({
     queryKey: ['event-availabilities'],
@@ -35,15 +35,15 @@ const CheckoutTotal = () => {
     refetchOnWindowFocus: true,
   })
 
-  const { mutate, status, reset } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: addDocToFirestore,
-    onSuccess: async (data) => {
-      // console.log(data)
-    },
+    // onSuccess: async (data) => {
+    //   console.log(data)
+    // },
   })
 
   const {
-    formState: { errors },
+    // formState: { errors },
     handleSubmit,
   } = useFormContext()
 
@@ -51,7 +51,6 @@ const CheckoutTotal = () => {
   const [errorHandler, setErrorHandler] = useState('')
   const onSubmit = async (formData) => {
     // check out of stock or available in DB
-
     const availability = checkAvailability({ setErrorHandler, eventItems, bookingAvailabilities })
     if (availability === false) return
 
