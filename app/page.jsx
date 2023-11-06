@@ -1,10 +1,11 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
 import dynamic from 'next/dynamic'
 import { Suspense, useState, useRef, useEffect } from 'react'
 import { introAnimation } from '@/utils/animations'
 
-const Tiles = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Tiles), { ssr: false })
+const Tiles = dynamic(() => import('@/components/canvas/Tiles').then((mod) => mod.Tiles), { ssr: false })
 
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,

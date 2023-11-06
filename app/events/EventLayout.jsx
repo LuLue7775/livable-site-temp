@@ -4,25 +4,17 @@ import EventDescription from '@/events/EventDescription'
 import EventsFilterButtons from '@/events/EventsFilterButtons'
 import LoadingIcon from '@/components/LoadingIcon'
 import {
-  getDocsFromFirestore,
-  // getNextPageDocsFromFirestore,
-  // addCollectionAndDocuments,
-  // addDocuments,
+  // getDocsFromFirestore,
+  getNextPageDocsFromFirestore,
 } from '@/utils/firebase/firebase.utils'
-// import { VACANCY } from '@/utils/firebase/mockData2'
-// import { EVENT_DATA } from '@/utils/firebase/mockData'
-// import { filterIncomingData, convertSpaceToDashLowerCase } from '@/utils/functions'
-// import { useInView } from 'react-intersection-observer'
-import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState, useRef } from 'react'
+
+import { useInView } from 'react-intersection-observer'
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { useEffect, useState, useRef, useMemo } from 'react'
 import { toast } from 'react-hot-toast'
 import { introAnimation } from '@/utils/animations'
 
 const EventLayout = () => {
-  // useEffect(() => {
-  //   addDocuments('events', EVENT_DATA)
-  // }, [])
-
   const buttonsRef = useRef()
   const descriptionRef = useRef()
   useEffect(() => {
@@ -30,54 +22,61 @@ const EventLayout = () => {
     introAnimation([buttonsRef.current, descriptionRef.current])
   }, [])
 
+  /** Without infinite load */
+  // const {
+  //   data: moredata,
+  //   error,
+  //   isFetching,
+  // } = useQuery({
+  //   queryKey: ['events'],
+  //   queryFn: async () => await getDocsFromFirestore('events'),
+  // })
+  // const [displayFilteredData, setFilteredData] = useState(moredata)
+  // useEffect(() => {
+  //   setFilteredData(moredata)
+  // }, [moredata])
+
+  /** With infinite load */
   const {
-    data: moredata,
+    data: storeData,
     error,
     isFetching,
-  } = useQuery({
+    fetchNextPage,
+  } = useInfiniteQuery({
     queryKey: ['events'],
-    queryFn: async () => await getDocsFromFirestore('events'),
+    queryFn: ({ pageParam = 1, signal }) => getNextPageDocsFromFirestore('events', pageParam, signal),
+    getNextPageParam: (lastPage, allPages) => lastPage.nextPageParam,
+    refetchOnWindowFocus: false,
   })
-  const [displayFilteredData, setFilteredData] = useState(moredata)
-    useEffect(() => {
-    setFilteredData(moredata)
-  }, [moredata])
 
-  // const {
-    //   data: moredata,
-    //   error,
-    //   isFetching,
-    //   fetchNextPage,
-    // } = useInfiniteQuery({
-  //   queryKey: ['events'],
-  //   queryFn: ({ pageParam = 1, signal }) => getNextPageDocsFromFirestore('events', pageParam, signal),
-  //   getNextPageParam: (lastPage, allPages) => lastPage.nextPageParam,
-  //   // getNextPageParam: (lastPage, allPages) => (!lastPage ? lastPage.nextPageParam : null),
-  //   refetchOnWindowFocus: false,
-  // })
-  // const [displayFilteredData, setFilteredData] = useState(moredata?.pages?.[0]?.data || [])
-      
-  // const handleReadmore = () => {
-  //   fetchNextPage()
-  // }
+  const [displayFilteredData, setFilteredData] = useState(storeData?.pages?.[0]?.data || [])
+  const flattenedStoreData = useMemo(() => {
+    /** weird bug: storeData is mutated somewhere.  */
+    if (Array.isArray(storeData)) return storeData
+    return storeData?.pages?.flatMap((page) => page.data)
+  }, [storeData])
 
-  // const { ref, inView } = useInView({
-  //   threshold: 0,
-  // })
 
-  // useEffect(() => {
-  //   if (inView) handleReadmore()
-  // }, [inView])
 
-  // Errors in the 4xx range can be handled locally (e.g. if some backend validation failed),
-  // while all 5xx server errors can be propagated to the Error Boundary
+  const handleReadmore = () => {
+    fetchNextPage()
+  }
+
+  const { ref:reachBottom, inView } = useInView({
+    threshold: 0,
+  })
+
+  useEffect(() => {
+    if (inView) handleReadmore();
+  }, [inView])
+
   if (error) return toast.error('An error has occurred: ' + error.message)
 
   return (
     <div className='relative h-full w-full px-8 text-green-900'>
       <div className='relative grid h-auto w-full grid-cols-1 justify-between pb-4 md:h-2/5 md:grid-cols-2 '>
         <div ref={buttonsRef} style={{ opacity: 0 }} className='flex h-full w-full basis-1/2 items-end'>
-          <EventsFilterButtons moredata={moredata} setFilteredData={setFilteredData} />
+          <EventsFilterButtons flattenedStoreData={flattenedStoreData} displayFilteredData={displayFilteredData} setFilteredData={setFilteredData} />
         </div>
         <div
           ref={descriptionRef}
@@ -89,8 +88,8 @@ const EventLayout = () => {
       </div>
 
       <div className='relative h-auto pb-8 md:ml-0 md:h-3/5 md:max-h-[calc(100vh-300px)] md:overflow-y-scroll md:pb-20'>
-        {isFetching ? <LoadingIcon /> : <EventList displayFilteredData={displayFilteredData} />}
-        {/* <div ref={ref} className='h-12 ' /> */}
+        {isFetching ? <LoadingIcon /> : <EventList displayFilteredData={displayFilteredData} reachBottom={reachBottom}/>}
+        
       </div>
     </div>
   )

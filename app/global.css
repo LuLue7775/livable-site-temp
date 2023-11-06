@@ -147,7 +147,10 @@
     height: 0.5px;
   }
 
-  .orientation-sideways { text-orientation: sideways; }
-  .vertical-writing-rl { writing-mode: vertical-rl; }
+  .orientation-sideways {
+    text-orientation: sideways;
+  }
+  .vertical-writing-rl {
+    writing-mode: vertical-rl;
+  }
 }
-

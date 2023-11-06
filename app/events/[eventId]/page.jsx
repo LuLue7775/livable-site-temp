@@ -15,7 +15,7 @@ export default async function Page({ params }) {
 
   return (
     <div className='relative h-full w-full overflow-hidden text-green-900'>
-      <Suspense fallback={ <LoadingIcon/> }>
+      <Suspense fallback={<LoadingIcon />}>
         <EventContent event={event} />
       </Suspense>
     </div>

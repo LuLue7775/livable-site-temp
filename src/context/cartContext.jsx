@@ -211,7 +211,7 @@ export function CartProvider({ children }) {
   const eventQuantity = () => {
     if (!Object.keys(eventItems).length) return 0
     return Object.values(eventItems).reduce((acc, timeSlots) => {
-      Object.values(timeSlots).forEach( attendants => {
+      Object.values(timeSlots).forEach((attendants) => {
         acc += attendants.length
       })
       return acc

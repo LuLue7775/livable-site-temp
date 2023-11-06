@@ -16,10 +16,8 @@ import cx from 'classnames'
 import { useSelectedDate } from '@/context/calendarContext'
 import { getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import { useQuery } from '@tanstack/react-query'
-import { convertSpaceToDashLowerCase } from '@/utils/functions'
-import { usePathname } from 'next/navigation'
 
-const Calendar = () => {
+const Calendar = ({ eventId }) => {
   const { setSelectedDate } = useSelectedDate()
 
   const { data: bookingAvailabilities, isFetching } = useQuery({
@@ -28,13 +26,8 @@ const Calendar = () => {
     refetchOnWindowFocus: false,
   })
 
-  const pathname = usePathname()
-  const getPathname = pathname.split('/')[2]
-  const eventId = convertSpaceToDashLowerCase(decodeURI(getPathname))
-
   // find available time THAT SELECTED DAY
   const availabilities = bookingAvailabilities?.[eventId] && Object.values(bookingAvailabilities?.[eventId])
-  // console.log(bookingAvailabilities)
   if (isFetching) return <LoadingIcon />
 
   return (
@@ -69,7 +62,8 @@ const Calendar = () => {
               date={date}
               className={({ isSelected, isDisabled }) => {
                 const baseClasses = `relative mx-auto grid aspect-square h-12 w-12 max-w-full place-items-center rounded-full 
-                    focus:outline-none focus:ring-1 focus:ring-green-900 focus:ring-primary-400 focus:ring-offset-1`
+                    focus:outline-none focus:ring-1 focus:ring-red-300 focus:ring-offset-1 focus:bg-red-100
+                    `
 
                 return availabilities
                   ? getCalendarCellClasses({
@@ -110,7 +104,7 @@ function MonthsNavigation() {
      aspect-square w-10 max-w-full place-items-center rounded-full font-bold
     border border-green-900 text-green-900 hover:text-primary-600 hover:bg-red-400/50
     focus:outline-none focus:ring focus:ring-green-900 focus:ring-offset-1 
-    disabled:border-green-900 disabled:text-slate-300 disabled:hover:text-white disabled:hover:bg-gray-400/50
+    disabled:border-gray-300 disabled:text-slate-300 disabled:hover:text-white disabled:hover:bg-gray-400/50 
   `
   return (
     <div className='flex w-full items-center justify-around gap-2'>
@@ -130,12 +124,10 @@ function MonthsNavigation() {
 
 function getCalendarCellClasses({ date, isSelected, isDisabled, availabilities, baseClasses }) {
   /**@TODO 這方式每個日期都要iterate一次， 必須把資料結構改成map提升效能*/
-  // check if this date has vacant. any time period is available, make that day available.
-  const hasAvailability = availabilities.some((availability) => {
-    // console.log(parseDateTime(availability.startTime), date)
-    return isSameDay(parseDateTime(availability.startTime), date)
-  })
-
+  // check if this date has vacancy. any time period is available, make that day available.
+  const hasAvailability = availabilities.some(
+    (availability) => availability.startTime && isSameDay(parseDateTime(availability.startTime), date),
+  )
   const isCurrentDay = isToday(date, getLocalTimeZone())
 
   const getStatus = () => {
@@ -145,13 +137,12 @@ function getCalendarCellClasses({ date, isSelected, isDisabled, availabilities, 
     return isCurrentDay ? 'TODAY_NO_VACANCY' : 'NO_VACANCY'
   }
 
-  /**@TODO select animation bg-stripes */
   const statusClasses = {
-    SELECTED: 'bg-primary-600 font-bold',
-    DISABLED: 'pointer-events-none text-slate-300 bg-slate-100',
-    VACANCY: 'bg-primary-100 font-bold text-primary-700 hover:bg-red-400/50',
-    NO_VACANCY: 'text-slate-800/80 hover:bg-slate-100',
-    TODAY_NO_VACANCY: 'font-bold text-primary-700 hover:bg-slate-100 hover:text-slate-800',
+    SELECTED: 'bg-primary-600 font-bold ring-[1px] ring-red-300 outline-none bg-red-100',
+    DISABLED: 'pointer-events-none text-slate-300 bg-slate-100 ',
+    VACANCY: 'bg-primary-100 font-bold text-green-700 hover:bg-red-400/50 ring-[1px] ring-green-900 outline-none',
+    NO_VACANCY: 'text-slate-400 hover:bg-slate-100',
+    TODAY_NO_VACANCY: 'font-bold text-slate-400 hover:bg-slate-100',
   }
 
   return cx(baseClasses, statusClasses[getStatus()])

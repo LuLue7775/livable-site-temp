@@ -38,6 +38,11 @@ const nextConfig = {
         hostname: 'dummyimage.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        port: '',
+      },
     ],
   },
   webpack(config, { isServer }) {

@@ -1,7 +1,7 @@
 'use client'
 
 import Button, { Cross } from '@/components/Button'
-import { Input, Textarea } from '@/components/Input'
+import { Input } from '@/components/Input'
 import { useCart } from '@/context/cartContext'
 import { useState, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'

@@ -5,7 +5,7 @@ import { useContext, createContext, useRef } from 'react'
 export const GlassElementContext = createContext()
 
 export function GlassProvider({ children }) {
-    const glassRef = useRef();
+  const glassRef = useRef()
 
   return <GlassElementContext.Provider value={{ glassRef }}>{children}</GlassElementContext.Provider>
 }

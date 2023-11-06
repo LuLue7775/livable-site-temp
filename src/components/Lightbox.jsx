@@ -8,8 +8,8 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
       className={`
       ${isLightboxOpened ? 'block' : 'hidden'}
       ${isLightboxOpened ? 'animate-fadeIn' : 'animate-fadeOut'}
-        bg-green-900/20
-        fixed left-0 top-0 z-30 h-[100dvh] w-full
+        fixed
+        left-0 top-0 z-30 h-[100dvh] w-full bg-green-900/20
         backdrop-blur-md backdrop-sepia-0       
       `}
     >
@@ -26,7 +26,7 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
             className={` 
                 ${lightboxIndex === i ? 'opacity-100' : 'opacity-0'}
                 ${lightboxIndex === i ? 'animate-fadeIn' : 'animate-fadeOut'}
-                absolute top-1/2 left-1/2
+                absolute left-1/2 top-1/2
                 -translate-x-1/2 -translate-y-1/2
                 `}
           >

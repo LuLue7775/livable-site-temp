@@ -21,18 +21,17 @@ export const Common = ({ color }) => {
   }, [])
 
   const [zoom, setZoom] = useState(1)
-    const isPhone = useMediaQuery('only screen and (max-width : 390px)')
-    const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
+  const isPhone = useMediaQuery('only screen and (max-width : 390px)')
+  const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
   useEffect(() => {
     if (isPhone) {
-      setZoom(.5)
-    } else if(isSmallDevice){
-      setZoom(.7)
+      setZoom(0.5)
+    } else if (isSmallDevice) {
+      setZoom(0.7)
     } else {
       setZoom(1)
     }
-  }, [isSmallDevice])
-
+  }, [isSmallDevice, isPhone])
 
   return (
     <Suspense fallback={null}>

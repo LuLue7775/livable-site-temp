@@ -15,7 +15,7 @@ export default async function Events() {
 
   return (
     <Hydrate state={dehydratedState}>
-      <EventLayout/>
+      <EventLayout />
     </Hydrate>
   )
 }

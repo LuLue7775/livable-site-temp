@@ -3,18 +3,17 @@ import { Merchant, CreditOneTimePayment } from 'node-ecpay-aio'
 import EcpayForm from './EcpayForm'
 
 async function genEcpayHTML() {
-// 'use server'
+  // 'use server'
   const cookieStore = cookies()
   const paymentSession = cookieStore.get('PaymentSession').value
 
   const checkoutForm = await createEcpayFormAPI(paymentSession)
-  return checkoutForm 
+  return checkoutForm
 }
 
 const Payment = async () => {
-
-//   const html = use(genEcpayHTML())
-    const html = await genEcpayHTML()
+  //   const html = use(genEcpayHTML())
+  const html = await genEcpayHTML()
   return <EcpayForm html={html} />
 }
 export default Payment

@@ -1,5 +1,4 @@
 'use client'
-import { convertSpaceToDashLowerCase } from '@/utils/functions'
 import { bookingSchema } from '@/utils/schemas'
 import { useCart } from '@/context/cartContext'
 import { useState, useRef, useEffect } from 'react'
@@ -51,9 +50,8 @@ export default function BookingForm() {
   const { addEventsToCart } = useCart()
 
   const processForm = async (formData) => {
-    const eventId = convertSpaceToDashLowerCase(decodeURI(convertSpaceToDashLowerCase(eventEn)))
+    const eventId = eventEn
     setStatus('loading')
-    /**@TODO  useMutation on checkout */
     setTimeout(() => {
       addEventsToCart(formData, time, eventId)
       reset()

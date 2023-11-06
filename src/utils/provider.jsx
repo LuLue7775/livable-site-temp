@@ -44,7 +44,7 @@ function Providers({ children }) {
           </MenuProvider>
         </GlassProvider>
       </ReactQueryStreamedHydration>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </PersistQueryClientProvider>
   )
 }

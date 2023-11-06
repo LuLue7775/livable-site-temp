@@ -10,11 +10,7 @@ export function useMenu() {
 }
 
 export function MenuProvider({ children }) {
-      const [isMenuOpened, setMenuOpened] = useState(false)
-    
-      return (
-        <MenuContext.Provider value={{ isMenuOpened, setMenuOpened }}>
-            {children}
-        </MenuContext.Provider>
-      )
+  const [isMenuOpened, setMenuOpened] = useState(false)
+
+  return <MenuContext.Provider value={{ isMenuOpened, setMenuOpened }}>{children}</MenuContext.Provider>
 }

@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { filterIncomingData } from '@/utils/functions'
 import FilterButton from '@/components/FilterButton'
 
-const EventsFilterButtons = ({ moredata, setFilteredData }) => {
+const EventsFilterButtons = ({ flattenedStoreData, setFilteredData }) => {
   const [filters, setFilters] = useState([])
 
   const handleFilterClicked = (addfilter) => {
-    if (!moredata?.pages?.length) return
-    // If filter is already selected, remove it.
+    if (!flattenedStoreData?.length) return
     if ((filters === undefined || filters.length) && filters.includes(addfilter)) {
+      // If filter is already selected, remove it.
       setFilters((prevfilter) => {
         return prevfilter.filter((item) => item !== addfilter)
       })
@@ -20,42 +20,38 @@ const EventsFilterButtons = ({ moredata, setFilteredData }) => {
     }
   }
 
-  const flattenData = useMemo(() => {
-    if (moredata?.pages?.length <= 1) return moredata?.pages[0]?.data
-    return moredata?.pages?.flatMap((page) => page.data)
-  }, [moredata])
-
   useEffect(() => {
     // if filters is empty, reset all data back to view.
     if (filters && (filters === undefined || !filters.length)) {
-      setFilteredData(flattenData)
+      setFilteredData(flattenedStoreData)
       return
     }
-    // otherwise filter what's stored in tanstack-query
-    const filteredData = filterIncomingData(flattenData, filters)
+    // recheck all data in store if filter is added (or operator)
+    const filteredData = filterIncomingData(flattenedStoreData, filters)
     setFilteredData(filteredData)
-  }, [filters, flattenData])
+  }, [filters, flattenedStoreData])
+
+
   return (
     <div className='font-mono '>
-      <h2 >FILTER</h2>
+      <h2>FILTER</h2>
       <div className='flex flex-wrap items-center'>
         <label> MATERIALS | </label>
-        <FilterButton  moredata={moredata} tag={'metal'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'ceramic'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'wood'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'mixed-media'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'metal'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'ceramic'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'mixed-media'} handleFilterClicked={handleFilterClicked} />
       </div>
 
       <div className='flex flex-wrap items-center'>
         <label> FORMATS | </label>
-        <FilterButton  moredata={moredata} tag={'workshop'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'exhibition'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'workshop'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'exhibition'} handleFilterClicked={handleFilterClicked} />
       </div>
       <div className='flex flex-wrap items-center'>
         <label> DATE | </label>
-        <FilterButton  moredata={moredata} tag={'OCT_2023'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'NOV_2023'} handleFilterClicked={handleFilterClicked} />
-        <FilterButton  moredata={moredata} tag={'archive'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'NOV_2023'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'DEC_2023'} handleFilterClicked={handleFilterClicked} />
+        <FilterButton flattenedStoreData={flattenedStoreData} tag={'archive'} handleFilterClicked={handleFilterClicked} />
       </div>
     </div>
   )

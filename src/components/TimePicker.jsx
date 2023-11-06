@@ -2,8 +2,6 @@
 import Button from '@/components/Button'
 import { useSelectedDate } from '@/context/calendarContext'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
-import { convertSpaceToDashLowerCase } from '@/utils/functions'
-import { useRouter, usePathname } from 'next/navigation'
 import cx from 'classnames'
 import { useState } from 'react'
 import { useDateFormatter } from 'react-aria'
@@ -11,7 +9,7 @@ import { getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import { useQuery } from '@tanstack/react-query'
 import { getLocalTimeZone, isSameDay, parseDateTime } from '@internationalized/date'
 
-const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
+const TimePicker = ({ eventId, eventTitleZh, eventTitleEn }) => {
   const { selectedDate } = useSelectedDate()
   const formatter = useDateFormatter({ dataStyle: 'full' })
 
@@ -21,16 +19,13 @@ const TimePicker = ({ eventTitleZh, eventTitleEn }) => {
     refetchOnWindowFocus: false,
   })
 
-  const pathname = usePathname()
-  const getPathname = pathname.split('/')[2]
-  const eventId = convertSpaceToDashLowerCase(decodeURI(getPathname))
-
   // find available time THAT SELECTED DAY
   const availabilities =
     bookingAvailabilities?.[eventId] &&
     Object.values(bookingAvailabilities?.[eventId]).filter((availability) => {
-      return isSameDay(parseDateTime(availability.startTime), selectedDate)
+      if (availability.startTime) return isSameDay(parseDateTime(availability.startTime), selectedDate)
     })
+
   const hasAvailability = availabilities?.length > 0
   availabilities?.sort((a, b) => {
     const startTimeA = new Date(a.startTime).getTime()
@@ -92,10 +87,6 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
   const [selectedTime, setSelectedTime] = useState(null)
 
   const isSelected = selectedTime === availability.startTime
-
-  {
-    /** @TODO 之後 eventId 改為 eventTitleEn 後台若改了TITLE要自動刪除原ID、用舊資料成立新ID加回。 因為TILE應該要跟著ID*/
-  }
 
   return (
     <li

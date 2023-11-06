@@ -16,8 +16,10 @@ const CheckoutEvents = () => {
         ? Object.entries(eventItems).map(([eventId, bookTime]) =>
             Object.values(bookTime).flat().length ? (
               <div key={eventId}>
-                <a onClick={ () => routerMiddleware.push(`/events/${eventId}`)}>
-                  <h5 className='max-w-[250px] hover:text-red-400 cursor-pointer font-serif'>{convertIdToTitle(eventId)}</h5>
+                <a onClick={() => routerMiddleware.push(`/events/${eventId}`)}>
+                  <h5 className='max-w-[250px] cursor-pointer font-serif hover:text-red-400'>
+                    {convertIdToTitle(eventId)}
+                  </h5>
                 </a>
                 {Object.entries(bookTime).map(([time, attendants]) => (
                   <div key={time} className='flex w-[300px] flex-wrap p-2 font-mono'>

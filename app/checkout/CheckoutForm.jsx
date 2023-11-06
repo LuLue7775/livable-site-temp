@@ -16,7 +16,6 @@ const CheckoutForm = ({ onSubmit }) => {
     register,
     setValue,
     formState: { errors },
-    handleSubmit,
   } = useFormContext()
 
   const [data, setData] = useState({
@@ -37,7 +36,7 @@ const CheckoutForm = ({ onSubmit }) => {
       city: data[`payer.city`],
       nation: data[`payer.nation`],
     })
-  }, [data])
+  }, [data, setValue])
 
   const handleChange = (e) => {
     e.preventDefault()
