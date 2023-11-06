@@ -76,6 +76,8 @@ const nextConfig = {
       use: ['raw-loader', 'glslify-loader'],
     })
 
+    config.externals = [...config.externals, 'jsdom']
+
     return config
   },
 }

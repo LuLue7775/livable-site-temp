@@ -1,7 +1,7 @@
 import Button from '@/components/Button'
 import { setRefs } from '@/utils/functions'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
-import DOMPurify from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 const EventSingle = ({
   index,
@@ -68,14 +68,14 @@ const EventSingle = ({
               ref={(element) => setRefs(element, item?.id, eventBodyMoreTextRefs)}
               className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden font-mono md:max-w-[1000px]'
             >
-              <p className='zh' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item?.description?.zh) }} />
-              <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item?.description?.en) }} />
+              <p className='zh' dangerouslySetInnerHTML={{ __html: sanitize(item?.description?.zh) }} />
+              <p dangerouslySetInnerHTML={{ __html: sanitize(item?.description?.en) }} />
 
               {item?.host?.zh ? <p className='zh pt-4'>藝術家: {item?.host?.zh}</p> : ''}
               {item?.host?.en ? <p>Artist: {item?.host?.en}</p> : ''}
 
-              <p className='zh' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item?.host_bio?.zh) }} />
-              <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item?.host_bio?.en) }} />
+              <p className='zh' dangerouslySetInnerHTML={{ __html: sanitize(item?.host_bio?.zh) }} />
+              <p dangerouslySetInnerHTML={{ __html: sanitize(item?.host_bio?.en) }} />
               <a
                 className='mt-2 flex justify-end hover:text-red-400'
                 onClick={() => routerMiddleware.push(`/events/${item?.id}`)}

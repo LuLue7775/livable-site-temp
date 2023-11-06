@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Suspense, useRef, useEffect } from 'react'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
-import DOMPurify from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
@@ -73,11 +73,11 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
               <div className='border-b border-green-900/20 py-4'>
                 <p
                   className='zh max-w-[800px]'
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.description?.zh) }}
+                  dangerouslySetInnerHTML={{ __html: sanitize(event?.description?.zh) }}
                 />
                 <p
                   className='max-w-[800px] font-mono'
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.description?.en) }}
+                  dangerouslySetInnerHTML={{ __html: sanitize(event?.description?.en) }}
                 />
 
                 {event?.host?.zh ? <p className='zh pt-4'>藝術家: {event?.host?.zh}</p> : ''}
@@ -86,13 +86,13 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
                 {event?.host_bio?.zh && (
                   <p
                     className='zh max-w-[1000px]'
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.host_bio?.zh) }}
+                    dangerouslySetInnerHTML={{ __html: sanitize(event?.host_bio?.zh) }}
                   />
                 )}
                 {event?.host_bio?.en && (
                   <p
                     className='max-w-[1000px] font-mono'
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event?.host_bio?.en) }}
+                    dangerouslySetInnerHTML={{ __html: sanitize(event?.host_bio?.en) }}
                   />
                 )}
               </div>
