@@ -58,7 +58,7 @@ export default function EventList({ displayFilteredData, reachBottom }) {
               eventBodyMoreTextRefs={eventBodyMoreTextRefs}
             />
           ))}
-          <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
+          {/* <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' /> */}
         </div>
       ) : (
         ''

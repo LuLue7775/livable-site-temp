@@ -53,14 +53,14 @@ export const getMapDocsFromFirestore = async (queryKey) => {
   const q = query(collectionRef)
 
   try {
-      const querySnapshot = await getDocs(q)
-      const dataMap = querySnapshot.docs.reduce((acc, doc) => {
-        acc[doc.id] = doc.data()
-        return acc
-      }, {})
-      return dataMap
-    } catch (error) {
-     console.error('Error fetching documents:', error)
+    const querySnapshot = await getDocs(q)
+    const dataMap = querySnapshot.docs.reduce((acc, doc) => {
+      acc[doc.id] = doc.data()
+      return acc
+    }, {})
+    return dataMap
+  } catch (error) {
+    console.error('Error fetching documents:', error)
     throw error
   }
 }
@@ -77,17 +77,17 @@ export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
 
 // const extractEventObject = (data) => {
 //   return {
-//         title: data?.title, 
-//         images: data?.images, 
-//         tags: data?.tags, 
-//         calendar: data?.calendar, 
-//         category: data?.category, 
-//         description: data?.description, 
-//         duration: data?.duration, 
-//         host: data?.host, 
-//         host_bio: data?.host_bio, 
-//         price: data?.price, 
-//         published: data?.published, 
+//         title: data?.title,
+//         images: data?.images,
+//         tags: data?.tags,
+//         calendar: data?.calendar,
+//         category: data?.category,
+//         description: data?.description,
+//         duration: data?.duration,
+//         host: data?.host,
+//         host_bio: data?.host_bio,
+//         price: data?.price,
+//         published: data?.published,
 //         event_date: data?.event_date
 //       }
 // }
@@ -96,62 +96,45 @@ export const getNextPageDocsFromFirestore = async (queryKey, pageParam) => {
   if (!pageParam) return
   let numPerRequest = 4
   try {
-      if (pageParam === 1) {
-        // Query the first page of docs
-        const first = query(collection(db, queryKey), limit(numPerRequest))
-        const querySnapshot = await getDocs(first)
-        const dataMap = querySnapshot.docs.reduce((acc, doc) => {
-          let data = doc.data()
-          if (data.published) acc.push(data)
-          return acc
-        }, [])
+    if (pageParam === 1) {
+      // Query the first page of docs
+      const first = query(collection(db, queryKey), limit(numPerRequest))
+      const querySnapshot = await getDocs(first)
+      const dataMap = querySnapshot.docs.reduce((acc, doc) => {
+        let data = doc.data()
+        if (data.published) acc.push(data)
+        return acc
+      }, [])
 
-        return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
-      } else {
-        // Construct a new query starting at this document,
-        const next = query(collection(db, queryKey), startAfter(pageParam), limit(numPerRequest))
-        const querySnapshot = await getDocs(next)
-        const dataMap = querySnapshot.docs.reduce((acc, doc) => {
-          let data = doc.data()
-          if (data.published) acc.push(data)
-          return acc
-        }, [])
+      console.log(nextPageCursor(querySnapshot, pageParam))
+      return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot, pageParam) }
+    } else {
+      // Construct a new query starting at this document,
+      const next = query(collection(db, queryKey), startAfter(pageParam), limit(numPerRequest))
+      const querySnapshot = await getDocs(next)
+      const dataMap = querySnapshot.docs.reduce((acc, doc) => {
+        let data = doc.data()
+        if (data.published) acc.push(data)
+        return acc
+      }, [])
 
-        
-        return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
-      }
+      return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
+    }
   } catch (error) {
-     console.error('Error fetching documents:', error)
+    console.error('Error fetching documents:', error)
     throw error
   }
 
-
   // pass on next page cursor within a querySnapshot
-  function nextPageCursor(querySnapshot) {
+  function nextPageCursor(querySnapshot, pageParam = null) {
     const lastPageParam = querySnapshot?.docs[querySnapshot.docs.length - 1]
+    // if (pageParam === 1) return 'first page'
     if (querySnapshot?.size < numPerRequest) {
+      // on last page
       return undefined
     }
     return lastPageParam
   }
-}
-
-export const getDocFromFirestore = async (collection, docId) => {
-  let docRef = doc(db, collection, docId)
-  let result = null
-  let error = null
-
-  try {
-    const docSnapshot = await getDoc(docRef)
-    if (docSnapshot.exists()) {
-      result = docSnapshot.data()
-    } else {
-      error = 'Document does not exist.'
-    }
-  } catch (e) {
-    error = e
-  }
-  return { result, error }
 }
 
 export const addDocToFirestore = async ({ collection, docId, objectToAdd }) => {
@@ -167,7 +150,6 @@ export const addDocToFirestore = async ({ collection, docId, objectToAdd }) => {
   }
   return { status, error }
 }
-
 
 export const addDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey)
@@ -195,4 +177,3 @@ export const addCollectionAndDocuments = async (collectionKey, docId, objectsToA
 
   await batch.commit()
 }
-
