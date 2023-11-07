@@ -28,6 +28,24 @@ export const app = getApp() || initializeApp(firebaseConfig)
 // export const app = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 export const db = getFirestore()
 
+export const getDocFromFirestore = async (collection, docId) => {
+  let docRef = doc(db, collection, docId)
+  let result = null
+  let error = null
+
+  try {
+    const docSnapshot = await getDoc(docRef)
+    if (docSnapshot.exists()) {
+      result = docSnapshot.data()
+    } else {
+      error = 'Document does not exist.'
+    }
+  } catch (e) {
+    error = e
+  }
+  return { result, error }
+}
+
 export const getDocsFromFirestore = async (queryKey) => {
   // if (Array.isArray(queryKey)) {}
   const collectionRef = collection(db, queryKey)
@@ -106,7 +124,6 @@ export const getNextPageDocsFromFirestore = async (queryKey, pageParam) => {
         return acc
       }, [])
 
-      console.log(nextPageCursor(querySnapshot, pageParam))
       return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot, pageParam) }
     } else {
       // Construct a new query starting at this document,
