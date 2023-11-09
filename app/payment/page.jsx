@@ -11,12 +11,12 @@ async function genEcpayHTML() {
   return checkoutForm
 }
 
-const Payment = async () => {
+const PaymentPage = async () => {
   //   const html = use(genEcpayHTML())
   const html = await genEcpayHTML()
   return <EcpayForm html={html} />
 }
-export default Payment
+export default PaymentPage
 
 async function createEcpayFormAPI(data) {
   // console.log('NEXT_PUBLIC_ECPAY_HASHKEY process.env ================== ', process.env.NEXT_PUBLIC_ECPAY_HASHKEY)

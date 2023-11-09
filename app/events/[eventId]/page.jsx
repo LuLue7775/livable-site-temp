@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function Page({ params }) {
+const SingleEventPage = async ({ params }) => {
   const event = await getDocFromFirestore('events', params?.eventId)
 
   return (
@@ -21,3 +21,5 @@ export default async function Page({ params }) {
     </div>
   )
 }
+
+export default SingleEventPage;

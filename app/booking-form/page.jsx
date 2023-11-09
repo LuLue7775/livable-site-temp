@@ -1,4 +1,6 @@
 import BookingForm from './BookingForm'
-export default function BookingDetailsPage() {
-  return <BookingForm />
+
+const BookingDetailsPage = () => {
+  return <BookingForm/>
 }
+export default BookingDetailsPage

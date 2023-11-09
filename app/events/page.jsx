@@ -3,7 +3,7 @@ import getQueryClient from '@/utils/react-query/getQueryClient'
 import { dehydrate, Hydrate } from '@tanstack/react-query'
 import EventLayout from '@/events/EventLayout'
 
-export default async function Events() {
+const EventsPage = async () => {
   const queryClient = getQueryClient()
 
   await queryClient.prefetchQuery({
@@ -19,3 +19,4 @@ export default async function Events() {
     </Hydrate>
   )
 }
+export default EventsPage

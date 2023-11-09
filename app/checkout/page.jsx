@@ -3,7 +3,7 @@ import CheckoutForm from './CheckoutForm'
 import CheckoutFormProvider from './CheckoutFormProvider'
 import CheckoutContent from './CheckoutContent'
 
-export default function page() {
+const CheckoutPage = () => {
   return (
     <CheckoutFormProvider>
       <div className='relative h-full w-full translate-y-16 text-green-900'>
@@ -21,3 +21,4 @@ export default function page() {
     </CheckoutFormProvider>
   )
 }
+export default CheckoutPage
