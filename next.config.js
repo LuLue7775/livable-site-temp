@@ -18,8 +18,8 @@ const nextConfig = {
   // },
 
   /** These are added bc dev mode is slow */
-  fastRefresh: true,
-  concurrentFeatures: true,
+  // fastRefresh: true,
+  // concurrentFeatures: true,
   // productionBrowserSourceMaps: false, // Disable source maps in development
   // optimizeFonts: false, // Disable font optimization
   // minify: false, // Disable minification

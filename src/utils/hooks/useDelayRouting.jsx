@@ -1,7 +1,7 @@
-import { useGlass } from '@/context/glassElementContext'
-import gsap from 'gsap'
+import { useGlass } from '@/providers/glassElementContext'
+import { useMenu } from '@/providers/menuContext'
 import { useRouter } from 'next/navigation'
-import { useMenu } from '@/context/menuContext'
+import gsap from 'gsap'
 
 const closeAnimation = (glassRef, router, route, setMenuOpened) => {
   gsap.set(glassRef.current, { xPercent: -100, opacity: 1 })
@@ -32,7 +32,7 @@ const closeAnimation = (glassRef, router, route, setMenuOpened) => {
 export default function useDelayRouting() {
   const router = useRouter()
   const { glassRef } = useGlass()
-  const { isMenuOpened, setMenuOpened } = useMenu()
+  const { setMenuOpened } = useMenu()
 
   const routerMiddleware = {
     push: (route) => {

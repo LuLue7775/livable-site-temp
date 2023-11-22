@@ -30,20 +30,18 @@ export const db = getFirestore()
 
 export const getDocFromFirestore = async (collection, docId) => {
   let docRef = doc(db, collection, docId)
-  let result = null
-  let error = null
 
   try {
     const docSnapshot = await getDoc(docRef)
-    if (docSnapshot.exists()) {
-      result = docSnapshot.data()
-    } else {
-      error = 'Document does not exist.'
+    if (!docSnapshot.exists()) {
+      throw new Error('This doc does not exist.')
     }
-  } catch (e) {
-    error = e
+    const dataMap = { ...docSnapshot.data(), id: docId }
+    return JSON.parse(JSON.stringify(dataMap))
+  } catch (error) {
+    console.error('Error fetching documents:', error)
+    throw error
   }
-  return { result, error }
 }
 
 export const getDocsFromFirestore = async (queryKey) => {
@@ -55,10 +53,10 @@ export const getDocsFromFirestore = async (queryKey) => {
     const querySnapshot = await getDocs(q)
     const dataMap = querySnapshot.docs.reduce((acc, doc) => {
       let data = doc.data()
-      if (data.published) acc.push(data)
+      if (data.published) acc.push({ ...data, id: doc.id })
       return acc
     }, [])
-    return dataMap
+    return JSON.parse(JSON.stringify(dataMap))
   } catch (error) {
     console.error('Error fetching documents:', error)
     throw error
@@ -76,7 +74,7 @@ export const getMapDocsFromFirestore = async (queryKey) => {
       acc[doc.id] = doc.data()
       return acc
     }, {})
-    return dataMap
+    return JSON.parse(JSON.stringify(dataMap))
   } catch (error) {
     console.error('Error fetching documents:', error)
     throw error
@@ -90,7 +88,7 @@ export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
   const dataMap = querySnapshot.docs.map((doc) => {
     return doc.data()
   })
-  return dataMap
+  return JSON.parse(JSON.stringify(dataMap))
 }
 
 // const extractEventObject = (data) => {

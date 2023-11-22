@@ -3,7 +3,7 @@
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
 import { forwardRef, Suspense, useImperativeHandle, useRef, useEffect, useState } from 'react'
 import { OrbitControls, OrthographicCamera, View as ViewImpl } from '@react-three/drei'
-import { Three } from '@/helpers/components/Three'
+import { Three } from '@/threeJS/components/Three'
 
 /** Lighting */
 export const Common = ({ color }) => {

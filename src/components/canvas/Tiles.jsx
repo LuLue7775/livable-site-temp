@@ -155,7 +155,7 @@ export function Tiles({ isReveal }) {
         <p className='max-w-[calc(100%-200px)] '>
           EXPERIENCE THE JOURNEY OF LIVING IN OUR
           <a
-            onClick={() => routerMiddleware.push('/events')}
+            onClick={() => routerMiddleware.push('/shop')}
             className=' cursor-pointer bg-green-900 text-lg text-white hover:bg-red-400'
           >
             {' '}

@@ -1,6 +1,6 @@
-import { useMenu } from '@/context/menuContext'
-import Image from 'next/image'
+import { useMenu } from '@/providers/menuContext'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
+import Image from 'next/image'
 
 export default function Nav() {
   const routerMiddleware = useDelayRouting()

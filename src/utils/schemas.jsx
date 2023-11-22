@@ -7,6 +7,11 @@ export const bookingSchema = yup.object({
   phone: yup.string().required('Phone is required').matches(phoneRegex, 'Phone number is not valid'),
   email: yup.string().nullable().email().required('Email is required'),
 })
+export const shopSchema = yup.object({
+  // name: yup.string().required('Name is required'),
+  // phone: yup.string().required('Phone is required').matches(phoneRegex, 'Phone number is not valid'),
+  // email: yup.string().nullable().email().required('Email is required'),
+})
 
 export const checkoutSchema = yup.object({
   payer: yup.object({

@@ -1,19 +1,27 @@
 'use client'
-import Nav from '@/components/Nav'
-import Cart from '@/components/Cart'
-import Menu from '@/components/Menu'
-import { useGlass } from '@/context/glassElementContext'
+import Nav from '../Nav'
+import Cart from '../Cart'
+import { useGlass } from '@/providers/glassElementContext'
+const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
-const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
+import Menu from '../Menu'
 
 const Layout = ({ children }) => {
   const ref = useRef()
   const pathname = usePathname()
-  const reg = new RegExp(`\/events/([\\w-]+)`, 'g') // only scroll y on /events/[id] page
-  const yScroll = reg.test(pathname) || pathname === '/events' || pathname === '/checkout'
-
+  const isEventsId = new RegExp(`\/events/([\\w-]+)`, 'g') // only scroll y on /events/[id] page
+  const isShopId = new RegExp(`\/shop/([\\w-]+)`, 'g')
+  const yScroll =
+    isEventsId.test(pathname) ||
+    isShopId.test(pathname) ||
+    pathname === '/events' ||
+    pathname === '/checkout' ||
+    pathname === '/shop' ||
+    pathname === '/privacy-policy' ||
+    pathname === '/return-policy' ||
+    pathname === '/service-policy'
   const { glassRef } = useGlass()
 
   return (
@@ -42,18 +50,20 @@ const Layout = ({ children }) => {
         {children}
 
         {/** z index cant be negative in canvas */}
-        <Scene
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            pointerEvents: 'none',
-          }}
-          eventSource={ref}
-          eventPrefix='client'
-        />
+        {pathname === '/' && (
+          <Scene
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              pointerEvents: 'none',
+            }}
+            eventSource={ref}
+            eventPrefix='client'
+          />
+        )}
       </div>
     </>
   )

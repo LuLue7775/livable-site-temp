@@ -1,10 +1,11 @@
 'use client'
 
 import Button from './Button'
-import CheckoutEvents from '@/checkout/CheckoutEvents'
-import CheckoutFormProvider from '@/checkout/CheckoutFormProvider'
-import { useCart } from '@/context/cartContext'
+import { useCart } from '@/providers/cartContext'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
+import CheckoutEvents from '@/app/checkout/_components/CheckoutEvents'
+import CheckoutFormProvider from '@/app/checkout/_components/CheckoutFormProvider'
+import CheckoutProducts from '@/app/checkout/_components/CheckoutProducts'
 
 const Cart = () => {
   const { isCartOpened, setCartOpened } = useCart()
@@ -27,6 +28,7 @@ const Cart = () => {
               <p className='cursor-pointer text-right hover:text-red-400'>[ x close ]</p>
             </button>
           </div>
+          <CheckoutProducts />
           <CheckoutEvents />
 
           <Button onClick={() => routerMiddleware.push('/checkout')}> CHECKOUT -&gt;</Button>
