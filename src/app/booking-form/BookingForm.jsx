@@ -1,6 +1,6 @@
 'use client'
 import { bookingSchema } from '@/utils/schemas'
-import { useCart } from '@/context/cartContext'
+import { useCart } from '@/providers/cartContext'
 import { useState, useRef, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useDateFormatter } from 'react-aria'

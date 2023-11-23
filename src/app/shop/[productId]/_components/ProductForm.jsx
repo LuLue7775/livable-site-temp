@@ -1,11 +1,14 @@
 import Button from '@/components/Button'
 import { useCart } from '@/providers/cartContext'
 import { useState } from 'react'
+
 const genInitialSelectedVal = (product) => {
-  return Object.entries(product.variation).reduce((newMap, [key, variation]) => {
-    newMap[key] = variation[0]
-    return newMap
-  }, {})
+  return product.variation
+    ? Object.entries(product.variation)?.reduce((newMap, [key, variation]) => {
+        newMap[key] = variation[0]
+        return newMap
+      }, {})
+    : {}
 }
 
 const ProductForm = ({ product }) => {
@@ -71,10 +74,10 @@ const ProductForm = ({ product }) => {
 
       <div className='my-2 flex'>
         <h3> 數量 Quantity </h3>
-        <span className='inline-flex gap-4 ml-2'>
+        <span className='ml-2 inline-flex gap-4'>
           <Button
             onClick={() => setQuatity((prev) => prev > 0 && prev - 1)}
-            className='border rounded-full border-green-900/50 w-8 h-8 hover:bg-red-200 flex items-center justify-center'
+            className='flex h-8 w-8 items-center justify-center rounded-full border border-green-900/50 hover:bg-red-200'
           >
             {' '}
             -{' '}
@@ -82,7 +85,7 @@ const ProductForm = ({ product }) => {
           <p>{quantity}</p>
           <Button
             onClick={() => setQuatity((prev) => prev + 1)}
-            className='border rounded-full border-green-900/50 w-8 h-8 hover:bg-red-200 flex items-center justify-center'
+            className='flex h-8 w-8 items-center justify-center rounded-full border border-green-900/50 hover:bg-red-200'
           >
             {' '}
             +{' '}
@@ -90,7 +93,7 @@ const ProductForm = ({ product }) => {
         </span>
       </div>
 
-      <Button onClick={handleClick} className='border rounded-md border-green-900/50 w-40 h-16 hover:bg-red-200 '>
+      <Button onClick={handleClick} className='h-16 w-40 rounded-md border border-green-900/50 hover:bg-red-200 '>
         加入購物車 <br />
         ADD TO CART
       </Button>
