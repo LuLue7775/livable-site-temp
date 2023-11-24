@@ -1,6 +1,8 @@
 import Button from '@/components/Button'
 import { useCart } from '@/providers/cartContext'
 import { useState } from 'react'
+import VariationSelectFields from './VariationSelectFields'
+import QuantityButton from './QuantityButton'
 
 const genInitialSelectedVal = (product) => {
   return product.variation
@@ -43,57 +45,23 @@ const ProductForm = ({ product }) => {
         {product?.stock ? product?.stock : <span className='text-sm'>此商品為訂製品，製作時間最長約2周 </span>}
       </div>
 
-      {product?.variation && (
-        <>
-          <h3>款式 Variations </h3>
-          {Object.entries(product?.variation)?.map(([optionKey, options]) => {
-            return (
-              <div key={optionKey} className='w-[400px] border-b border-green-900/50 p-2'>
-                <label htmlFor={optionKey}> {optionKey} </label>
-                <select
-                  value={selectedValue[optionKey]}
-                  selected
-                  onChange={(e) => handleSelectChange(optionKey, e.target.value)}
-                  name={optionKey}
-                  id={optionKey}
-                  className='ml-4 border border-green-900/50 p-2'
-                >
-                  {options?.map((option) => (
-                    <option key={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-            )
-          })}
-        </>
-      )}
+      <VariationSelectFields
+        variations={product?.variation}
+        selectedValue={selectedValue}
+        handleSelectChange={handleSelectChange}
+      />
 
       <div className='my-2 max-w-[700px]'>
         價格 Price : NTD {product?.price} <br />
       </div>
 
-      <div className='my-2 flex'>
-        <h3> 數量 Quantity </h3>
-        <span className='ml-2 inline-flex gap-4'>
-          <Button
-            onClick={() => setQuatity((prev) => prev > 0 && prev - 1)}
-            className='flex h-8 w-8 items-center justify-center rounded-full border border-green-900/50 hover:bg-red-200'
-          >
-            {' '}
-            -{' '}
-          </Button>
-          <p>{quantity}</p>
-          <Button
-            onClick={() => setQuatity((prev) => prev + 1)}
-            className='flex h-8 w-8 items-center justify-center rounded-full border border-green-900/50 hover:bg-red-200'
-          >
-            {' '}
-            +{' '}
-          </Button>
-        </span>
-      </div>
+      <QuantityButton setQuatity={setQuatity} quantity={quantity} />
 
-      <Button onClick={handleClick} className='h-16 w-40 rounded-md border border-green-900/50 hover:bg-red-200 '>
+      <Button
+        data-testid='add-to-cart-button'
+        onClick={handleClick}
+        className='h-16 w-40 rounded-md border border-green-900/50 hover:bg-red-200 '
+      >
         加入購物車 <br />
         ADD TO CART
       </Button>
