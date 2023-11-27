@@ -1,10 +1,10 @@
 import EventLayout from './_components/EventLayout'
-import { prefetchFromFirestore } from '@/utils/firebase/firebase.utils'
-import getQueryClient from '@/utils/react-query/getQueryClient'
-import { dehydrate, Hydrate } from '@tanstack/react-query'
+// import { prefetchFromFirestore } from '@/utils/firebase/firebase.utils'
+// import getQueryClient from '@/utils/react-query/getQueryClient'
+// import { dehydrate, Hydrate } from '@tanstack/react-query'
 
 /** next 13 way of fetching on severside  */
-export default function EventsPage() {
+const EventsPage = async () => {
   // const queryClient = getQueryClient()
 
   // await queryClient.prefetchQuery({
@@ -20,3 +20,4 @@ export default function EventsPage() {
     // </Hydrate>
   )
 }
+export default EventsPage
