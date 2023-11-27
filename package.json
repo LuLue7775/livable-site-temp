@@ -15,13 +15,8 @@
     "dev": "next dev",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
-    "start": "next start",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
-  },
+    "start": "next start"
+    },
   "babel": {
     "presets": [
       "@babel/preset-react"
