@@ -4,20 +4,19 @@ import getQueryClient from '@/utils/react-query/getQueryClient'
 import { dehydrate, Hydrate } from '@tanstack/react-query'
 
 /** next 13 way of fetching on severside  */
-const EventsPage = async () => {
-  const queryClient = getQueryClient()
+export default function EventsPage() {
+  // const queryClient = getQueryClient()
 
-  await queryClient.prefetchQuery({
-    queryKey: ['events'],
-    queryFn: async () => await prefetchFromFirestore('events'),
-  })
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['events'],
+  //   queryFn: async () => await prefetchFromFirestore('events'),
+  // })
 
-  const dehydratedState = dehydrate(queryClient)
+  // const dehydratedState = dehydrate(queryClient)
 
   return (
-    <Hydrate state={dehydratedState}>
-      <EventLayout />
-    </Hydrate>
+    // <Hydrate state={dehydratedState}>
+    <EventLayout />
+    // </Hydrate>
   )
 }
-export default EventsPage

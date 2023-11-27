@@ -16,11 +16,6 @@
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start"
-    },
-  "babel": {
-    "presets": [
-      "@babel/preset-react"
-    ]
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.4.0",
@@ -29,12 +24,12 @@
     "@next/font": "^13.4.19",
     "@react-three/drei": "^9.80.2",
     "@react-three/fiber": "^8.13.6",
-    "@tanstack/query-core": "^5.7.2",
-    "@tanstack/query-sync-storage-persister": "^4.33.0",
-    "@tanstack/react-query": "^4.33.0",
-    "@tanstack/react-query-devtools": "^4.33.0",
-    "@tanstack/react-query-next-experimental": "^5.0.0-alpha.80",
-    "@tanstack/react-query-persist-client": "^4.33.0",
+    "@tanstack/query-core": "^5.8.7",
+    "@tanstack/query-sync-storage-persister": "^5.8.7",
+    "@tanstack/react-query": "^5.8.7",
+    "@tanstack/react-query-devtools": "^5.8.7",
+    "@tanstack/react-query-next-experimental": "^5.8.7",
+    "@tanstack/react-query-persist-client": "^5.8.7",
     "classnames": "^2.3.2",
     "firebase": "^10.3.0",
     "gsap": "^3.12.2",
