@@ -15,7 +15,9 @@
     "dev": "next dev",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
-    "start": "next start"
+    "start": "next start",
+    "test" : "jest" 
+
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.4.0",
