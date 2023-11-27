@@ -15,8 +15,7 @@
     "dev": "next dev",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
-    "start": "next start",
-    "prepare": "husky install"
+    "start": "next start"  
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
