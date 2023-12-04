@@ -5,12 +5,11 @@ import VariationSelectFields from './VariationSelectFields'
 import QuantityButton from './QuantityButton'
 
 const genInitialSelectedVal = (product) => {
-  return product.variation
-    ? Object.entries(product.variation)?.reduce((newMap, [key, variation]) => {
-        newMap[key] = variation[0]
-        return newMap
-      }, {})
-    : {}
+  if (!product?.variation) return
+  return Object.entries(product.variation)?.reduce((newMap, [key, variation]) => {
+    newMap[key] = variation[0]
+    return newMap
+  }, {})
 }
 
 const ProductForm = ({ product }) => {
