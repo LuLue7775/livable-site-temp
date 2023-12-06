@@ -103,7 +103,7 @@ const ShopLayout = () => {
                 <LoaderIcon />
               ) : lastKey.toString().length > 0 ? (
                 // <button onClick={() => fetchMorePosts(lastKey)}> ########### More Posts ##########</button>
-                <div ref={reachBottom} className='absolute bottom-0 z-20 h-12 bg-red-600' />
+                <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
               ) : (
                 <span>You are up to date!</span>
               )}
