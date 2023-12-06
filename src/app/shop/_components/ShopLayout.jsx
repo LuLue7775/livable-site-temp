@@ -6,7 +6,7 @@ import ShopList from './ShopList'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
 import { useProducts } from '@/utils/react-query/useProducts'
 import { productsFirstBatch } from '@/utils/firebase/firebase.utils'
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
