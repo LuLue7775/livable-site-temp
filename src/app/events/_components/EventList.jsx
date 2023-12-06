@@ -1,12 +1,12 @@
 'use client'
 import EventSingle from './EventSingle'
 import { revealOrCloseAnimation, revealXAnimation, revealYAnimation } from '@/utils/animations'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
 gsap.registerPlugin(CSSRulePlugin)
 
-export default function EventList({ displayFilteredData, reachBottom }) {
+const EventList = React.memo(({ displayFilteredData, reachBottom }) => {
   const [openedId, setOpenId] = useState('')
   const horizontalRefs = useRef({})
   const eventHeadRefs = useRef({})
@@ -58,11 +58,14 @@ export default function EventList({ displayFilteredData, reachBottom }) {
               eventBodyMoreTextRefs={eventBodyMoreTextRefs}
             />
           ))}
-          {/* <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' /> */}
+          <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
         </div>
       ) : (
         ''
       )}
     </>
   )
-}
+})
+EventList.displayName = 'EventList'
+
+export default EventList

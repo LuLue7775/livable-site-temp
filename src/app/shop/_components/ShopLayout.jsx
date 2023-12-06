@@ -5,10 +5,13 @@ import ShopDescription from './ShopDescription'
 import ShopList from './ShopList'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
 import { useProducts } from '@/utils/react-query/useProducts'
-import { useState, useRef, useEffect } from 'react'
+import { productsFirstBatch } from '@/utils/firebase/firebase.utils'
+import { useState, useRef, useEffect, useMemo } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
+import { LoaderIcon } from 'react-hot-toast'
+import { useInView } from 'react-intersection-observer'
 gsap.registerPlugin(CSSRulePlugin)
 
 const ShopLayout = () => {
@@ -21,10 +24,39 @@ const ShopLayout = () => {
     eventpage_revealYAnimation({ diagonal: diagonalPseudo, vertical: eventBodyRef.current })
   }, [])
 
-  const { products, isFetching, error, setProductsFilter, setProductsSubFilter } = useProducts()
+  const {
+    products,
+    filterProductsByCategories,
+    setProducts,
+    isFetching,
+    error,
+    setProductsFilter,
+    setProductsSubFilter,
+    lastKey,
+    setLastKey,
+    fetchMorePosts,
+  } = useProducts()
+
+  useEffect(() => {
+    productsFirstBatch()
+      .then((res) => {
+        setProducts(res.dataMap)
+        setLastKey(res.lastKey)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   const [sortDateStatus, setSortDate] = useState('none') // none/ asc/ dsc
   const [sortPriceStatus, setSortPrice] = useState('none') // none/ asc/ dsc
+
+  const { ref: reachBottom, inView } = useInView({
+    threshold: 0,
+  })
+  useEffect(() => {
+    if (inView) fetchMorePosts(lastKey)
+  }, [inView])
 
   return (
     <div className='mt-12 flex h-auto w-full translate-y-16 flex-col items-end text-green-900'>
@@ -57,13 +89,25 @@ const ShopLayout = () => {
           <ShopCategories setProductsFilter={setProductsFilter} setProductsSubFilter={setProductsSubFilter} />
           <div className='w-full md:w-[calc(100%-200px)]'>
             <ShopDescription />
+
             <ShopList
-              products={products}
+              products={filterProductsByCategories}
               sortDateStatus={sortDateStatus}
               sortPriceStatus={sortPriceStatus}
               isFetching={isFetching}
               error={error}
             />
+
+            <div style={{ textAlign: 'center' }}>
+              {isFetching ? (
+                <LoaderIcon />
+              ) : lastKey.toString().length > 0 ? (
+                // <button onClick={() => fetchMorePosts(lastKey)}> ########### More Posts ##########</button>
+                <div ref={reachBottom} className='absolute bottom-0 z-20 h-12 bg-red-600' />
+              ) : (
+                <span>You are up to date!</span>
+              )}
+            </div>
           </div>
         </div>
       </div>

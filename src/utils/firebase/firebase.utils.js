@@ -9,6 +9,7 @@ import {
   query,
   getDocs,
   limit,
+  orderBy,
   startAfter,
 } from 'firebase/firestore'
 import { convertSpaceToDashLowerCase } from '../functions'
@@ -108,50 +109,93 @@ export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
 //       }
 // }
 
-export const getNextPageDocsFromFirestore = async (queryKey, pageParam) => {
+export const getNextPageDocsFromFirestore = async ({ queryKey, pageParam, orderTag }) => {
   if (!pageParam) return
-  let numPerRequest = 4
-  try {
-    if (pageParam === 1) {
-      // Query the first page of docs
-      const first = query(collection(db, queryKey), limit(numPerRequest))
-      const querySnapshot = await getDocs(first)
-      const dataMap = querySnapshot.docs.reduce((acc, doc) => {
-        let data = doc.data()
-        if (data.published) acc.push(data)
-        return acc
-      }, [])
+  let numPerRequest = 6
+  let dataMap = []
 
-      return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot, pageParam) }
-    } else {
-      // Construct a new query starting at this document,
-      const next = query(collection(db, queryKey), startAfter(pageParam), limit(numPerRequest))
-      const querySnapshot = await getDocs(next)
-      const dataMap = querySnapshot.docs.reduce((acc, doc) => {
-        let data = doc.data()
-        if (data.published) acc.push(data)
-        return acc
-      }, [])
+  if (pageParam === 1) {
+    const querySnapshot = await initialReq()
+    dataMap = querySnapshot.docs.reduce((acc, doc) => {
+      let data = doc.data()
+      if (data.published) acc.push({ ...data, id: doc.id })
+      return acc
+    }, [])
+    return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
+  } else {
+    const querySnapshot = await nextReq()
+    dataMap = querySnapshot.docs.reduce((acc, doc) => {
+      let data = doc.data()
 
-      return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
-    }
-  } catch (error) {
-    console.error('Error fetching documents:', error)
-    throw error
+      if (data.published) acc.push({ ...data, id: doc.id })
+      return acc
+    }, [])
+    // console.log('@2', pageParam, dataMap)
+    return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
+  }
+
+  async function initialReq() {
+    const q = query(collection(db, queryKey), orderBy(orderTag), limit(numPerRequest))
+    return await getDocs(q)
+  }
+
+  async function nextReq() {
+    const q = query(collection(db, queryKey), orderBy(orderTag), startAfter(pageParam), limit(numPerRequest))
+    return await getDocs(q)
   }
 
   // pass on next page cursor within a querySnapshot
   function nextPageCursor(querySnapshot, pageParam = null) {
-    const lastPageParam = querySnapshot?.docs[querySnapshot.docs.length - 1]
-    // if (pageParam === 1) return 'first page'
+    const lastDocSnapshot = querySnapshot?.docs[querySnapshot.docs.length - 1]
     if (querySnapshot?.size < numPerRequest) {
       // on last page
       return undefined
     }
-    return lastPageParam
+    return lastDocSnapshot
   }
 }
 
+export const productsFirstBatch = async () => {
+  try {
+    const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), limit(5))
+    const data = await getDocs(q)
+    let dataMap = []
+    let lastKey = ''
+    data.docs.forEach((doc) => {
+      dataMap.push({
+        ...doc.data(),
+        id: doc.id,
+      })
+      lastKey = doc.data().createdAt
+    })
+
+    return { dataMap, lastKey }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const productsNextBatch = async (key) => {
+  try {
+    const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), startAfter(key), limit(5))
+    const data = await getDocs(q)
+
+    let dataMap = []
+    let lastKey = ''
+    data.docs.forEach((doc) => {
+      dataMap.push({
+        ...doc.data(),
+        id: doc.id,
+      })
+      lastKey = doc.data().createdAt
+    })
+    return { dataMap, lastKey }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+/** ============================================================================= */
 export const addDocToFirestore = async ({ collection, docId, objectToAdd }) => {
   const docRef = doc(db, collection, docId)
   let status = null

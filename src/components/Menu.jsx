@@ -31,10 +31,10 @@ const Menu = () => {
           {' '}
           <li>SHOP</li>
         </a>
-        {/* <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
+        <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
           {' '}
           <li>EVENTS</li>
-        </a> */}
+        </a>
         <a onClick={() => routerMiddleware.push('/checkout')} className='cursor-pointer hover:text-red-400'>
           {' '}
           <li>CHECKOUT</li>
@@ -47,7 +47,7 @@ const Menu = () => {
             setCartOpened(true)
             setMenuOpened(false)
           }}
-          className='cursor-pointer list-none hover:text-red-400 flex items-end'
+          className='flex cursor-pointer list-none items-end hover:text-red-400'
         >
           <li className='flex'>
             CART
@@ -57,21 +57,21 @@ const Menu = () => {
         <div>
           <a
             onClick={() => routerMiddleware.push('/service-policy')}
-            className='block cursor-pointer hover:text-red-400 text-sm'
+            className='block cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             SERVICE POLICY
           </a>
           <a
             onClick={() => routerMiddleware.push('/privacy-policy')}
-            className='block cursor-pointer hover:text-red-400 text-sm'
+            className='block cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             PRIVACY POLICY
           </a>
           <a
             onClick={() => routerMiddleware.push('/return-policy')}
-            className='block cursor-pointer hover:text-red-400 text-sm'
+            className='block cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             RETURN POLICY
