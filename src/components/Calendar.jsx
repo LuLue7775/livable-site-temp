@@ -13,13 +13,12 @@ import {
   Button as AriaButton,
 } from 'react-aria-components'
 import cx from 'classnames'
-import { useSelectedDate } from '@/context/calendarContext'
 import { getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import { useQuery } from '@tanstack/react-query'
+import { useSelectedDate } from '@/providers/calendarContext'
 
 const Calendar = ({ eventId }) => {
   const { setSelectedDate } = useSelectedDate()
-
   const { data: bookingAvailabilities, isFetching } = useQuery({
     queryKey: ['event-availabilities'],
     queryFn: async () => await getMapDocsFromFirestore('event-availabilities'),
@@ -29,7 +28,6 @@ const Calendar = ({ eventId }) => {
   // find available time THAT SELECTED DAY
   const availabilities = bookingAvailabilities?.[eventId] && Object.values(bookingAvailabilities?.[eventId])
   if (isFetching) return <LoadingIcon />
-
   return (
     <AriaCalendar
       aria-label='Booking availabilities'

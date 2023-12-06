@@ -58,7 +58,7 @@ const EventContent = ({ event }) => {
             eventTitleEn={event?.title?.en}
           />
         )}
-        <EventDetail event={event.result} setLightboxIndex={setLightboxIndex} setLightboxOpened={setLightboxOpened} />
+        <EventDetail event={event} setLightboxIndex={setLightboxIndex} setLightboxOpened={setLightboxOpened} />
       </div>
       <Lightbox
         isLightboxOpened={isLightboxOpened}
