@@ -1,7 +1,5 @@
-import { mapError } from '@/utils/functions'
-import { getDocsFromFirestore, getNextPageDocsFromFirestore, productsNextBatch } from '../firebase/firebase.utils'
-import { useCallback, useState, useEffect, useMemo } from 'react'
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { productsNextBatch } from '../firebase/firebase.utils'
+import { useState, useMemo } from 'react'
 
 export const useProducts = () => {
   const [productsFilter, setProductsFilter] = useState(null)
