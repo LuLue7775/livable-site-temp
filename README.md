@@ -6,6 +6,8 @@
 
 
 ## Introduction (in RADIO manner) 
+This is a ecommerce project. However, for the sake of security, this repo is not used for production.
+
 Note: RADIO, a system design framework
 
 ### Requirements Exploration: 
