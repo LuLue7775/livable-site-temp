@@ -12,7 +12,7 @@ Note: RADIO, a system design framework
 
 ### Requirements Exploration: 
 Functional requirements: 
-* Appointment system, shopping system, and payment functionality
+* Appointment system with calendar and time slots functionality, shopping system, and payment functionality
 * Email receipt automation: System should automatically send a receipt to the user after a purchase.
 * Login authentication and messenger feature *(crucial)* *(still ongoing)*
 
