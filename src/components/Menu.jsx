@@ -54,7 +54,7 @@ const Menu = () => {
             <p className='text-xs italic'> {` (${calculateTotalQuantity})`}</p>
           </li>
         </a>
-        <div>
+        <div className='text-end'>
           <a
             onClick={() => routerMiddleware.push('/service-policy')}
             className='block cursor-pointer text-sm hover:text-red-400'
@@ -76,6 +76,10 @@ const Menu = () => {
             {' '}
             RETURN POLICY
           </a>
+          <div className='text-sm'>
+            {' '}
+             info@thelivablestudio.com{' '}
+          </div>
         </div>
       </div>
     </div>
