@@ -69,6 +69,11 @@ export default function Page() {
           </div>
         </section>
 
+        <section className='absolute bottom-4 right-4 z-20 text-end'>
+          <p>統一編號：93224119</p>
+          <p>email: thelivablestudio@gmail.com </p>
+        </section>
+
         <section className='pointer-events-none absolute z-0 h-full w-full text-center'>
           <View className='flex h-full w-full items-center justify-center'>
             <Suspense fallback={null}>
