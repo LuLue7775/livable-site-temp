@@ -31,10 +31,10 @@ const Menu = () => {
           {' '}
           <li>SHOP</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
+        {/* <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
           {' '}
           <li>EVENTS</li>
-        </a>
+        </a> */}
         <a onClick={() => routerMiddleware.push('/checkout')} className='cursor-pointer hover:text-red-400'>
           {' '}
           <li>CHECKOUT</li>
@@ -76,10 +76,7 @@ const Menu = () => {
             {' '}
             RETURN POLICY
           </a>
-          <div className='text-sm'>
-            {' '}
-             info@thelivablestudio.com{' '}
-          </div>
+          <div className='text-sm'> info@thelivablestudio.com </div>
         </div>
       </div>
     </div>
