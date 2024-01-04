@@ -2,8 +2,8 @@ import '@/app/global.css'
 import Providers from '@/providers/provider'
 import { Layout } from '@/components/dom/Layout'
 
-import { EB_Garamond, Ysabeau, Noto_Serif_HK } from '@next/font/google'
-import localFont from '@next/font/local'
+import { EB_Garamond, Ysabeau, Noto_Serif_HK } from 'next/font/google'
+import localFont from 'next/font/local'
 
 const sometimes = localFont({
   src: [

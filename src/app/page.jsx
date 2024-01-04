@@ -23,11 +23,6 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
-export const metadata = {
-  title: 'The Livable Studio Homepage',
-  description: 'A website created by The Livable Studio.',
-}
-
 export default function Page() {
   // reveal text behind
   const [isReveal, setRevealDetail] = useState(false)
