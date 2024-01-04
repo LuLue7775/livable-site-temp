@@ -3,6 +3,11 @@ import EventLayout from './_components/EventLayout'
 // import getQueryClient from '@/utils/react-query/getQueryClient'
 // import { dehydrate, Hydrate } from '@tanstack/react-query'
 
+export const metadata = {
+  title: 'The Livable Studio Event Page',
+  description: 'Event Page for The Livable Studio.',
+}
+
 /** next 13 way of fetching on severside  */
 const EventsPage = async () => {
   // const queryClient = getQueryClient()

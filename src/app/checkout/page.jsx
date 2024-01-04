@@ -3,6 +3,11 @@ import CheckoutForm from './_components/CheckoutForm'
 import CheckoutContent from './_components/CheckoutContent'
 import CheckoutFormProvider from './_components/CheckoutFormProvider'
 
+export const metadata = {
+  title: 'The Livable Studio Checkout Page',
+  description: 'Checkout Page for The Livable Studio.',
+}
+
 const CheckoutPage = () => {
   return (
     <CheckoutFormProvider>

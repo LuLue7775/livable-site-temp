@@ -10,7 +10,7 @@ import { useState, useRef, useEffect } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
-import { LoaderIcon } from 'react-hot-toast'
+import LoadingIcon from '@/components/LoadingIcon'
 import { useInView } from 'react-intersection-observer'
 gsap.registerPlugin(CSSRulePlugin)
 
@@ -100,7 +100,7 @@ const ShopLayout = () => {
 
             <div style={{ textAlign: 'center' }}>
               {isFetching ? (
-                <LoaderIcon />
+                <LoadingIcon />
               ) : lastKey.toString().length > 0 ? (
                 // <button onClick={() => fetchMorePosts(lastKey)}> ########### More Posts ##########</button>
                 <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />

@@ -10,6 +10,11 @@ export async function generateStaticParams() {
   }))
 }
 
+export const metadata = {
+  title: 'The Livable Studio Single Event Page',
+  description: 'Single Event Page for The Livable Studio.',
+}
+
 const SingleEventPage = async ({ params }) => {
   const event = await getDocFromFirestore('events', params?.eventId)
 

@@ -4,16 +4,21 @@ import CommonFrameLayout from '@/components/CommonFrameLayout'
 import { getDocFromFirestore } from '@/utils/firebase/firebase.utils'
 import { sanitize } from 'isomorphic-dompurify'
 
-const PrivacyPolicy = async () => {
+export const metadata = {
+  title: 'The Livable Studio Service Policy',
+  description: 'Service Policy for The Livable Studio.',
+}
+
+const ServicePolicy = async () => {
   const policies = await getDocFromFirestore('policies', '8Q76wmnvfycKrcpQwozJ')
 
   return (
     <Suspense fallback={<LoadingIcon />}>
       <CommonFrameLayout>
-        <div className='px-8 mb-8'>
+        <div className='mb-8 px-8'>
           <h1> 服務條款 Service Policy</h1>
           <div
-            className='zh max-w-[1000px] font-mono mb-8'
+            className='zh mb-8 max-w-[1000px] font-mono'
             dangerouslySetInnerHTML={{ __html: sanitize(policies?.service_policy?.zh) }}
           />
           <div
@@ -25,4 +30,4 @@ const PrivacyPolicy = async () => {
     </Suspense>
   )
 }
-export default PrivacyPolicy
+export default ServicePolicy
