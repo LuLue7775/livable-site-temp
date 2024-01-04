@@ -9,11 +9,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: npm install && npm install -g @lhci/cli@0.6.x
+      - run: npm install && npm install -g @lhci/cli@0.8.x
       - run: npm run build
-      - name: run lighthouse-ci
-        run: |
-          npm install -g @lhci/cli@0.10.0
-          lhci autorun --collect.staticDistDir=.next --upload.target=temporary-public-storage || echo "LHCI failed!"
+      - run: lhci collect
+      - run: lhci upload
           env:
             LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
