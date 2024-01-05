@@ -76,7 +76,7 @@ const Menu = () => {
             {' '}
             RETURN POLICY
           </a>
-          <div className='text-sm'> thelivablestudio@gmail.com </div>
+          <div className='text-sm'> info@thelivablestudio.com </div>
         </div>
       </div>
     </div>

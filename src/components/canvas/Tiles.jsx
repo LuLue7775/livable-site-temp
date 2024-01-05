@@ -7,9 +7,12 @@ import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export function TileA({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
+const ModelLoader = ({ modelPath }) => {
   const { scene } = useGLTF(modelPath)
+  return <primitive object={scene} scale={20} />
+}
 
+export function TileA({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
   const getDistanceFromCamera = (fitment = 'contain') => {
     const aspect = window.innerWidth / window.innerHeight
     return fitment === 'contain'
@@ -21,7 +24,6 @@ export function TileA({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     const aspect = window.innerWidth / window.innerHeight
 
     const distanceFromCam = getDistanceFromCamera('contain')
-    tileRef.current.position.z = -distanceFromCam
     tileRef.current.position.x =
       distanceFromCam * (tileSize.width / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
 
@@ -34,12 +36,14 @@ export function TileA({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     }
   })
 
-  return <primitive ref={tileRef} object={scene} scale={20} />
+  return (
+    <mesh ref={tileRef}>
+      <ModelLoader modelPath={modelPath} />
+    </mesh>
+  )
 }
 
 export function TileB({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
-  const { scene } = useGLTF(modelPath)
-
   const getDistanceFromCamera = (fitment = 'contain') => {
     const aspect = window.innerWidth / window.innerHeight
     return fitment === 'contain'
@@ -51,7 +55,6 @@ export function TileB({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     const aspect = window.innerWidth / window.innerHeight
 
     const distanceFromCam = getDistanceFromCamera('contain')
-    tileRef.current.position.z = -distanceFromCam
     tileRef.current.position.y =
       distanceFromCam * (tileSize.height / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
     const baseX = distanceFromCam * (tileSize.width / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
@@ -62,7 +65,11 @@ export function TileB({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     }
   })
 
-  return <primitive ref={tileRef} object={scene} scale={20} />
+  return (
+    <mesh ref={tileRef}>
+      <ModelLoader modelPath={modelPath} />
+    </mesh>
+  )
 }
 
 export function TileC({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
@@ -79,7 +86,6 @@ export function TileC({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     const aspect = window.innerWidth / window.innerHeight
 
     const distanceFromCam = getDistanceFromCamera('contain')
-    tileRef.current.position.z = -distanceFromCam
     tileRef.current.position.y =
       distanceFromCam * (tileSize.height / (2 * distanceFromCam)) * aspect * 0.3 + relativePos.y
     const baseX = distanceFromCam * (tileSize.width / (2 * distanceFromCam)) * aspect * 1.4 + relativePos.x
@@ -90,16 +96,17 @@ export function TileC({ modelPath, tileRef, relativePos, isReveal, tileSize }) {
     }
   })
 
-  return <primitive ref={tileRef} object={scene} scale={20} />
+  return (
+    <mesh ref={tileRef}>
+      <ModelLoader modelPath={modelPath} />
+    </mesh>
+  )
 }
 
 export function Tiles({ isReveal }) {
-  const routerMiddleware = useDelayRouting()
-
   const tileARef = useRef()
   const tileBRef = useRef()
   const tileCRef = useRef()
-  const textRef = useRef()
 
   const tileSize = { width: 500, height: 500 }
   const [tileYCenter, setTileYCenter] = useState(0)
@@ -112,6 +119,7 @@ export function Tiles({ isReveal }) {
       setTileYCenter(0)
     }
   }, [isSmallDevice])
+
   return (
     <>
       <TileA
@@ -135,21 +143,15 @@ export function Tiles({ isReveal }) {
         isReveal={isReveal}
         tileSize={tileSize}
       />
-      <Html
+
+      {/* <Html
         position={[0, 0, 200]}
-        as='div' // Wrapping element (default: 'div')
-        center // Adds a -50%/-50% css transform (default: false) [ignored in transform mode]
-        distanceFactor={800} // If set (default: undefined), children will be scaled by this factor, and also by distance to a PerspectiveCamera / zoom by a OrthographicCamera.
-        zIndexRange={[0, -10]} // Z-order range (default=[16777271, 0])
-        portal={textRef} // Reference to target container (default=undefined)
-        transform // If true, applies matrix3d transformations (default=false)
-        // occlude={[tileCRef]}
-        // onOcclude={set}
-        // style={{
-        //   transition: 'all 0.5s',
-        //   opacity: hidden ? 0 : 1,
-        //   transform: `scale(${hidden ? 0.5 : 1})`,
-        // }}
+        as='div'
+        center 
+        distanceFactor={800}
+        zIndexRange={[0, -10]} 
+        portal={textRef}
+        transform
         className='flex justify-center text-xl text-green-900 '
       >
         <p className='max-w-[calc(100%-200px)] '>
@@ -163,7 +165,7 @@ export function Tiles({ isReveal }) {
           </a>
           .
         </p>
-      </Html>
+      </Html> */}
     </>
   )
 }

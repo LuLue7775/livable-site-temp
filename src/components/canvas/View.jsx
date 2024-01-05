@@ -2,10 +2,10 @@
 
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
 import { forwardRef, Suspense, useImperativeHandle, useRef, useEffect, useState } from 'react'
-import { OrbitControls, OrthographicCamera, View as ViewImpl } from '@react-three/drei'
+import { OrbitControls, OrthographicCamera, PerspectiveCamera, View as ViewImpl } from '@react-three/drei'
 import { Three } from '@/threeJS/components/Three'
+import LoadingIcon from '@/components/LoadingIcon'
 
-/** Lighting */
 export const Common = ({ color }) => {
   const perspective = 800
   const [fieldOfView, setFieldOfView] = useState(Math.max(window.innerWidth, window.innerHeight))
@@ -34,18 +34,16 @@ export const Common = ({ color }) => {
   }, [isSmallDevice, isPhone])
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<LoadingIcon />}>
       {color && <color attach='background' args={[color]} />}
-      <ambientLight intensity={0.8} />
+      <ambientLight position={[-1000, 0, 200]} intensity={3.6} />
       <pointLight position={[-1000, 0, 200]} color='#ffc4a8' intensity={0.3} />
       <pointLight position={[500, 0, 200]} color='#ffe6de' intensity={0.8} />
       <directionalLight position={[500, 0, 200]} color='#ffe6de' intensity={1} />
-      {/* <PerspectiveCamera makeDefault fov={6} position={[0, 0, 20]} /> */}
-      {/* <PerspectiveCamera makeDefault position={[0, 0, 15]} /> */}
       <OrthographicCamera
         makeDefault
         position={[0, 0, perspective]}
-        zoom={zoom}
+        zoom={1}
         near={-3000}
         far={3000}
         left={-fieldOfView / 2}
@@ -54,6 +52,8 @@ export const Common = ({ color }) => {
         bottom={-fieldOfView / 2}
       />
 
+      {/* <PerspectiveCamera makeDefault fov={6} position={[0, 0, 20]} /> */}
+      {/* <PerspectiveCamera makeDefault position={[0, 0, 15]} /> */}
       {/* <PerspectiveCamera makeDefault position={[0, 0, 0]} fov={Box3D.V_FOV_DEG} near={100} far={30000} /> */}
     </Suspense>
   )

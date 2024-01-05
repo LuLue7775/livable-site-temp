@@ -21,7 +21,7 @@
   }
 
   .zh {
-    font-family: var(--noto_serif_jp);
+    font-family: var(--noto_serif_tc);
     opacity: 0.8;
   }
   /* width */

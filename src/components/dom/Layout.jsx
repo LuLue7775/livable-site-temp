@@ -2,11 +2,12 @@
 import Nav from '../Nav'
 import Cart from '../Cart'
 import { useGlass } from '@/providers/glassElementContext'
-const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
-import { useRef } from 'react'
 import dynamic from 'next/dynamic'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Menu from '../Menu'
+
+const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
 
 const Layout = ({ children }) => {
   const ref = useRef()

@@ -13,7 +13,7 @@ module.exports = {
         // serif: ['var(--eb_garamond)'],
         serif: ['var(--sometimes)'],
         mono: ['var(--ysabeau)'],
-        zh: ['var(--noto_serif_jp)'],
+        zh: ['var(--noto_serif_tc)'],
       },
       width: {
         100: '25rem',
