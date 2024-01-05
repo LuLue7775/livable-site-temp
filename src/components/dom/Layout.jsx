@@ -1,11 +1,11 @@
 'use client'
 import Nav from '../Nav'
 import Cart from '../Cart'
+import Menu from '../Menu'
 import { useGlass } from '@/providers/glassElementContext'
 import dynamic from 'next/dynamic'
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import Menu from '../Menu'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
 

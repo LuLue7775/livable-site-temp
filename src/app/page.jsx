@@ -1,9 +1,9 @@
 'use client'
 
-import { Suspense, useState, useRef, useEffect } from 'react'
 import { introAnimation } from '@/utils/animations'
 import LoadingIcon from '@/components/LoadingIcon'
 import HomepageCanvas from '@/app/HomepageCanvas'
+import { Suspense, useState, useRef, useEffect } from 'react'
 
 export default function Page() {
   // reveal text behind
