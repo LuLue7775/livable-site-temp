@@ -1,16 +1,37 @@
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import { Preload } from '@react-three/drei'
-import { r3f } from '@/threeJS/global'
+import React, { useRef, useState } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF,  CameraControls  } from '@react-three/drei'
 
-export default function Scene({ ...props }) {
-  // Everything defined in here will persist between route changes, only children are swapped
+const ModelLoader = ({ modelPath }) => {
+  const { scene } = useGLTF(modelPath)
+  return <primitive object={scene} scale={20} />
+}
+
+export function Model() {
+  const tileRef = useRef()
+
+  useFrame((state, delta) => {
+    tileRef.current.rotation.y += delta / 2
+  })
+
   return (
-    <Canvas {...props}>
-      {/* @ts-ignore */}
-      <r3f.Out />
-      <Preload all />
-    </Canvas>
+    <mesh ref={tileRef} position={[0, 0, -200]} scale={0.1}>
+      <ModelLoader modelPath={'/tileA.glb'} />
+    </mesh>
+  )
+}
+
+export default function Scene() {
+
+  return (
+    <>
+      <ambientLight />
+      <pointLight position={[10, 10, 5]} />
+      <CameraControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
+
+      <Model />
+    </>
   )
 }

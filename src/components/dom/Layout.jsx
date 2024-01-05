@@ -2,12 +2,12 @@
 import Nav from '../Nav'
 import Cart from '../Cart'
 import { useGlass } from '@/providers/glassElementContext'
-import dynamic from 'next/dynamic'
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Menu from '../Menu'
 
-const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
+import React, { lazy } from 'react'
+import { Canvas } from '@react-three/offscreen'
 
 const Layout = ({ children }) => {
   const ref = useRef()
@@ -24,6 +24,17 @@ const Layout = ({ children }) => {
     pathname === '/return-policy' ||
     pathname === '/service-policy'
   const { glassRef } = useGlass()
+
+  const [worker, setWorker] = useState()
+
+  useEffect(() => {
+    const newWorker = new Worker(new URL('@/components/canvas/worker.jsx', import.meta.url), { type: 'module' })
+    setWorker(newWorker)
+
+    return () => {
+      newWorker.terminate()
+    }
+  }, [])
 
   return (
     <>
@@ -49,22 +60,6 @@ const Layout = ({ children }) => {
         </div>
 
         {children}
-
-        {/** z index cant be negative in canvas */}
-        {pathname === '/' && (
-          <Scene
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '100vh',
-              pointerEvents: 'none',
-            }}
-            eventSource={ref}
-            eventPrefix='client'
-          />
-        )}
       </div>
     </>
   )
