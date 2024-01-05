@@ -20,7 +20,7 @@ async function createCheckOutSessionAPI(paymentData) {
       body: JSON.stringify(paymentData),
     })
   } catch (error) {
-    console.warn('Handle create order session error', error?.message)
+    console.error('Handle create order session error', error?.message)
   }
 }
 

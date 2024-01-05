@@ -171,7 +171,7 @@ export const productsFirstBatch = async () => {
 
     return { dataMap, lastKey }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 
@@ -191,7 +191,7 @@ export const productsNextBatch = async (key) => {
     })
     return { dataMap, lastKey }
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 

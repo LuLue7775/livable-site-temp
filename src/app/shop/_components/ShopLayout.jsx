@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import ShopSort from './ShopSort'
 import ShopCategories from './ShopCategories'
@@ -44,7 +45,7 @@ const ShopLayout = () => {
         setLastKey(res.lastKey)
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }, [])
 

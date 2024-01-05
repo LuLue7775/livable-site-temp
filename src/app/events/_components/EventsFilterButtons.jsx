@@ -29,6 +29,7 @@ const EventsFilterButtons = ({ flattenedStoreData, setFilteredData }) => {
     // recheck all data in store if filter is added (or operator)
     const filteredData = filterIncomingData(flattenedStoreData, filters)
     setFilteredData(filteredData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, flattenedStoreData])
 
   return (

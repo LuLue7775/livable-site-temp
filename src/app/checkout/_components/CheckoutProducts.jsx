@@ -11,9 +11,9 @@ const CheckoutProducts = () => {
       <h2 className='font-serif font-bold '> Product list </h2>
       {productItems &&
         Object.entries(productItems).map(([productId, item]) => (
-          <div key={productId} className='py-2 max-w-[400px] flex border-b border-green-900/20 '>
+          <div key={productId} className='flex max-w-[400px] border-b border-green-900/20 py-2 '>
             <a className='cursor-pointer' onClick={() => routerMiddleware.push(`/shop/${item.id}`)}>
-              <div className='w-[150px] h-[150px] overflow-hidden'>
+              <div className='h-[150px] w-[150px] overflow-hidden'>
                 <Image
                   alt={`${productId}-image`}
                   src={item.image}
@@ -29,7 +29,7 @@ const CheckoutProducts = () => {
 
             <div className='pl-4'>
               <a className='cursor-pointer' onClick={() => routerMiddleware.push(`/shop/${item.id}`)}>
-                <h3 className='max-w-[250px] font-serif hover:text-red-400 text-base'>
+                <h3 className='max-w-[250px] font-serif text-base hover:text-red-400'>
                   {item.title.zh} <br />
                   {item.title.en}
                 </h3>
@@ -44,7 +44,7 @@ const CheckoutProducts = () => {
                   </p>
                 ))}
               </div>
-              <button className='hover:text-red-300 font-mono' onClick={() => removeProductsFromCart({ productId })}>
+              <button className='font-mono hover:text-red-300' onClick={() => removeProductsFromCart({ productId })}>
                 {' '}
                 [x delete]{' '}
               </button>

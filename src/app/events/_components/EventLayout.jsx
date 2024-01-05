@@ -50,6 +50,7 @@ const EventLayout = () => {
   })
   useEffect(() => {
     if (inView) handleReadmore()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
 
   const [displayFilteredData, setFilteredData] = useState(storeData?.pages?.[0]?.data || [])

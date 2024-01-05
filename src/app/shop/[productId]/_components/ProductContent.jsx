@@ -6,7 +6,7 @@ import Image from 'next/image'
 /**　@todo caraousel */
 const ProductContent = ({ product }) => {
   return (
-    <main className='absolute p-8 md:left-[-200px] top-4 grid w-screen grid-cols-1 gap-4 md:grid-cols-3'>
+    <main className='absolute top-4 grid w-screen grid-cols-1 gap-4 p-8 md:left-[-200px] md:grid-cols-3'>
       <div className='col-span-1'>
         <Image
           alt={`image-${product?.title?.en}`}

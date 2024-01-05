@@ -25,12 +25,7 @@ const nextConfig = {
   // minify: false, // Disable minification
 
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
-  experimental: {
-    reactRoot: 'concurrent',
-    appDir: true,
-    /** to 'use server' */
-    serverActions: true,
-  },
+
   images: {
     unoptimized: true,
     remotePatterns: [

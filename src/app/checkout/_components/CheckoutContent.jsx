@@ -46,21 +46,21 @@ const CheckoutContent = () => {
         <div className='inline-flex gap-4'>
           <a
             onClick={() => routerMiddleware.push('/service-policy')}
-            className='cursor-pointer hover:text-red-400 text-sm'
+            className='cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             服務條款 SERVICE POLICY
           </a>
           <a
             onClick={() => routerMiddleware.push('/privacy-policy')}
-            className='cursor-pointer hover:text-red-400 text-sm'
+            className='cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             隱私權政策 PRIVACY POLICY
           </a>
           <a
             onClick={() => routerMiddleware.push('/return-policy')}
-            className='cursor-pointer hover:text-red-400 text-sm'
+            className='cursor-pointer text-sm hover:text-red-400'
           >
             {' '}
             退款政策 RETURN POLICY

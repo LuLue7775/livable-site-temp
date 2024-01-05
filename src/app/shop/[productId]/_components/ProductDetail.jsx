@@ -2,7 +2,7 @@ import { sanitize } from 'isomorphic-dompurify'
 
 const ProductDetail = ({ product }) => {
   return (
-    <section className='border-t border-b border-green-900 my-4'>
+    <section className='my-4 border-y border-green-900'>
       {product?.care?.zh && (
         <div className='my-2 max-w-[700px]'>
           <h3>基本保養 Care & maintenance </h3>
