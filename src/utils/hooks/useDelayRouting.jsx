@@ -34,14 +34,16 @@ export default function useDelayRouting() {
   const { glassRef } = useGlass()
   const { setMenuOpened } = useMenu()
 
-  const routerMiddleware = {
-    push: (route) => {
-      closeAnimation(glassRef, router, route, setMenuOpened)
-      // startAnimation(glassRef, isMenuOpened, setMenuOpened).then(() => {
-      //     // router.push(route);
-      // })
-    },
-  }
+  // const routerMiddleware = {
+  //   push: (route) => {
+  //     closeAnimation(glassRef, router, route, setMenuOpened)
+  //     // startAnimation(glassRef, isMenuOpened, setMenuOpened).then(() => {
+  //     //     // router.push(route);
+  //     // })
+  //   },
+  // }
 
-  return routerMiddleware
+  return {
+    push: (route) => closeAnimation(glassRef, router, route, setMenuOpened),
+  }
 }

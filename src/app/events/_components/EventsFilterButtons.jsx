@@ -63,7 +63,7 @@ const EventsFilterButtons = ({ flattenedStoreData, setFilteredData }) => {
           handleFilterClicked={handleFilterClicked}
         />
       </div>
-      <div className='flex flex-wrap items-center'>
+      {/* <div className='flex flex-wrap items-center'>
         <label> DATE | </label>
         <FilterButton
           flattenedStoreData={flattenedStoreData}
@@ -80,7 +80,7 @@ const EventsFilterButtons = ({ flattenedStoreData, setFilteredData }) => {
           tag={'archive'}
           handleFilterClicked={handleFilterClicked}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

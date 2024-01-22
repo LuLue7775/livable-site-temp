@@ -1,7 +1,7 @@
 'use client'
-import Image from 'next/image'
+import EventImages from './EventImages'
 import { Suspense, useRef, useEffect } from 'react'
-import useDelayRouting from '@/utils/hooks/useDelayRouting'
+// import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
 import { sanitize } from 'isomorphic-dompurify'
 
@@ -10,7 +10,7 @@ import CSSRulePlugin from 'gsap/CSSRulePlugin'
 gsap.registerPlugin(CSSRulePlugin)
 
 const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
-  const routerMiddleware = useDelayRouting()
+  // const routerMiddleware = useDelayRouting()
 
   const horizontalRef = useRef()
   const eventHeadRef = useRef()
@@ -98,35 +98,7 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
               </div>
 
               <Suspense fallback={<h2>IMAGE </h2>}>
-                <div className='inline-flex h-auto w-auto max-w-[90vw] flex-wrap gap-8'>
-                  {event?.images?.image.map((image, i) => (
-                    <div key={i}>
-                      <Image
-                        alt={`event-image${i}`}
-                        sizes='100vw'
-                        src={image}
-                        width={1200}
-                        height={1200}
-                        style={{
-                          maxHeight: '600px',
-                          maxWidth: '600px',
-                          minHeight: '200px',
-                          minWidth: '300px',
-                          width: 'auto',
-                          height: 'auto',
-                          objectfit: 'contain',
-                          display: 'inline-block',
-                        }}
-                        onClick={() => {
-                          setLightboxOpened(true)
-                          setLightboxIndex(i)
-                        }}
-                        className='cursor-pointer'
-                      />
-                      <p className=' '> NO.{i + 1}</p>
-                    </div>
-                  ))}
-                </div>
+                <EventImages event={event} setLightboxIndex={setLightboxIndex} setLightboxOpened={setLightboxOpened} />
               </Suspense>
             </div>
           </div>

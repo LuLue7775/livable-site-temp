@@ -15,8 +15,10 @@ const genInitialSelectedVal = (product) => {
 
 const ProductForm = ({ product }) => {
   const { addProductsToCart } = useCart()
-  const [quantity, setQuatity] = useState(1)
+  const [quantity, setQuantity] = useState(1)
   const [selectedValue, setSelectedValue] = useState(genInitialSelectedVal(product))
+  const [error, setError] = useState('')
+
   const handleClick = (e) => {
     e.preventDefault()
 
@@ -27,6 +29,11 @@ const ProductForm = ({ product }) => {
       price: product.price,
       title: { en: product.title.en, zh: product.title.zh },
       image: product.images[0],
+    }
+
+    if (data.quantity > product.stock) {
+      setError('Sorry! 庫存數量不足')
+      return
     }
 
     addProductsToCart(data)
@@ -55,8 +62,9 @@ const ProductForm = ({ product }) => {
         價格 Price : NTD {product?.price} <br />
       </div>
 
-      <QuantityButton setQuatity={setQuatity} quantity={quantity} />
+      <QuantityButton setQuantity={setQuantity} quantity={quantity} />
 
+      <p data-testid='error'> {error} </p>
       <Button
         data-testid='add-to-cart-button'
         onClick={handleClick}

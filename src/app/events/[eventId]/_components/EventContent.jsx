@@ -65,7 +65,7 @@ const EventContent = ({ event }) => {
         setLightboxOpened={setLightboxOpened}
         lightboxIndex={lightboxIndex}
         setLightboxIndex={setLightboxIndex}
-        images={event?.images?.image}
+        images={event?.images}
       />
     </>
   )
