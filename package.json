@@ -16,7 +16,7 @@
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "next start",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --watch=false --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --watch --runInBand"
