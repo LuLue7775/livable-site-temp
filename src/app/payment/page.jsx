@@ -37,12 +37,7 @@ async function createEcpayFormAPI(data) {
 
       OrderResultURL: `https://mosspiglets.work/thankyou`, // 下單成功後
       ClientBackURL: `https://mosspiglets.work/checkout`, // 取消下單返回處
-      // OrderResultURL: `${publicRuntimeConfig.NEXT_PUBLIC_SITE_URL}/thankyou`,  // 下單成功後
-      // ClientBackURL: `${publicRuntimeConfig.NEXT_PUBLIC_SITE_URL}/checkout`, // 取消下單返回處
       ReturnURL: firebase_url, // 回給fire functions
-      // PaymentInfoURL: 'https://api.test.com/our/hook2', // 非即時交易用，functions裡要設獨立hook api
-      // ClientRedirectURL: '', // 非即時交易用
-      // PeriodReturnURL: '', // 非即時交易用
     },
   )
 
@@ -59,8 +54,6 @@ async function createEcpayFormAPI(data) {
 
   const params = {
     BindingCard: 0, // 記憶信用卡: 1 (記) | 0 (不記)
-    // MerchantMemberID: '3371374', // 記憶卡片需加註識別碼: MerchantId+廠商會員編號
-    // MerchantMemberID: '3002607', // 測試用
     UnionPay: 2, // [需申請] 銀聯卡: 0 (可用, default) | 1 (導至銀聯網) | 2 (不可用)
   }
 
