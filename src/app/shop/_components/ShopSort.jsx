@@ -18,10 +18,10 @@ const ShopSort = ({ setSortDate, setSortPrice }) => {
   return (
     <>
       Sort By
-      <a className='cursor-pointer' onClick={() => setDscDate(!isDscDate)}>
+      <a data-testid='shop-sort-date' className='cursor-pointer' onClick={() => setDscDate(!isDscDate)}>
         Newest {isDscDate ? '↑' : '↓'}
       </a>
-      <a className='cursor-pointer' onClick={() => setDscPrice(!isDscPrice)}>
+      <a data-testid='shop-sort-price' className='cursor-pointer' onClick={() => setDscPrice(!isDscPrice)}>
         Price {isDscPrice ? '↓' : '↑'}
       </a>
     </>

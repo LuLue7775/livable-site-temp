@@ -31,16 +31,16 @@ const EventContent = ({ event }) => {
     <>
       <div className='relative mt-20 h-full w-full overflow-x-hidden overflow-y-scroll'>
         <div ref={titleRef} style={{ opacity: 0 }}>
-          <h1 className='mx-6 '>
+          <h1 data-testid='event-single-title' className='mx-6'>
             《{event?.title?.zh}》 {event?.title?.en}
           </h1>
           {!isSingleDayEvent ? (
-            <p className='zh relative mx-6 mb-4'>
+            <p data-testid='event-single-date' className='zh relative mx-6 mb-4'>
               以下為此活動可選日期時間
               <span className='font-mono'> Available date and time of this event.</span>
             </p>
           ) : (
-            <p className='zh relative mx-6 mb-4'>
+            <p data-testid='event-single-date' className='zh relative mx-6 mb-4'>
               此活動日期為
               <span className='font-mono'>
                 {event?.event_date.start.year} {event?.event_date.start.month} {event?.event_date.start.date},

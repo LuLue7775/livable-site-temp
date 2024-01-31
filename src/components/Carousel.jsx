@@ -18,11 +18,9 @@ export default function Carousel(props) {
       ))}
       <div className='absolute bottom-0 left-0 w-full p-6 '>
         <button className='mr-4 w-auto border-b font-bold hover:text-red-400' onClick={() => handleClicked('prev')}>
-          {' '}
-          &lt;- PREV{' '}
+          &lt;- PREV
         </button>
         <button className='mr-4 w-auto border-b font-bold hover:text-red-400' onClick={() => handleClicked('next')}>
-          {' '}
           NEXT -&gt;
         </button>
       </div>

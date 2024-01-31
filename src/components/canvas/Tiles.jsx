@@ -160,8 +160,8 @@ export function Tiles({ isReveal }) {
             onClick={() => routerMiddleware.push('/shop')}
             className=' cursor-pointer bg-green-900 text-lg text-white hover:bg-red-400'
           >
-            {' '}
-            LANDSCAPE{' '}
+            
+            LANDSCAPE
           </a>
           .
         </p>

@@ -67,6 +67,7 @@ const ShopLayout = () => {
         }
       >
         <div
+          data-testid='shop-sort'
           ref={horizontalRef}
           style={{ opacity: 0 }}
           className='relative flex h-[52px] w-full border-t border-green-900/60'
@@ -86,7 +87,7 @@ const ShopLayout = () => {
                   translate-y-[1px] border-l border-green-900/60 md:w-[calc(100%-200px)]
                   '
       >
-        <div className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-200px] md:flex-row'>
+        <div data-testid='shop-sort'className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-200px] md:flex-row'>
           <ShopCategories setProductsFilter={setProductsFilter} setProductsSubFilter={setProductsSubFilter} />
           <div className='w-full md:w-[calc(100%-200px)]'>
             <ShopDescription />

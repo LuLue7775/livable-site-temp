@@ -33,7 +33,7 @@ const EventsFilterButtons = ({ flattenedStoreData, setFilteredData }) => {
   }, [filters, flattenedStoreData])
 
   return (
-    <div className='font-mono '>
+    <div>
       <h2>FILTER</h2>
       <div className='flex flex-wrap items-center'>
         <label> MATERIALS | </label>

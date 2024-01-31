@@ -34,7 +34,7 @@ const SubCategory = ({ name = '', tag = '', setProductsSubFilter, setProductsFil
 const ShopCategories = ({ setProductsFilter, setProductsSubFilter }) => {
   //   const [isExpland, setExpand] = useState(false)
   return (
-    <aside className='font-mono'>
+    <aside data-testid='shop-categories' className='font-mono'>
       <ul>
         <MainCategory
           name='FEATURED'

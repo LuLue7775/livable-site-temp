@@ -45,8 +45,7 @@ const CheckoutProducts = () => {
                 ))}
               </div>
               <button className='font-mono hover:text-red-300' onClick={() => removeProductsFromCart({ productId })}>
-                {' '}
-                [x delete]{' '}
+                [x delete]
               </button>
             </div>
           </div>

@@ -14,6 +14,7 @@ const Cart = () => {
   return (
     <CheckoutFormProvider>
       <div
+        data-testid='cart-drawer'
         className={`
       ${isCartOpened ? 'right-[1rem]' : 'right-[-450px]'}
              absolute  top-[1rem] z-20 flex h-[500px] 

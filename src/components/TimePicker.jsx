@@ -107,8 +107,7 @@ function TimeSlot({ availability, eventId, eventTitleZh, eventTitleEn }) {
         >
           {timeFormatter.format(new Date(availability.startTime))}
           <p className='zh text-sm'>
-            {' '}
-            名額 <span className='font-mono'> seats:</span> {availability?.stock}{' '}
+            名額 <span className='font-mono'> seats:</span> {availability?.stock}
           </p>
         </button>
       </div>

@@ -2,8 +2,7 @@
 
 import { useProducts } from '@/utils/react-query/useProducts'
 import LoadingIcon from '@/components/LoadingIcon'
-import { convertTimestampToFormatDate, sortFunctionMap } from '@/utils/functions'
-// import { useInView } from 'react-intersection-observer'
+import { sortFunctionMap } from '@/utils/functions'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -12,7 +11,7 @@ const ShopList = ({ products, sortDateStatus, sortPriceStatus }) => {
 
   if (error) return conole.error('An error has occurred: ' + error.message)
   return (
-    <main className='grid grid-cols-1 gap-8 md:-translate-y-32 md:grid-cols-3'>
+    <main data-testid='shop-list' className='grid grid-cols-1 gap-8 md:-translate-y-32 md:grid-cols-3'>
       {isFetching ? (
         <LoadingIcon />
       ) : (
@@ -21,6 +20,10 @@ const ShopList = ({ products, sortDateStatus, sortPriceStatus }) => {
           ?.sort(sortFunctionMap(sortPriceStatus, 'price'))
           ?.map((product, i) => (
             <div
+              data-testid='product'
+              data-test-date={product?.createdAt.seconds}
+              data-test-category={product?.categories?.category}
+              data-test-sub_category={product?.categories?.sub_category}
               key={i}
               className={`
                 ${i === 0 && 'md:col-span-1 md:col-start-3 '} h-auto w-auto`}
@@ -31,7 +34,10 @@ const ShopList = ({ products, sortDateStatus, sortPriceStatus }) => {
                   <h2 className='text-lg'>{product?.title?.en}</h2>
                   [view more]
                 </div>
-                <p className='mb-2 border-b border-green-900/50 text-sm'> NTD {product?.price}</p>
+                <p data-testid='product-price' className='mb-2 border-b border-green-900/50 text-sm'>
+                  
+                  NTD {product?.price}
+                </p>
 
                 <div className={`${i === 0 && 'max-h-[400px] overflow-hidden'} `}>
                   <Image

@@ -29,6 +29,7 @@ const EventSingle = ({
           className='flex w-3/4 justify-end'
         >
           <a
+            data-testid='event-expand'
             id={`${item?.id}`}
             className='cursor-pointer font-mono text-green-900 hover:text-red-400'
             onClick={(e) => toggleEvent(e)}
@@ -47,19 +48,19 @@ const EventSingle = ({
                   translate-y-[1px]  gap-4 border-l border-green-900/60`}
         >
           <div className='relative grid h-[60px] w-1/3 min-w-[90px] max-w-[200px] grid-cols-3 px-2 text-green-900'>
-            <div className=' text-center'>
+            <div data-testid='event-date' className='text-center'>
               <p>{item?.event_date?.start?.date}</p>
               <p>{item?.event_date?.start?.month}</p>
             </div>
             {item?.event_date?.end && <p className='long-dash relative w-full' />}
-            <div className=' text-center'>
+            <div className='text-center'>
               <p>{item?.event_date?.end?.date}</p>
               <p>{item?.event_date?.end?.month}</p>
             </div>
           </div>
           <div className='border-l border-green-900/60 pl-2 text-green-900'>
             <p className='font-mono text-[10px] leading-[2px]'> {item?.category} </p>
-            <div className='pb-2'>
+            <div data-testid='event-title' className='pb-2'>
               <h3 className='font-bold'> {item?.title?.en} </h3>
               <h3 className='font-bold'> {item?.title?.zh} </h3>
             </div>
@@ -77,6 +78,7 @@ const EventSingle = ({
               <p className='zh' dangerouslySetInnerHTML={{ __html: sanitize(item?.host_bio?.zh) }} />
               <p dangerouslySetInnerHTML={{ __html: sanitize(item?.host_bio?.en) }} />
               <a
+                data-testid='event-signup'
                 className='mt-2 flex justify-end hover:text-red-400'
                 onClick={() => routerMiddleware.push(`/events/${item?.id}`)}
               >

@@ -12,17 +12,9 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 })
 
 const nextConfig = {
-  // uncomment the following snippet if using styled components
-  // compiler: {
-  //   styledComponents: true,
-  // },
-
-  /** These are added bc dev mode is slow */
-  // fastRefresh: true,
-  // concurrentFeatures: true,
-  // productionBrowserSourceMaps: false, // Disable source maps in development
-  // optimizeFonts: false, // Disable font optimization
-  // minify: false, // Disable minification
+  dev: {
+    quiet: true /** @TODO remove this at last. */,
+  },
 
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
 
