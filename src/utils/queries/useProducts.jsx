@@ -37,14 +37,15 @@ export const useProducts = () => {
     getNextPageParam: (lastPage) => lastPage?.pageParams ?? undefined,
     refetchOnWindowFocus: false,
     select: filterProductsByCategories,
-    placeholderData: <div className='h-[200px] w-[200px] bg-red-200'> ================= </div>,
   })
 
   return {
     products: data,
     isLoading,
     isError,
+    productsFilter,
     setProductsFilter,
+    productsSubFilter,
     setProductsSubFilter,
     fetchNextPage,
     setSortDate,

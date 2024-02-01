@@ -10,6 +10,7 @@ import { useRef, useEffect } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
+import LoadingIcon from '@/components/LoadingIcon'
 import { useInView } from 'react-intersection-observer'
 gsap.registerPlugin(CSSRulePlugin)
 
@@ -25,9 +26,10 @@ const ShopLayout = () => {
 
   const {
     products,
-    isFetching,
     isError,
+    productsFilter,
     setProductsFilter,
+    productsSubFilter,
     setProductsSubFilter,
     fetchNextPage,
     setSortDate,
@@ -68,11 +70,16 @@ const ShopLayout = () => {
                   '
       >
         <div className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-200px] md:flex-row'>
-          <ShopCategories setProductsFilter={setProductsFilter} setProductsSubFilter={setProductsSubFilter} />
+          <ShopCategories
+            productsFilter={productsFilter}
+            setProductsFilter={setProductsFilter}
+            productsSubFilter={productsSubFilter}
+            setProductsSubFilter={setProductsSubFilter}
+          />
           <div className='w-full md:w-[calc(100%-200px)]'>
             <ShopDescription />
 
-            <ShopList products={products} isFetching={isFetching} error={isError} />
+            <ShopList products={products} error={isError} />
 
             <div style={{ textAlign: 'center' }}>
               <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
