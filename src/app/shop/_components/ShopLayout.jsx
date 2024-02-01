@@ -10,7 +10,6 @@ import { useRef, useEffect } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
-import LoadingIcon from '@/components/LoadingIcon'
 import { useInView } from 'react-intersection-observer'
 gsap.registerPlugin(CSSRulePlugin)
 

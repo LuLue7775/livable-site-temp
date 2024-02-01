@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { getProductsFromFirestore } from '../firebase/firebase.utils'
+import { getPaginationFromFirestore } from '../firebase/firebase.utils'
 import { useState, useCallback } from 'react'
 import { sortFunctionMap } from '../functions'
 
@@ -10,7 +10,7 @@ export const useProducts = () => {
   const [sortDateStatus, setSortDate] = useState('none') // none/ asc/ dsc
   const [sortPriceStatus, setSortPrice] = useState('none') // none/ asc/ dsc
 
-  const filterProductsByCategories = useCallback(
+  const transformProducts = useCallback(
     (data) => {
       const products = data?.pages
         ?.reduce((acc, page) => acc.concat(page.dataMap), [])
@@ -32,11 +32,12 @@ export const useProducts = () => {
 
   const { data, isError, isLoading, fetchNextPage } = useInfiniteQuery({
     queryKey: ['products'],
-    queryFn: async (pageParam) => await getProductsFromFirestore(pageParam),
+    queryFn: async (props) =>
+      await getPaginationFromFirestore({ queryKey: 'products', pageParam: props.pageParam, pageSize: 8 }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.pageParams ?? undefined,
     refetchOnWindowFocus: false,
-    select: filterProductsByCategories,
+    select: transformProducts,
   })
 
   return {

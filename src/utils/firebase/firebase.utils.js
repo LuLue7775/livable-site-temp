@@ -174,12 +174,11 @@ export const addCollectionAndDocuments = async (collectionKey, docId, objectsToA
   await batch.commit()
 }
 
-export const getProductsFromFirestore = async ({ pageParam }) => {
-  // pageParam should be the lastVisible document from the previous query
-  let pageSize = 8
-  let baseQuery = query(collection(db, 'products'), orderBy('createdAt'), limit(pageSize))
+export const getPaginationFromFirestore = async ({ queryKey, pageParam, pageSize }) => {
+  // pageParam is previous doc snapshot. not page index.
+  let baseQuery = query(collection(db, queryKey), orderBy('createdAt'), limit(pageSize))
   if (pageParam) {
-    baseQuery = query(collection(db, 'products'), orderBy('createdAt'), startAfter(pageParam), limit(pageSize))
+    baseQuery = query(collection(db, queryKey), orderBy('createdAt'), startAfter(pageParam), limit(pageSize))
   }
   const querySnapshot = await getDocs(baseQuery)
 
