@@ -65,8 +65,8 @@ export default function Page() {
               onClick={() => routerMiddleware.push('/shop')}
               className='cursor-pointer bg-green-900 text-white transition-colors duration-300 ease-in-out hover:bg-red-400'
             >
-              {' '}
-              LANDSCAPE{' '}
+              
+              LANDSCAPE
             </a>
           </section>
         </Suspense>

@@ -5,13 +5,11 @@ import ShopCategories from './ShopCategories'
 import ShopDescription from './ShopDescription'
 import ShopList from './ShopList'
 import { eventpage_revealXAnimation, eventpage_revealYAnimation } from '@/utils/animations'
-import { useProducts } from '@/utils/react-query/useProducts'
-import { productsFirstBatch } from '@/utils/firebase/firebase.utils'
-import { useState, useRef, useEffect } from 'react'
+import { useProducts } from '@/utils/queries/useProducts'
+import { useRef, useEffect } from 'react'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
-import LoadingIcon from '@/components/LoadingIcon'
 import { useInView } from 'react-intersection-observer'
 gsap.registerPlugin(CSSRulePlugin)
 
@@ -27,36 +25,21 @@ const ShopLayout = () => {
 
   const {
     products,
-    filterProductsByCategories,
-    setProducts,
-    isFetching,
-    error,
+    isError,
+    productsFilter,
     setProductsFilter,
+    productsSubFilter,
     setProductsSubFilter,
-    lastKey,
-    setLastKey,
-    fetchMorePosts,
+    fetchNextPage,
+    setSortDate,
+    setSortPrice,
   } = useProducts()
-
-  useEffect(() => {
-    productsFirstBatch()
-      .then((res) => {
-        setProducts(res.dataMap)
-        setLastKey(res.lastKey)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }, [])
-
-  const [sortDateStatus, setSortDate] = useState('none') // none/ asc/ dsc
-  const [sortPriceStatus, setSortPrice] = useState('none') // none/ asc/ dsc
 
   const { ref: reachBottom, inView } = useInView({
     threshold: 0,
   })
   useEffect(() => {
-    if (inView) fetchMorePosts(lastKey)
+    if (inView) fetchNextPage()
   }, [inView])
 
   return (
@@ -76,7 +59,6 @@ const ShopLayout = () => {
           </p>
         </div>
       </div>
-
       <div
         ref={eventBodyRef}
         style={{ opacity: 0 }}
@@ -87,27 +69,19 @@ const ShopLayout = () => {
                   '
       >
         <div className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-200px] md:flex-row'>
-          <ShopCategories setProductsFilter={setProductsFilter} setProductsSubFilter={setProductsSubFilter} />
+          <ShopCategories
+            productsFilter={productsFilter}
+            setProductsFilter={setProductsFilter}
+            productsSubFilter={productsSubFilter}
+            setProductsSubFilter={setProductsSubFilter}
+          />
           <div className='w-full md:w-[calc(100%-200px)]'>
             <ShopDescription />
 
-            <ShopList
-              products={filterProductsByCategories}
-              sortDateStatus={sortDateStatus}
-              sortPriceStatus={sortPriceStatus}
-              isFetching={isFetching}
-              error={error}
-            />
+            <ShopList products={products} error={isError} />
 
             <div style={{ textAlign: 'center' }}>
-              {isFetching ? (
-                <LoadingIcon />
-              ) : lastKey.toString().length > 0 ? (
-                // <button onClick={() => fetchMorePosts(lastKey)}> ########### More Posts ##########</button>
-                <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
-              ) : (
-                <span>You are up to date!</span>
-              )}
+              <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
             </div>
           </div>
         </div>

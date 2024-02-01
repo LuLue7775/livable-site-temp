@@ -89,55 +89,79 @@ export default function BookingForm() {
                   bottom-0 min-h-[600px] 
                   w-full min-w-[350px] translate-x-[-4px] translate-y-[1px] border-l border-green-900/60 p-6 md:w-[calc(100%-200px)]'
       >
-        <button className='cursor-pointer hover:text-red-400' onClick={() => router.back()}>
+        <button
+          data-testid='booking-return'
+          className='cursor-pointer hover:text-red-400'
+          onClick={() => router.push(`/events/${eventEn}`)}
+        >
           [ &lt;- back to event ]
         </button>
 
-        <h1 className='text-xl'> 即將為您預約 {eventZh} </h1>
-        <h1 className='text-xl'> You are about to book {eventEn}</h1>
-        <div className='space-y-2 '>
+        <h1 data-testid='booking-title' className='text-xl'>
+          即將為您預約 {eventZh}
+        </h1>
+        <h2 data-testid='booking-title' className='text-xl'>
+          You are about to book {eventEn}
+        </h2>
+        <div data-testid='booking-date' className='space-y-2 '>
           <p>
             <strong>{formattedTime}</strong>
           </p>
           <p>請確實填寫正確資訊 Please fill in the form below to confirm.</p>
         </div>
 
-        <div className='mt-8 w-full min-w-[300px] max-w-[400px] pb-[200px] md:w-1/3'>
-          <form
-            onSubmit={handleSubmit(processForm)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') e.preventDefault() // prevent enter triggers submit
-            }}
-          >
-            <div className='grid gap-2'>
-              <Input register={register} name='name' id='name' label='Name' required />
-              {errors?.name?.message && <span className='text-sm text-red-500'>{errors?.name?.message}</span>}
+        <form
+          data-testid='booking-form'
+          className='mt-8 w-full min-w-[300px] max-w-[400px] pb-[200px] md:w-1/3'
+          onSubmit={handleSubmit(processForm)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') e.preventDefault() // prevent enter triggers submit
+          }}
+        >
+          <div className='grid gap-2'>
+            <Input data-testid='booking-date' register={register} name='name' id='name' label='Name' required />
+            {errors?.name?.message && <span className='text-sm text-red-500'>{errors?.name?.message}</span>}
 
-              <Input register={register} name='email' id='email' label='Email' type='email' required />
-              {errors?.email?.message && <span className='text-sm text-red-500'>{errors?.email?.message}</span>}
+            <Input
+              data-testid='booking-date'
+              register={register}
+              name='email'
+              id='email'
+              label='Email'
+              type='email'
+              required
+            />
+            {errors?.email?.message && <span className='text-sm text-red-500'>{errors?.email?.message}</span>}
 
-              <Input register={register} name='phone' id='phone' label='Phone' type='text' required />
-              {errors?.phone?.message && <span className='text-sm text-red-500'>{errors?.phone?.message}</span>}
-            </div>
-            <div className='mt-4 inline-flex gap-4'>
-              <Button type='submit' size={'medium'} impact={'bold'} shape={'rounded'} status={status}>
-                ADD TO CART
+            <Input
+              data-testid='booking-date'
+              register={register}
+              name='phone'
+              id='phone'
+              label='Phone'
+              type='text'
+              required
+            />
+            {errors?.phone?.message && <span className='text-sm text-red-500'>{errors?.phone?.message}</span>}
+          </div>
+          <div className='mt-4 inline-flex gap-4'>
+            <Button type='submit' size={'medium'} impact={'bold'} shape={'rounded'} status={status}>
+              ADD TO CART
+            </Button>
+            {checkoutButton && (
+              <Button
+                type='button'
+                size={'medium'}
+                impact={'bold'}
+                shape={'rounded'}
+                status={'idle'}
+                onClick={() => routerMiddleware.push('/checkout')}
+              >
+                CHECKOUT
               </Button>
-              {checkoutButton && (
-                <Button
-                  type='button'
-                  size={'medium'}
-                  impact={'bold'}
-                  shape={'rounded'}
-                  status={'idle'}
-                  onClick={() => routerMiddleware.push('/checkout')}
-                >
-                  CHECKOUT
-                </Button>
-              )}
-            </div>
-          </form>
-        </div>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   )

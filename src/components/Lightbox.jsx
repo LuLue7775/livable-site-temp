@@ -5,6 +5,7 @@ import Image from 'next/image'
 const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLightboxIndex, images }) => {
   return (
     <div
+      data-testid='lightbox'
       className={`
       ${isLightboxOpened ? 'block' : 'hidden'}
       ${isLightboxOpened ? 'animate-fadeIn' : 'animate-fadeOut'}
@@ -14,6 +15,7 @@ const Lightbox = ({ isLightboxOpened, setLightboxOpened, lightboxIndex, setLight
       `}
     >
       <button
+        data-testid='lightbox-close'
         className='absolute right-0 z-10 cursor-pointer p-6 hover:text-red-400'
         onClick={() => setLightboxOpened(false)}
       >

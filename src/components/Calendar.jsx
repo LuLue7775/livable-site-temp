@@ -107,14 +107,12 @@ function MonthsNavigation() {
   return (
     <div className='flex w-full items-center justify-around gap-2'>
       <AriaButton slot='previous' className={monthNavigationButtonClasses}>
-        {' '}
-        &lt;{' '}
+        &lt;
       </AriaButton>
       <Heading className='text-lg font-semibold' />
 
       <AriaButton slot='next' className={monthNavigationButtonClasses}>
-        {' '}
-        &gt;{' '}
+        &gt;
       </AriaButton>
     </div>
   )

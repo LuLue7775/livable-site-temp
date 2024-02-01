@@ -13,6 +13,7 @@ export default function Nav() {
       </a>
 
       <a
+        data-testid='menu-toggle'
         className={`${isMenuOpened ? '-rotate-45' : 'rotate-45'} origin-center cursor-pointer font-mono duration-300`}
         onClick={() => {
           setMenuOpened(!isMenuOpened)

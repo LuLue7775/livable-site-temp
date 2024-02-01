@@ -38,12 +38,12 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
             className='absolute right-4 inline-flex w-full max-w-[300px] flex-wrap justify-end px-4 font-mono '
           >
             {/* <a onClick={ () => routerMiddleware.push(`/`)}  className='hover:text-red-400'>
-              {' '}
-              [ view relavent shop ]{' '}
+              
+              [ view relavent shop ]
             </a>
             <a onClick={ () => routerMiddleware.push(`/`)}  className='hover:text-red-400'>
-              {' '}
-              [ view relavent archive ]{' '}
+              
+              [ view relavent archive ]
             </a> */}
           </div>
         </div>
@@ -56,18 +56,15 @@ const EventDetail = ({ event, setLightboxIndex, setLightboxOpened }) => {
                   translate-y-[1px] gap-4 border-l border-green-900/60'
           >
             <div className='relative px-4 pb-[300px]'>
-              <div className='border-b border-green-900/20 py-4'>
+              <div data-testid='event-detail' className='border-b border-green-900/20 py-4'>
                 <p className='zh'>
-                  {' '}
-                  開始時間 <span className='font-mono'>START AT : {event?.event_date.start.time} </span>{' '}
+                  開始時間 <span className='font-mono'>START AT : {event?.event_date.start.time} </span>
                 </p>
                 <p className='zh'>
-                  {' '}
-                  活動時間 <span className='font-mono'>DURATION : {event?.duration} hr </span>{' '}
+                  活動時間 <span className='font-mono'>DURATION : {event?.duration} hr </span>
                 </p>
                 <p className='zh'>
-                  {' '}
-                  活動費用 <span className='font-mono'>FEE : NTD$ {event?.price}</span>{' '}
+                  活動費用 <span className='font-mono'>FEE : NTD$ {event?.price}</span>
                 </p>
               </div>
               <div className='border-b border-green-900/20 py-4'>

@@ -22,15 +22,15 @@ const ProductContent = ({ product }) => {
       </div>
       <div className='col-span-1 md:col-span-2'>
         <div className='flex'>
-          <h1> {product?.title?.zh} </h1>{' '}
-          <p className='ml-4 border-l border-green-900/50 pl-4 text-2xl'> {product?.title?.en} </p>{' '}
+          <h1 data-testid='product-title-zh'> {product?.title?.zh} </h1>
+          <p data-testid='product-title-en' className='ml-4 border-l border-green-900/50 pl-4 text-2xl'>
+            {product?.title?.en}
+          </p>
         </div>
 
-        <div className='font-mono'>
+        <div data-testid='product-details' className='font-mono'>
           <ProductBasicDetail product={product} />
-
           <ProductForm product={product} />
-
           <ProductDetail product={product} />
         </div>
       </div>

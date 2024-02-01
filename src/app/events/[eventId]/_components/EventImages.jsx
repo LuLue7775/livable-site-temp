@@ -3,10 +3,11 @@ import React from 'react'
 
 const EventImages = ({ event, setLightboxIndex, setLightboxOpened }) => {
   return (
-    <div data-testid='images-wrap' className='inline-flex h-auto w-auto max-w-[90vw] flex-wrap gap-8'>
+    <div data-testid='event-images-wrap' className='inline-flex h-auto w-auto max-w-[90vw] flex-wrap gap-8'>
       {event?.images?.map((image, i) => (
         <div key={i}>
           <Image
+            data-testid='event-image'
             alt={`event-image${i}`}
             sizes='100vw'
             src={image}

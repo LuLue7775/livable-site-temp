@@ -92,69 +92,6 @@ export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
   return JSON.parse(JSON.stringify(dataMap))
 }
 
-// const extractEventObject = (data) => {
-//   return {
-//         title: data?.title,
-//         images: data?.images,
-//         tags: data?.tags,
-//         calendar: data?.calendar,
-//         category: data?.category,
-//         description: data?.description,
-//         duration: data?.duration,
-//         host: data?.host,
-//         host_bio: data?.host_bio,
-//         price: data?.price,
-//         published: data?.published,
-//         event_date: data?.event_date
-//       }
-// }
-
-export const getNextPageDocsFromFirestore = async ({ queryKey, pageParam, orderTag }) => {
-  if (!pageParam) return
-  let numPerRequest = 6
-  let dataMap = []
-
-  if (pageParam === 1) {
-    const querySnapshot = await initialReq()
-    dataMap = querySnapshot.docs.reduce((acc, doc) => {
-      let data = doc.data()
-      if (data.published) acc.push({ ...data, id: doc.id })
-      return acc
-    }, [])
-    return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
-  } else {
-    const querySnapshot = await nextReq()
-    dataMap = querySnapshot.docs.reduce((acc, doc) => {
-      let data = doc.data()
-
-      if (data.published) acc.push({ ...data, id: doc.id })
-      return acc
-    }, [])
-    // console.log('@2', pageParam, dataMap)
-    return { data: dataMap, nextPageParam: nextPageCursor(querySnapshot) }
-  }
-
-  async function initialReq() {
-    const q = query(collection(db, queryKey), orderBy(orderTag), limit(numPerRequest))
-    return await getDocs(q)
-  }
-
-  async function nextReq() {
-    const q = query(collection(db, queryKey), orderBy(orderTag), startAfter(pageParam), limit(numPerRequest))
-    return await getDocs(q)
-  }
-
-  // pass on next page cursor within a querySnapshot
-  function nextPageCursor(querySnapshot, pageParam = null) {
-    const lastDocSnapshot = querySnapshot?.docs[querySnapshot.docs.length - 1]
-    if (querySnapshot?.size < numPerRequest) {
-      // on last page
-      return undefined
-    }
-    return lastDocSnapshot
-  }
-}
-
 export const productsFirstBatch = async () => {
   try {
     const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), limit(5))
@@ -235,4 +172,29 @@ export const addCollectionAndDocuments = async (collectionKey, docId, objectsToA
   })
 
   await batch.commit()
+}
+
+export const getPaginationFromFirestore = async ({ queryKey, pageParam, pageSize }) => {
+  // pageParam is previous doc snapshot. not page index.
+  let baseQuery = query(collection(db, queryKey), orderBy('createdAt'), limit(pageSize))
+  if (pageParam) {
+    baseQuery = query(collection(db, queryKey), orderBy('createdAt'), startAfter(pageParam), limit(pageSize))
+  }
+  const querySnapshot = await getDocs(baseQuery)
+
+  try {
+    let dataMap = []
+    let pageParams = {}
+    querySnapshot.docs.forEach((doc) => {
+      dataMap.push({
+        ...doc.data(),
+        id: doc.id,
+      })
+      pageParams = doc
+    })
+    return { dataMap, pageParams, pages: 5 }
+  } catch (error) {
+    console.error('Error fetching documents:', error)
+    throw error
+  }
 }

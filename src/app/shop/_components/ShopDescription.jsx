@@ -1,6 +1,6 @@
 const ShopDescription = () => {
   return (
-    <section className='my-4 w-[max(50%,450px)] text-2xl'>
+    <section data-testid='shop-desc' className='my-4 w-[max(50%,450px)] text-2xl'>
       <h1 className='text-4xl'>SHOP</h1>
       <div className='text-2xl'>
         With an emphasis on natural materials and uncompromising quality, The Livable Studio&apos;s collection of home

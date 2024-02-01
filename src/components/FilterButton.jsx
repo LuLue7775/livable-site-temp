@@ -1,4 +1,4 @@
-const FilterButton = ({ flattenedStoreData, tag, handleFilterClicked }) => {
+const FilterButton = ({ events, tag, handleFilterClicked }) => {
   return (
     <div className='float-left m-2 overflow-hidden rounded border-[1px] border-green-900 [&:hover]:bg-red-400/50'>
       <label className='filter-label float-left h-6 w-auto rounded text-center'>
@@ -6,7 +6,7 @@ const FilterButton = ({ flattenedStoreData, tag, handleFilterClicked }) => {
           className='absolute hidden text-white'
           type='checkbox'
           onClick={() => handleFilterClicked(tag)}
-          disabled={!flattenedStoreData?.length}
+          disabled={!events?.length}
         />
         <span className='block px-2 text-center '> {tag} </span>
       </label>

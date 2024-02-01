@@ -1,28 +1,11 @@
 import EventLayout from './_components/EventLayout'
-// import { prefetchFromFirestore } from '@/utils/firebase/firebase.utils'
-// import getQueryClient from '@/utils/react-query/getQueryClient'
-// import { dehydrate, Hydrate } from '@tanstack/react-query'
 
 export const metadata = {
   title: 'The Livable Studio Event Page',
   description: 'Event Page for The Livable Studio.',
 }
 
-/** next 13 way of fetching on severside  */
 const EventsPage = async () => {
-  // const queryClient = getQueryClient()
-
-  // await queryClient.prefetchQuery({
-  //   queryKey: ['events'],
-  //   queryFn: async () => await prefetchFromFirestore('events'),
-  // })
-
-  // const dehydratedState = dehydrate(queryClient)
-
-  return (
-    // <Hydrate state={dehydratedState}>
-    <EventLayout />
-    // </Hydrate>
-  )
+  return <EventLayout />
 }
 export default EventsPage
