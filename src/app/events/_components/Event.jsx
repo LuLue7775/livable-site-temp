@@ -1,47 +1,32 @@
 import Button from '@/components/Button'
-import { setRefs } from '@/utils/functions'
 import useDelayRouting from '@/utils/hooks/useDelayRouting'
+import useEventAnimation from '@/utils/hooks/useEventAnimation'
 import { sanitize } from 'isomorphic-dompurify'
 
-const EventSingle = ({
-  index,
-  toggleEvent,
-  item,
-  openedId,
-  eventHeadRefs,
-  eventBodyRefs,
-  horizontalRefs,
-  eventBodyMoreTextRefs,
-}) => {
+const Event = ({ index, item, mainScopeRef, containerRefs }) => {
   const routerMiddleware = useDelayRouting()
 
+  const { toggleEvent } = useEventAnimation({ mainScopeRef, containerRefs })
+
   return (
-    <div className='flex flex-col items-end'>
-      <div className={'event-item-head relative h-[52px] w-[min(90%,1000px)]'}>
-        <p
-          ref={(element) => setRefs(element, item?.id, horizontalRefs)}
-          style={{ opacity: 0 }}
-          className='relative w-3/4  max-w-[1000px] border-t border-green-900/60'
-        />
-        <div
-          ref={(element) => setRefs(element, item?.id, eventHeadRefs)}
-          style={{ opacity: 0 }}
-          className='flex w-3/4 justify-end'
-        >
+    <>
+      <div className={'content-head relative h-[52px] w-[min(90%,1000px)] '}>
+        <p className='horizontal-line relative w-full max-w-[1000px] border-t border-green-900/60 sm:w-3/4' />
+        <div className='head-line flex w-full justify-end sm:w-3/4'>
           <a
             data-testid='event-expand'
-            id={`${item?.id}`}
             className='cursor-pointer font-mono text-green-900 hover:text-red-400'
             onClick={(e) => toggleEvent(e)}
           >
-            {openedId !== item?.id?.replace(' ', '') ? '[more]' : '[x]'}
+            <div id={`${item?.id}`} className='flex h-6 w-8 flex-col items-center overflow-hidden'>
+              <p className='toggle-ctrl pointer-events-none'> more </p>
+              <p className='toggle-ctrl pointer-events-none'> x </p>
+            </div>
           </a>
         </div>
       </div>
       <div className='flex w-[min(90%,1000px)] items-end'>
         <div
-          ref={(element) => setRefs(element, item?.id, eventBodyRefs)}
-          style={{ opacity: 0 }}
           className={`${
             index === 0 && `event-item-body-1st-elem`
           } event-item-body relative mb-4 inline-flex h-[120px] w-full translate-x-[-53px] 
@@ -65,10 +50,7 @@ const EventSingle = ({
               <h3 className='font-bold'> {item?.title?.zh} </h3>
             </div>
 
-            <div
-              ref={(element) => setRefs(element, item?.id, eventBodyMoreTextRefs)}
-              className='h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden font-mono md:max-w-[1000px]'
-            >
+            <div className='body-text h-0 w-full min-w-[200px] max-w-[250px] overflow-hidden font-mono md:max-w-[1000px]'>
               <p className='zh' dangerouslySetInnerHTML={{ __html: sanitize(item?.description?.zh) }} />
               <p dangerouslySetInnerHTML={{ __html: sanitize(item?.description?.en) }} />
 
@@ -88,8 +70,8 @@ const EventSingle = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
-export default EventSingle
+export default Event

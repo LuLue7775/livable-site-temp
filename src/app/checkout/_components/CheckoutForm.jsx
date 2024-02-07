@@ -1,16 +1,12 @@
 'use client'
 
+import useCheckoutAnimation from '@/utils/hooks/useCheckoutAnimation'
 import { Input } from '@/components/Input'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { introAnimation } from '@/utils/animations'
 
-const CheckoutForm = ({ onSubmit }) => {
-  const formRef = useRef()
-  useEffect(() => {
-    if (!formRef.current) return
-    introAnimation([formRef.current])
-  }, [])
+const CheckoutForm = ({ introScopeRef }) => {
+  useCheckoutAnimation({ introScopeRef })
 
   const {
     register,
@@ -44,9 +40,12 @@ const CheckoutForm = ({ onSubmit }) => {
   }
 
   return (
-    <form ref={formRef} style={{ opacity: 0 }} className='m-6 max-w-[370px] text-green-900'>
-      <h1 className='font-bold'> Checkout Information</h1>
-      <div className='grid gap-2 '>
+    <form ref={introScopeRef} className='m-6 max-w-[370px] text-green-900'>
+      <h1 style={{ opacity: 0 }} className='checkout-title font-bold'>
+        {' '}
+        Checkout Information
+      </h1>
+      <div style={{ opacity: 0 }} className='checkout-inputs grid gap-2 '>
         <Input
           register={register}
           onChange={handleChange}

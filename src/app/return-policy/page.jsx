@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import LoadingIcon from '@/components/LoadingIcon'
-import CommonFrameLayout from '@/components/CommonFrameLayout'
+import CommonAnimationLayout from '@/components/CommonAnimationLayout'
 import { getDocFromFirestore } from '@/utils/firebase/firebase.utils'
 import { sanitize } from 'isomorphic-dompurify'
 
@@ -14,7 +14,7 @@ const ReturnPolicy = async () => {
 
   return (
     <Suspense fallback={<LoadingIcon />}>
-      <CommonFrameLayout>
+      <CommonAnimationLayout>
         <div className='mb-8 px-8'>
           <h1> 退款政策 Return Policy</h1>
           <div
@@ -26,7 +26,7 @@ const ReturnPolicy = async () => {
             dangerouslySetInnerHTML={{ __html: sanitize(policies?.return_policy?.en) }}
           />
         </div>
-      </CommonFrameLayout>
+      </CommonAnimationLayout>
     </Suspense>
   )
 }

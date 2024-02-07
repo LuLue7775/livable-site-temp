@@ -2,8 +2,7 @@ import FilterButton from '@/components/FilterButton'
 
 const EventsFilterButtons = ({ events, eventsFilters, setEventsFilters }) => {
   const handleFilterClicked = (addfilter) => {
-    if (!events?.length) return
-    if ((eventsFilters === undefined || eventsFilters.length) && eventsFilters.includes(addfilter)) {
+    if (eventsFilters.includes(addfilter)) {
       // If filter is already selected, remove it.
       setEventsFilters((prevfilter) => {
         return prevfilter.filter((item) => item !== addfilter)
@@ -17,7 +16,7 @@ const EventsFilterButtons = ({ events, eventsFilters, setEventsFilters }) => {
   }
 
   return (
-    <div>
+    <>
       <h2>FILTER</h2>
       <div className='flex flex-wrap items-center'>
         <label> MATERIALS | </label>
@@ -25,7 +24,6 @@ const EventsFilterButtons = ({ events, eventsFilters, setEventsFilters }) => {
         <FilterButton events={events} tag={'ceramic'} handleFilterClicked={handleFilterClicked} />
         <FilterButton events={events} tag={'mixed-media'} handleFilterClicked={handleFilterClicked} />
       </div>
-
       <div className='flex flex-wrap items-center'>
         <label> FORMATS | </label>
         <FilterButton events={events} tag={'workshop'} handleFilterClicked={handleFilterClicked} />
@@ -49,7 +47,7 @@ const EventsFilterButtons = ({ events, eventsFilters, setEventsFilters }) => {
           handleFilterClicked={handleFilterClicked}
         />
       </div> */}
-    </div>
+    </>
   )
 }
 

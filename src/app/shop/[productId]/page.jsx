@@ -1,5 +1,5 @@
 import LoadingIcon from '@/components/LoadingIcon'
-import ProductLayout from './_components/ProductLayout'
+import Product from './_components/Product'
 import { getDocFromFirestore, getDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import { Suspense } from 'react'
 
@@ -27,7 +27,7 @@ const SingleProductPage = async ({ params }) => {
 
   return (
     <Suspense fallback={<LoadingIcon />}>
-      <ProductLayout product={sortVariationOrder(product)} />
+      <Product product={sortVariationOrder(product)} />
     </Suspense>
   )
 }

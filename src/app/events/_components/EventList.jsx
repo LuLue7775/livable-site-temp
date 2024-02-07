@@ -1,63 +1,37 @@
 'use client'
-import EventSingle from './EventSingle'
-import { revealOrCloseAnimation, revealXAnimation, revealYAnimation } from '@/utils/animations'
-import { useRef, useState, useEffect } from 'react'
-import gsap from 'gsap'
-import CSSRulePlugin from 'gsap/CSSRulePlugin'
-gsap.registerPlugin(CSSRulePlugin)
+import { setRefs } from '@/utils/functions'
+import Event from './Event'
+import { useRef } from 'react'
+import useEvents from '@/utils/queries/useEvents'
+import LoadingIcon from '@/components/LoadingIcon'
 
 const EventList = ({ events, reachBottom }) => {
-  const [openedId, setOpenId] = useState('')
-  const horizontalRefs = useRef({})
-  const eventHeadRefs = useRef({})
-  const eventBodyRefs = useRef({})
-  const eventBodyMoreTextRefs = useRef({})
-
-  const toggleEvent = (e) => {
-    e.preventDefault()
-    const targetId = e.target.id.replace(' ', '')
-
-    revealOrCloseAnimation({
-      setOpenId,
-      openedId,
-      targetId,
-      eventHeadRefs,
-      horizontalRefs,
-      eventBodyRefs,
-      eventBodyMoreTextRefs,
-    })
-  }
-
-  const animationRef = useRef()
-  useEffect(() => {
-    if (!Object.keys(eventHeadRefs.current)) return
-    Object.entries(eventHeadRefs.current).map(([key, horzontal]) => {
-      if (!horzontal) return
-      let diagonalPseudo = CSSRulePlugin.getRule('.event-item-head::before') //get pseudo element
-      let dashPseudo = CSSRulePlugin.getRule('.long-dash::after') //get pseudo element
-      revealXAnimation({ element: horzontal, animationRef: animationRef })
-      revealXAnimation({ element: horizontalRefs.current[key], animationRef: animationRef })
-      revealYAnimation({ diagonal: diagonalPseudo, dash: dashPseudo, vertical: eventBodyRefs.current[key] })
-    })
-  }, [events])
+  const mainScopeRef = useRef(null)
+  const containerRefs = useRef({})
+  const { isFetching } = useEvents()
 
   return (
     <>
-      <div className='relative min-h-[1000px] '>
-        {events?.map((item, index) => (
-          <EventSingle
-            key={item?.id}
-            index={index}
-            toggleEvent={toggleEvent}
-            item={item}
-            openedId={openedId}
-            eventHeadRefs={eventHeadRefs}
-            eventBodyRefs={eventBodyRefs}
-            horizontalRefs={horizontalRefs}
-            eventBodyMoreTextRefs={eventBodyMoreTextRefs}
-          />
-        ))}
-        <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
+      <div ref={mainScopeRef} className='relative min-h-[1000px] '>
+        {events?.length
+          ? events?.map((item, index) => (
+              <div
+                ref={(element) => setRefs(element, item?.id, containerRefs)}
+                key={item?.id}
+                className='flex flex-col items-end'
+              >
+                <Event index={index} item={item} mainScopeRef={mainScopeRef} containerRefs={containerRefs} />
+              </div>
+            ))
+          : !isFetching && (
+              <h3 className='flex justify-center'>
+                There is currently no events.
+                <br /> Please stay tuned.
+              </h3>
+            )}
+        <div ref={reachBottom} className='z-20 flex h-[120px] w-full items-center justify-center'>
+          {isFetching && <LoadingIcon />}
+        </div>
       </div>
     </>
   )

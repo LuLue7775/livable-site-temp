@@ -110,14 +110,13 @@
     }
   }
 
-  .event-item-head::before {
+  .content-head::before {
     content: '';
     display: block;
     position: absolute;
     width: 100px;
     height: 1px;
     background: #14532d;
-    opacity: 0.6;
     left: -100px;
     right: auto;
     top: 1px;
@@ -126,7 +125,7 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    opacity: 0.6;
+    opacity: 0.2;
   }
 
   .long-dash::after {

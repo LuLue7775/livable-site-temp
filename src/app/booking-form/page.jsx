@@ -1,4 +1,4 @@
-import BookingForm from './BookingForm'
+import Booking from './Booking'
 
 export const metadata = {
   title: 'The Livable Studio Booking Page',
@@ -6,6 +6,6 @@ export const metadata = {
 }
 
 const BookingDetailsPage = () => {
-  return <BookingForm />
+  return <Booking />
 }
 export default BookingDetailsPage

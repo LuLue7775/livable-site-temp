@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.0.0",
+    "@gsap/react": "^2.1.0",
     "@hookform/resolvers": "^3.3.1",
     "@internationalized/date": "^3.4.0",
     "@react-aria/ssr": "^3.9.0",
@@ -32,7 +33,7 @@
     "@tanstack/query-sync-storage-persister": "^5.8.7",
     "@tanstack/react-query": "^5.8.7",
     "@tanstack/react-query-devtools": "^5.8.7",
-    "@tanstack/react-query-next-experimental": "^5.8.7",
+    "@tanstack/react-query-next-experimental": "^5.18.1",
     "@tanstack/react-query-persist-client": "^5.8.7",
     "classnames": "^2.3.2",
     "firebase": "^10.3.0",

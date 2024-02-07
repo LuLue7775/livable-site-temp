@@ -1,8 +1,7 @@
-'use client'
-import ProductContent from './ProductContent'
 import useCommonMainAnimation from '@/utils/hooks/useCommonMainAnimation'
+import React from 'react'
 
-const ProductLayout = ({ product, mainScopeRef }) => {
+const CommonAnimationLayout = ({ mainScopeRef, children  }) => {
   useCommonMainAnimation({ mainScopeRef })
 
   return (
@@ -26,10 +25,10 @@ const ProductLayout = ({ product, mainScopeRef }) => {
                     translate-y-[1px] border-l border-green-900/60 md:w-[calc(100%-200px)]
                     '
       >
-        <ProductContent product={product} />
+        {children}
       </div>
     </>
   )
 }
 
-export default ProductLayout
+export default CommonAnimationLayout

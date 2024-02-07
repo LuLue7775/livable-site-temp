@@ -6,7 +6,7 @@ const FilterButton = ({ events, tag, handleFilterClicked }) => {
           className='absolute hidden text-white'
           type='checkbox'
           onClick={() => handleFilterClicked(tag)}
-          disabled={!events?.length}
+          disabled={!events}
         />
         <span className='block px-2 text-center '> {tag} </span>
       </label>

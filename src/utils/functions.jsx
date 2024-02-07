@@ -44,6 +44,7 @@ export const filterIncomingData = (data, filters) => {
 }
 
 export const setRefs = (element, targetId, refMap) => {
+  if (!refMap?.current) return
   const cleanId = targetId?.replace(' ', '') || 'unknownID' // remove space
   refMap.current[cleanId] = element
 }

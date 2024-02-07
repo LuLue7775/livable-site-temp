@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import LoadingIcon from '@/components/LoadingIcon'
-import CommonFrameLayout from '@/components/CommonFrameLayout'
+import CommonAnimationLayout from '@/components/CommonAnimationLayout'
 import { getDocFromFirestore } from '@/utils/firebase/firebase.utils'
 import { sanitize } from 'isomorphic-dompurify'
 
@@ -14,7 +14,7 @@ const PrivacyPolicy = async () => {
 
   return (
     <Suspense fallback={<LoadingIcon />}>
-      <CommonFrameLayout>
+      <CommonAnimationLayout>
         <div className='mb-8 px-8'>
           <h1> 隱私權條款 Privacy Policy</h1>
           <div
@@ -26,7 +26,7 @@ const PrivacyPolicy = async () => {
             dangerouslySetInnerHTML={{ __html: sanitize(policies?.privacy_policy?.en) }}
           />
         </div>
-      </CommonFrameLayout>
+      </CommonAnimationLayout>
     </Suspense>
   )
 }

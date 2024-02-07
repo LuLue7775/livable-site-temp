@@ -1,7 +1,6 @@
 'use client'
 
 import useMediaQuery from '@/utils/hooks/useMediaQuery'
-import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { useRef, useState, useEffect } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'

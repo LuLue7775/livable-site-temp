@@ -1,4 +1,4 @@
-import ShopLayout from './_components/ShopLayout'
+import Shop from './_components/Shop'
 
 export const metadata = {
   title: 'The Livable Studio Shop Page',
@@ -6,7 +6,7 @@ export const metadata = {
 }
 
 const ShopPage = async () => {
-  return <ShopLayout />
+  return <Shop />
 }
 
 export default ShopPage

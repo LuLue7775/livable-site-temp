@@ -8,16 +8,17 @@ const useEvents = () => {
   const transformEvents = useCallback(
     (data) => {
       const events = data?.pages?.reduce((acc, page) => acc.concat(page.dataMap), [])
-      if (!eventsFilters.length) return events
-      return events.reduce((acc, event) => {
-        if (eventsFilters.some((filter) => event.tags.includes(filter))) acc.push(event)
-        return acc
-      }, [])
+      if (!eventsFilters?.length) return events
+      else
+        return events.reduce((acc, event) => {
+          if (eventsFilters.some((filter) => event.tags.includes(filter))) acc.push(event)
+          return acc
+        }, [])
     },
     [eventsFilters],
   )
 
-  const { data, error, isLoading, fetchNextPage } = useInfiniteQuery({
+  const { data, error, isLoading, isFetching, fetchNextPage } = useInfiniteQuery({
     queryKey: ['events'],
     queryFn: async (props) =>
       await getPaginationFromFirestore({ queryKey: 'events', pageParam: props.pageParam, pageSize: 4 }),
@@ -30,6 +31,7 @@ const useEvents = () => {
   return {
     events: data,
     isLoading,
+    isFetching,
     error,
     eventsFilters,
     setEventsFilters,
