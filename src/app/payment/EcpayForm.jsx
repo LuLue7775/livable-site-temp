@@ -4,6 +4,11 @@ import parse from 'html-react-parser'
 
 const EcpayForm = ({ html }) => {
   useEffect(() => {
+    // Clear localStorage when user successfully reaches payment page
+    localStorage.clear()
+  }, [])
+
+  useEffect(() => {
     if (html) {
       window.location.reload(true)
     }

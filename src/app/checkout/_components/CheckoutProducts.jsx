@@ -11,7 +11,7 @@ const CheckoutProducts = () => {
       <h2 className='font-serif font-bold '> Product list </h2>
       {productItems &&
         Object.entries(productItems).map(([productId, item]) => (
-          <div key={productId} className='flex max-w-[400px] border-b border-green-900/20 py-2 '>
+          <div key={productId} className='m-4 flex max-w-[400px] border-b border-green-900/20 py-2'>
             <a className='cursor-pointer' onClick={() => routerMiddleware.push(`/shop/${item.id}`)}>
               <div className='h-[150px] w-[150px] overflow-hidden'>
                 <Image
@@ -50,6 +50,7 @@ const CheckoutProducts = () => {
             </div>
           </div>
         ))}
+      <div className="mb-8" />
     </>
   )
 }

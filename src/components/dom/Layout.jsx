@@ -33,17 +33,17 @@ const Layout = ({ children }) => {
       />
       <div
         ref={ref}
+        data-scroll-container
         style={{
           overflowY: yScroll ? 'auto' : 'hidden',
           overflowX: 'hidden',
-          position: 'relative',
           width: '100%',
           height: '100%',
           touchAction: 'auto',
         }}
       >
         <Nav />
-        <div className='relative'>
+        <div >
           <Menu />
           <Cart />
         </div>

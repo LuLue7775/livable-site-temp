@@ -38,10 +38,15 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        breathing: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn .5s ease-in-out ',
         fadeOut: 'fadeOut .8s ease-in-out ',
+        breathing: 'breathing 3s ease-in-out infinite',
       },
     },
   },

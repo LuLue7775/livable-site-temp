@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
   collection,
   writeBatch,
   query,
@@ -94,7 +95,7 @@ export const prefetchFromFirestore = async (queryKey, numPerRequest) => {
 
 export const productsFirstBatch = async () => {
   try {
-    const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), limit(5))
+    const q = query(collection(db, 'products'), orderBy('editedAt', 'desc'), limit(5))
     const data = await getDocs(q)
     let dataMap = []
     let lastKey = ''
@@ -114,7 +115,7 @@ export const productsFirstBatch = async () => {
 
 export const productsNextBatch = async (key) => {
   try {
-    const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), startAfter(key), limit(5))
+    const q = query(collection(db, 'products'), orderBy('editedAt', 'desc'), startAfter(key), limit(5))
     const data = await getDocs(q)
 
     let dataMap = []
@@ -159,6 +160,20 @@ export const addDocuments = async (collectionKey, objectsToAdd) => {
   await batch.commit()
 }
 
+export const updateDocuments = async (collectionKey, objectsToUpdate) => {
+  const collectionRef = collection(db, collectionKey)
+  const batch = writeBatch(db)
+
+  objectsToUpdate.forEach((object) => {
+    const docRef = doc(collectionRef, convertSpaceToDashLowerCase(object.id))
+    // Remove the id field from the update data since it's not a document field
+    const { id, ...updateData } = object
+    batch.update(docRef, updateData)
+  })
+
+  await batch.commit()
+}
+
 export const addCollectionAndDocuments = async (collectionKey, docId, objectsToAdd, field) => {
   const collectionRef = collection(db, collectionKey)
   const batch = writeBatch(db)
@@ -174,15 +189,15 @@ export const addCollectionAndDocuments = async (collectionKey, docId, objectsToA
   await batch.commit()
 }
 
-export const getPaginationFromFirestore = async ({ queryKey, pageParam, pageSize }) => {
+export const getPaginationFromFirestore = async ({ queryKey, pageParam, pageSize }) => {  
   // pageParam is previous doc snapshot. not page index.
-  let baseQuery = query(collection(db, queryKey), orderBy('createdAt'), limit(pageSize))
+  let baseQuery = query(collection(db, queryKey), orderBy('editedAt', 'desc'), limit(pageSize))
   if (pageParam) {
-    baseQuery = query(collection(db, queryKey), orderBy('createdAt'), startAfter(pageParam), limit(pageSize))
+    baseQuery = query(collection(db, queryKey), orderBy('editedAt', 'desc'), startAfter(pageParam), limit(pageSize))
   }
-  const querySnapshot = await getDocs(baseQuery)
-
+  
   try {
+    const querySnapshot = await getDocs(baseQuery)
     let dataMap = []
     let pageParams = {}
     querySnapshot.docs.forEach((doc) => {

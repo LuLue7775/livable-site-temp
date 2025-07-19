@@ -107,7 +107,7 @@ export function Tiles({ isReveal }) {
   const tileBRef = useRef()
   const tileCRef = useRef()
 
-  const tileSize = { width: 500, height: 500 }
+  const tileSize = { width: 800, height: 800 }
   const [tileYCenter, setTileYCenter] = useState(0)
 
   const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
@@ -124,11 +124,11 @@ export function Tiles({ isReveal }) {
       <TileA
         tileRef={tileARef}
         modelPath={'/tileA.glb'}
-        relativePos={{ x: 0, y: tileYCenter }}
+        relativePos={{ x: -800, y: tileYCenter-200 }}
         isReveal={isReveal}
         tileSize={tileSize}
       />
-      <TileB
+      {/* <TileB
         tileRef={tileBRef}
         modelPath={'/tileB.glb'}
         relativePos={{ x: 2, y: tileYCenter - 550 }}
@@ -141,7 +141,7 @@ export function Tiles({ isReveal }) {
         relativePos={{ x: -550, y: tileYCenter + 5 }}
         isReveal={isReveal}
         tileSize={tileSize}
-      />
+      /> */}
 
       {/* <Html
         position={[0, 0, 200]}

@@ -4,19 +4,50 @@ import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 
 const closeAnimation = (glassRef, router, route, setMenuOpened) => {
-  gsap.set(glassRef.current, { xPercent: -100, opacity: 1 })
-  gsap
-    .timeline({
-      onComplete: () => {
-        setMenuOpened(false)
-        router.push(route)
-      },
+  // Reset initial state
+  gsap.set(glassRef.current, { 
+    x: '-100%',
+    clearProps: 'all'
+  })
+
+  // Create a promise to handle the animation sequence
+  const animate = () => {
+    return new Promise((resolve) => {
+      // First timeline: Cover the old page
+      const coverTl = gsap.timeline({
+        onComplete: resolve
+      })
+      
+      coverTl.to(glassRef.current, { 
+        x: '0%',
+        duration: .5,
+        ease: 'power2.inOut'
+      })
     })
-    .to(glassRef.current, { xPercent: 100, opacity: 1, duration: 0.8 })
-    .to(glassRef.current, { xPercent: 100, duration: 0.5 })
-    .to(glassRef.current, { xPercent: 200, duration: 0.6 })
-    .to(glassRef.current, { opacity: 0, duration: 0.1 })
-    .play()
+  }
+
+  // Execute the animation sequence
+  animate().then(() => {
+    // Only change route after cover animation is complete
+    setMenuOpened(false)
+    router.push(route)
+    
+    // Start revealing new page after a short delay
+    setTimeout(() => {
+      revealNewPage(glassRef)
+    }, 100)
+  })
+}
+
+const revealNewPage = (glassRef) => {
+  // Second timeline: Reveal the new page
+  const revealTl = gsap.timeline()
+  revealTl.to(glassRef.current, { 
+    x: '100%',
+    opacity: 0,
+    duration: .5,
+    ease: 'power2.inOut'
+  })
 }
 
 // const startAnimation = (glassRef, isMenuOpened, setMenuOpened) => {

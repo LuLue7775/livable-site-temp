@@ -9,6 +9,16 @@ import { useProducts } from '@/utils/queries/useProducts'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+const contentDivs = [
+  <div key="content-1">
+    <p>Some text content 1</p>
+  </div>,
+  <div key="content-2">
+    <p>Some text content 2</p>
+  </div>,
+  // ... more content divs
+];
+
 const ShopLayout = ({ mainScopeRef }) => {
   useCommonMainAnimation({ mainScopeRef })
   const {
@@ -26,6 +36,7 @@ const ShopLayout = ({ mainScopeRef }) => {
   const { ref: reachBottom, inView } = useInView({
     threshold: 0,
   })
+  
   useEffect(() => {
     if (inView) fetchNextPage()
   }, [inView])
@@ -34,7 +45,7 @@ const ShopLayout = ({ mainScopeRef }) => {
     <>
       <div
         className={
-          'content-head relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-200px)]'
+          'content-head relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-300px)]'
         }
       >
         <div
@@ -51,20 +62,20 @@ const ShopLayout = ({ mainScopeRef }) => {
         className='content-body relative 
                   bottom-0  
                   min-h-[600px] w-full min-w-[350px] translate-x-[-4px] 
-                  translate-y-[1px] border-l border-green-900/60 md:w-[calc(100%-200px)]
+                  translate-y-px border-l border-green-900/60 md:w-[calc(100%-300px)]
                   '
       >
-        <div className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-200px] md:flex-row'>
+        <div className='flex w-screen flex-col justify-between px-8 md:absolute md:left-[-300px] md:flex-row'>
           <ShopCategories
             productsFilter={productsFilter}
             setProductsFilter={setProductsFilter}
             productsSubFilter={productsSubFilter}
             setProductsSubFilter={setProductsSubFilter}
           />
-          <div className='w-full md:w-[calc(100%-200px)]'>
-            <ShopDescription />
+          <div className='w-full md:w-[calc(100%-300px)]'>
+            {/* <ShopDescription /> */}
 
-            <ShopList products={products} error={isError} />
+            <ShopList products={products} error={isError} contentDivs={contentDivs} />
 
             <div style={{ textAlign: 'center' }}>
               <div ref={reachBottom} className='absolute bottom-0 z-20 h-12' />
@@ -77,4 +88,5 @@ const ShopLayout = ({ mainScopeRef }) => {
 }
 
 export default ShopLayout
-//
+
+

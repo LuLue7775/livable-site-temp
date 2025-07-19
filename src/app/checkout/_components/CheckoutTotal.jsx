@@ -4,6 +4,7 @@ import useDelayRouting from '@/utils/hooks/useDelayRouting'
 import { addDocToFirestore, getMapDocsFromFirestore } from '@/utils/firebase/firebase.utils'
 import Button from '@/components/Button'
 import { useCart } from '@/providers/cartContext'
+import { convertIdToTitle } from '@/utils/functions'
 // import { useQuery } from '@tanstack/react-query'
 import { useFormContext } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -90,9 +91,9 @@ const CheckoutTotal = () => {
   return (
     <div className='text-right'>
       <p className='w-full border-t' />
-      <p>{cartTotal.productTotal ? `商品 product total: ${cartTotal.productTotal}` : ''}</p>
-      <p>活動報名 event fee: {cartTotal.eventTotal}</p>
-      <p>總計 Total: {cartTotal.eventTotal + cartTotal.productTotal}</p>
+      <p className='mb-2'>{cartTotal.productTotal ? `商品 product total: ${cartTotal.productTotal}` : ''}</p>
+      <p className='mb-2'>活動報名 event fee: {cartTotal.eventTotal}</p>
+      <p className='mb-4'>總計 Total: {cartTotal.eventTotal + cartTotal.productTotal}</p>
       <Button onClick={handleExternalSubmit}> CHECKOUT </Button>
     </div>
   )
@@ -147,25 +148,54 @@ function transformToDBOrderData(data) {
 
   const genOrderId = tradeID.formattedUUID(`${timestamp.replace(/\D/g, '').replace(/\d{2}:\d{2}$/, '')}HH$r2`)
 
+  // Transform productItems to the format expected by Firebase Function
+  const products = Object.values(data.productItems || {}).map(product => ({
+    id: product.id,
+    name: product.title.zh,
+    quantity: product.quantity,
+    price: product.price
+  }))
+
+  // Transform eventItems to workshops format expected by Firebase Function
+  const workshops = []
+  Object.entries(data.eventItems || {}).forEach(([eventId, timeSlot]) => {
+    Object.entries(timeSlot).forEach(([time, attendants]) => {
+      attendants.forEach(attendant => {
+        workshops.push({
+          workshop: eventId,
+          workshopName: convertIdToTitle(eventId),
+          name: attendant.name,
+          email: attendant.email,
+          phone: attendant.phone,
+          time: time
+        })
+      })
+    })
+  })
+
   const orderData = {
     currency: 'NTD',
     paymentMethod: 'ecpay',
     status: 'pending',
     orderId: genOrderId,
     total: data.total.eventTotal + data.total.productTotal,
-    eventTotal: data.total.eventTotal ?? '0',
-    productTotal: data?.productTotal ?? '0',
+    eventTotal: data.total.eventTotal ?? 0,
+    productTotal: data.total.productTotal ?? 0,
     items: data.items,
-    // products: data.products,
-    // events: cleanedEvents(data.eventItems),
-    events: data.eventItems,
+    products: products,
+    workshops: workshops,
+    events: data.eventItems, // Keep original format for backward compatibility
     payer: { name: data.payer.name, phone: data.payer.phone, email: data.payer.email },
     address: {
       street: data.payer.street || '',
       city: data.payer.city || '',
-      nation: data.payer.nation || '',
+      country: data.payer.nation || '', // Changed to match Firebase Function
     },
-
+    receipt: {
+      name: data.payer.name,
+      email: data.payer.email,
+      taxId: '' // Add if you collect tax ID
+    },
     createdAt: covertTimestamp(timestamp),
   }
 

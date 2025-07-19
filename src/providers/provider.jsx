@@ -17,7 +17,11 @@ function Providers({ children }) {
     new QueryClient({
       defaultOptions: {
         queries: {
-          cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+          staleTime: 0, // Consider data stale immediately
+          cacheTime: 1000 * 60 * 5, // 5 minutes
+          refetchOnWindowFocus: true,
+          refetchOnMount: true,
+          refetchOnReconnect: true,
         },
       },
       queryCache: new QueryCache({
@@ -41,7 +45,7 @@ function Providers({ children }) {
           </MenuProvider>
         </GlassProvider>
       </ReactQueryStreamedHydration>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </PersistQueryClientProvider>
   )
 }

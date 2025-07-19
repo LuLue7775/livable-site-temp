@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'SometimesTimes';
+  src: url('/SometimesTimesRegular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -125,7 +133,7 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    opacity: 0.2;
+    opacity: 0;
   }
 
   .long-dash::after {
@@ -155,4 +163,76 @@
   .vertical-writing-rl {
     writing-mode: vertical-rl;
   }
+
+
+  .brand-name-container, .info {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 10%;
+    z-index: 10;
+  }
+
+  .font-major {
+    font-family: 'SometimesTimes', serif;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .brand-name {
+    font-size: 16rem;
+    line-height: 1;
+    width: 105%;
+    color: #fff;
+    &.right {
+      text-align: right;
+    }
+    &.left {
+      text-align: left;
+      transform: translateX(300px);
+    }
+  }
+
+  /* Responsive font sizes */
+  @media (max-width: 1024px) {
+    .brand-name {
+      font-size: 12rem;
+      &.left {
+        transform: translateX(200px);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .brand-name {
+      font-size: 8rem;
+      width: 100%;
+      &.left {
+        transform: translateX(100px);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brand-name {
+      font-size: 6rem;
+      &.left {
+        transform: translateX(50px);
+      }
+    }
+  }
+
+  @media (max-width: 320px) {
+    .brand-name {
+      font-size: 5rem;
+      &.left {
+        transform: translateX(30px);
+      }
+    }
+  }
+
 }

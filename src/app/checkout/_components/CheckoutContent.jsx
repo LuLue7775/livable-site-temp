@@ -28,7 +28,7 @@ const CheckoutContent = ({ mainScopeRef }) => {
                   translate-x-[-4px] translate-y-[1px] overflow-hidden border-l border-green-900/60 p-6 md:w-[calc(100%-10px)]'
       >
         <CheckoutProducts />
-        <CheckoutEvents />
+        {/* <CheckoutEvents /> */}
         <CheckoutTotal />
 
         <div className='inline-flex gap-4'>

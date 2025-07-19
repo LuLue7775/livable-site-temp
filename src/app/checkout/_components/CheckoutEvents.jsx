@@ -16,7 +16,7 @@ const CheckoutEvents = () => {
         Object.entries(eventItems).map(
           ([eventId, bookTime]) =>
             Object.values(bookTime).flat().length && (
-              <div key={eventId}>
+              <div key={eventId} className='m-4'>
                 <a onClick={() => routerMiddleware.push(`/events/${eventId}`)}>
                   <h3 className='max-w-[250px] cursor-pointer font-serif hover:text-red-400'>
                     {convertIdToTitle(eventId)}

@@ -14,8 +14,8 @@ const Menu = () => {
     <div
       data-testid='menu-drawer'
       className={`
-          ${isMenuOpened ? 'left-[1rem]' : 'left-[-350px]'} absolute 
-        top-[1rem] z-20 flex h-[400px] w-[min(90%,350px)] flex-col  
+          ${isMenuOpened ? 'left-4' : 'left-[-350px]'} absolute 
+        top-4 z-20 flex h-[400px] w-[min(90%,350px)] flex-col  
         justify-between rounded-sm bg-green-900/10 p-4 font-mono text-lg backdrop-blur-md	backdrop-sepia-0 duration-300
     `}
     >
@@ -29,9 +29,9 @@ const Menu = () => {
         <a onClick={() => routerMiddleware.push('/shop')} className='cursor-pointer hover:text-red-400'>
           <li>SHOP</li>
         </a>
-        <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
+        {/* <a onClick={() => routerMiddleware.push('/events')} className='cursor-pointer hover:text-red-400'>
           <li>EVENTS</li>
-        </a>
+        </a> */}
         <a onClick={() => routerMiddleware.push('/checkout')} className='cursor-pointer hover:text-red-400'>
           <li>CHECKOUT</li>
         </a>

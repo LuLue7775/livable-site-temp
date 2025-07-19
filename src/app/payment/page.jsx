@@ -22,21 +22,21 @@ async function createEcpayFormAPI(data) {
   // console.log('NEXT_PUBLIC_ECPAY_HASHKEY process.env ================== ', process.env.NEXT_PUBLIC_ECPAY_HASHKEY)
   // console.log('NEXT_PUBLIC_ECPAY_HASHIV process.env ================== ', process.env.NEXT_PUBLIC_ECPAY_HASHIV)
 
-  const firebase_url = 'https://asia-east1-single-clock-371109.cloudfunctions.net/payReturnSuccess'
+  const firebase_url = 'https://asia-east1-the-livable.cloudfunctions.net/payReturnSuccess'
 
   const merchant = new Merchant(
-    // 'Production', // | 'Test'
-    'Test', // 測試用
+    'Production', 
+    // 'Test', // 測試用
     {
-      //   MerchantID: '3371374',
-      //   HashKey: process.env.NEXT_PUBLIC_ECPAY_HASHKEY,
-      //   HashIV: process.env.NEXT_PUBLIC_ECPAY_HASHIV,
-      MerchantID: '3002607', // 測試用
-      HashKey: 'pwFHCqoQZGmho4w6',
-      HashIV: 'EkRm7iFT261dpevs',
+        MerchantID: '3302635',
+        HashKey: process.env.NEXT_PUBLIC_ECPAY_HASHKEY,
+        HashIV: process.env.NEXT_PUBLIC_ECPAY_HASHIV,
+      // MerchantID: '3002607', // 測試用
+      // HashKey: 'pwFHCqoQZGmho4w6',
+      // HashIV: 'EkRm7iFT261dpevs',
 
-      OrderResultURL: `https://mosspiglets.work/thankyou`, // 下單成功後
-      ClientBackURL: `https://mosspiglets.work/checkout`, // 取消下單返回處
+      OrderResultURL: `https://thelivablestudio.com`, // 下單成功後
+      ClientBackURL: `https://thelivablestudio.com/checkout`, // 取消下單返回處
       ReturnURL: firebase_url, // 回給fire functions
     },
   )
