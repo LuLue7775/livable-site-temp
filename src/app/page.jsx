@@ -268,6 +268,8 @@ function MouseWheelZoom() {
   const { camera } = useThree()
   const scrollRef = useRef(0)
   const targetScrollRef = useRef(0)
+  const touchStartY = useRef(0)
+  const touchStartScroll = useRef(0)
 
   // Camera positions for interpolation - using exact coordinates found
   const cameraPositions = {
@@ -289,8 +291,40 @@ function MouseWheelZoom() {
       targetScrollRef.current = Math.max(0, Math.min(1, targetScrollRef.current))
     }
 
+    // Touch event handlers for mobile
+    const handleTouchStart = (event) => {
+      event.preventDefault()
+      touchStartY.current = event.touches[0].clientY
+      touchStartScroll.current = targetScrollRef.current
+    }
+
+    const handleTouchMove = (event) => {
+      event.preventDefault()
+      const touchY = event.touches[0].clientY
+      const deltaY = touchStartY.current - touchY
+      
+      // Convert touch movement to scroll value
+      const scrollDelta = deltaY * 0.002 // Adjust sensitivity
+      targetScrollRef.current = touchStartScroll.current + scrollDelta
+      targetScrollRef.current = Math.max(0, Math.min(1, targetScrollRef.current))
+    }
+
+    const handleTouchEnd = (event) => {
+      event.preventDefault()
+    }
+
+    // Add event listeners
     window.addEventListener('wheel', handleWheel, { passive: false })
-    return () => window.removeEventListener('wheel', handleWheel)
+    window.addEventListener('touchstart', handleTouchStart, { passive: false })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('touchend', handleTouchEnd, { passive: false })
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
   }, [])
 
   useFrame(() => {
@@ -323,7 +357,13 @@ export default function Home() {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <div className="relative h-screen w-full">
+      <div 
+        className="relative h-screen w-full"
+        style={{
+          touchAction: 'none', // Prevent default touch behaviors
+          overscrollBehavior: 'none' // Prevent bounce effects
+        }}
+      >
         {/* <button 
           onClick={() => setEffectEnabled(!effectEnabled)}
           className="absolute right-4 top-4 z-10 rounded-lg bg-white/80 px-4 py-2 shadow-lg transition-colors hover:bg-white"
