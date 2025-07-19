@@ -45,12 +45,12 @@ const ShopLayout = ({ mainScopeRef }) => {
     <>
       <div
         className={
-          'content-head relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-300px)]'
+          'content-head shop relative h-[52px] w-full min-w-[350px] translate-x-12 justify-end md:w-[calc(100%-300px)]'
         }
       >
         <div
           // style={{ opacity: 0 }}
-          className='horizontal-line shop relative flex h-[52px] w-full border-t border-green-900/60'
+          className='horizontal-line relative flex h-[52px] w-full border-t border-green-900/60'
         >
           <p className='absolute -top-8 right-0 inline-flex w-[260px] gap-4 '>
             <ShopSort setSortDate={setSortDate} setSortPrice={setSortPrice} />

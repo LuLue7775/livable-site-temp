@@ -136,7 +136,7 @@
     opacity: 0;
   }
 
-  .shop .content-head::before {
+  .shop.content-head::before {
     opacity: 1;
   }
 
