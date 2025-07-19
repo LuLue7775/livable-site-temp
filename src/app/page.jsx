@@ -293,12 +293,28 @@ function MouseWheelZoom() {
 
     // Touch event handlers for mobile
     const handleTouchStart = (event) => {
+      // Check if the touch target is an interactive element
+      const target = event.target
+      const isInteractive = target.closest('a, button, [role="button"], [data-testid="menu-toggle"]')
+      
+      if (isInteractive) {
+        return // Don't prevent default for interactive elements
+      }
+      
       event.preventDefault()
       touchStartY.current = event.touches[0].clientY
       touchStartScroll.current = targetScrollRef.current
     }
 
     const handleTouchMove = (event) => {
+      // Check if the touch target is an interactive element
+      const target = event.target
+      const isInteractive = target.closest('a, button, [role="button"], [data-testid="menu-toggle"]')
+      
+      if (isInteractive) {
+        return // Don't prevent default for interactive elements
+      }
+      
       event.preventDefault()
       const touchY = event.touches[0].clientY
       const deltaY = touchStartY.current - touchY
@@ -310,6 +326,14 @@ function MouseWheelZoom() {
     }
 
     const handleTouchEnd = (event) => {
+      // Check if the touch target is an interactive element
+      const target = event.target
+      const isInteractive = target.closest('a, button, [role="button"], [data-testid="menu-toggle"]')
+      
+      if (isInteractive) {
+        return // Don't prevent default for interactive elements
+      }
+      
       event.preventDefault()
     }
 
@@ -360,7 +384,6 @@ export default function Home() {
       <div 
         className="relative h-screen w-full"
         style={{
-          touchAction: 'none', // Prevent default touch behaviors
           overscrollBehavior: 'none' // Prevent bounce effects
         }}
       >
