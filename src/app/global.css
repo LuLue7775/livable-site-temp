@@ -136,6 +136,10 @@
     opacity: 0;
   }
 
+  .shop .content-head::before {
+    opacity: 1;
+  }
+
   .long-dash::after {
     content: '';
     position: absolute;
